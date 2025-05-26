@@ -8,7 +8,7 @@ import MusicPlayer from "./components/MusicPlayer";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import LandingSelector from "./components/LandingSelector";
-import OneEvent from "./components/OneEvent";
+import OneEvent from "./components/oneEvent";
 
 function App() {
   const [selectedSite, setSelectedSite] = useState<"wassa" | "oneEvent" | null>(
@@ -54,6 +54,6 @@ function App() {
       )}
     </div>
   );
-}
+};
 
 export default App;
