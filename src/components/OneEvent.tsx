@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { Calendar, MapPin, Phone, Mail, Music, Users, Brain, PartyPopper, Star } from 'lucide-react';
 import { useInView } from '../hooks/useInView';
 import Marquee from 'react-fast-marquee';
@@ -6,6 +6,7 @@ import Marquee from 'react-fast-marquee';
 const OneEvent: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, { threshold: 0.1 });
+  const [currentTestimonial, setCurrentTestimonial] = useState(0);
 
   const services = [
     {
@@ -50,29 +51,40 @@ const OneEvent: React.FC = () => {
       name: "Sophie Martin",
       company: "Tech Solutions",
       content: "Une expérience incroyable pour notre équipe ! Marco a su créer une ambiance unique et fédératrice.",
-      rating: 5
+      rating: 5,
+      image: "/OneEvent/testimonials/sophie.jpg"
     },
     {
       name: "Jean Dupont",
       company: "Startup Innovation",
       content: "Le blind test organisé par Marco était parfaitement adapté à notre soirée d'entreprise. Un vrai succès !",
-      rating: 5
+      rating: 5,
+      image: "/OneEvent/testimonials/jean.jpg"
     },
     {
       name: "Marie Lambert",
       company: "Creative Agency",
       content: "Les ateliers de percussion ont apporté une nouvelle dimension à notre team building. Merci Marco !",
-      rating: 5
+      rating: 5,
+      image: "/OneEvent/testimonials/marie.jpg"
     }
   ];
 
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
+    }, 5000);
+
+    return () => clearInterval(timer);
+  }, []);
+
   const partners = [
-    { name: "Google", logo: "/OneEvent/logos/google.png" },
-    { name: "Microsoft", logo: "/OneEvent/logos/microsoft.png" },
-    { name: "Apple", logo: "/OneEvent/logos/apple.png" },
-    { name: "Amazon", logo: "/OneEvent/logos/amazon.png" },
-    { name: "Facebook", logo: "/OneEvent/logos/facebook.png" },
-    { name: "Twitter", logo: "/OneEvent/logos/twitter.png" }
+    { name: "Société Générale", logo: "/OneEvent/logos/societe-generale.png" },
+    { name: "BNP Paribas", logo: "/OneEvent/logos/bnp.png" },
+    { name: "Orange", logo: "/OneEvent/logos/orange.png" },
+    { name: "Decathlon", logo: "/OneEvent/logos/decathlon.png" },
+    { name: "Carrefour", logo: "/OneEvent/logos/carrefour.png" },
+    { name: "Total", logo: "/OneEvent/logos/total.png" }
   ];
 
   return (
@@ -163,28 +175,51 @@ const OneEvent: React.FC = () => {
             Témoignages
             <span className="absolute -bottom-2 left-0 w-1/2 h-1 bg-primary"></span>
           </h2>
-          <div className="grid md:grid-cols-3 gap-8 mt-12">
-            {testimonials.map((testimonial, index) => (
-              <div
-                key={index}
-                className="bg-background p-6 rounded-lg"
+          <div className="mt-12 relative">
+            <div className="overflow-hidden">
+              <div 
+                className="flex transition-transform duration-500 ease-in-out"
+                style={{ transform: `translateX(-${currentTestimonial * 100}%)` }}
               >
-                <div className="flex gap-1 mb-4">
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star
-                      key={i}
-                      size={20}
-                      className="text-primary fill-primary"
-                    />
-                  ))}
-                </div>
-                <p className="text-text-secondary mb-4">{testimonial.content}</p>
-                <div>
-                  <p className="font-semibold">{testimonial.name}</p>
-                  <p className="text-text-secondary text-sm">{testimonial.company}</p>
-                </div>
+                {testimonials.map((testimonial, index) => (
+                  <div
+                    key={index}
+                    className="w-full flex-shrink-0 px-4"
+                  >
+                    <div className="bg-background p-8 rounded-lg max-w-2xl mx-auto">
+                      <div className="flex gap-1 mb-4">
+                        {[...Array(testimonial.rating)].map((_, i) => (
+                          <Star
+                            key={i}
+                            size={20}
+                            className="text-primary fill-primary"
+                          />
+                        ))}
+                      </div>
+                      <p className="text-text-secondary mb-6 text-lg italic">"{testimonial.content}"</p>
+                      <div className="flex items-center gap-4">
+                        <div>
+                          <p className="font-semibold">{testimonial.name}</p>
+                          <p className="text-text-secondary text-sm">{testimonial.company}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
+            <div className="flex justify-center mt-8 gap-2">
+              {testimonials.map((_, index) => (
+                <button
+                  key={index}
+                  className={`w-3 h-3 rounded-full transition-colors ${
+                    currentTestimonial === index ? 'bg-primary' : 'bg-gray-600'
+                  }`}
+                  onClick={() => setCurrentTestimonial(index)}
+                  aria-label={`Voir le témoignage ${index + 1}`}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </section>
