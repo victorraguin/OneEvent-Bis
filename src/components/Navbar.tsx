@@ -37,6 +37,7 @@ const Navbar: React.FC<NavbarProps> = ({ currentSite, onSiteChange }) => {
       ]
     : [
         { href: "#services", label: "Services" },
+        { href: "#testimonials", label: "Témoignages" },
         { href: "#about", label: "À Propos de Marco" },
         { href: "#contact", label: "Contact" }
       ];
@@ -96,7 +97,7 @@ const Navbar: React.FC<NavbarProps> = ({ currentSite, onSiteChange }) => {
 
       {/* Mobile Menu */}
       <div 
-        className={`fixed inset-0 bg-background z-40 pt-20 transition-transform duration-300 md:hidden ${
+        className={`fixed inset-0 bg-surface/95 backdrop-blur-md z-40 pt-20 transition-transform duration-300 md:hidden ${
           isMenuOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >

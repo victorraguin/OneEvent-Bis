@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
-import { Calendar, MapPin, Phone, Mail, Music, Users, Brain, PartyPopper } from 'lucide-react';
+import { Calendar, MapPin, Phone, Mail, Music, Users, Brain, PartyPopper, Star } from 'lucide-react';
 import { useInView } from '../hooks/useInView';
+import Marquee from 'react-fast-marquee';
 
 const OneEvent: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -44,6 +45,36 @@ const OneEvent: React.FC = () => {
     }
   ];
 
+  const testimonials = [
+    {
+      name: "Sophie Martin",
+      company: "Tech Solutions",
+      content: "Une expérience incroyable pour notre équipe ! Marco a su créer une ambiance unique et fédératrice.",
+      rating: 5
+    },
+    {
+      name: "Jean Dupont",
+      company: "Startup Innovation",
+      content: "Le blind test organisé par Marco était parfaitement adapté à notre soirée d'entreprise. Un vrai succès !",
+      rating: 5
+    },
+    {
+      name: "Marie Lambert",
+      company: "Creative Agency",
+      content: "Les ateliers de percussion ont apporté une nouvelle dimension à notre team building. Merci Marco !",
+      rating: 5
+    }
+  ];
+
+  const partners = [
+    { name: "Google", logo: "/OneEvent/logos/google.png" },
+    { name: "Microsoft", logo: "/OneEvent/logos/microsoft.png" },
+    { name: "Apple", logo: "/OneEvent/logos/apple.png" },
+    { name: "Amazon", logo: "/OneEvent/logos/amazon.png" },
+    { name: "Facebook", logo: "/OneEvent/logos/facebook.png" },
+    { name: "Twitter", logo: "/OneEvent/logos/twitter.png" }
+  ];
+
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
@@ -70,7 +101,7 @@ const OneEvent: React.FC = () => {
       </section>
 
       {/* Services Section */}
-      <section ref={sectionRef} className="py-20 bg-surface">
+      <section id="services" ref={sectionRef} className="py-20 bg-surface">
         <div className="container-custom">
           <h2 className="text-primary mb-4 relative inline-block">
             Nos Services
@@ -97,8 +128,69 @@ const OneEvent: React.FC = () => {
         </div>
       </section>
 
+      {/* Partners Section */}
+      <section className="py-16 bg-background">
+        <div className="container-custom">
+          <h2 className="text-primary mb-4 relative inline-block">
+            Ils nous font confiance
+            <span className="absolute -bottom-2 left-0 w-1/2 h-1 bg-primary"></span>
+          </h2>
+          <div className="mt-12">
+            <Marquee
+              gradient={true}
+              gradientColor={[18, 18, 18]}
+              speed={40}
+              pauseOnHover={true}
+            >
+              {partners.map((partner, index) => (
+                <div key={index} className="mx-8">
+                  <img
+                    src={partner.logo}
+                    alt={partner.name}
+                    className="h-12 w-auto grayscale hover:grayscale-0 transition-all duration-300"
+                  />
+                </div>
+              ))}
+            </Marquee>
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section id="testimonials" className="py-20 bg-surface">
+        <div className="container-custom">
+          <h2 className="text-primary mb-4 relative inline-block">
+            Témoignages
+            <span className="absolute -bottom-2 left-0 w-1/2 h-1 bg-primary"></span>
+          </h2>
+          <div className="grid md:grid-cols-3 gap-8 mt-12">
+            {testimonials.map((testimonial, index) => (
+              <div
+                key={index}
+                className="bg-background p-6 rounded-lg"
+              >
+                <div className="flex gap-1 mb-4">
+                  {[...Array(testimonial.rating)].map((_, i) => (
+                    <Star
+                      key={i}
+                      size={20}
+                      className="text-primary fill-primary"
+                    />
+                  ))}
+                </div>
+                <p className="text-text-secondary mb-4">{testimonial.content}</p>
+                <div>
+                  <p className="font-semibold">{testimonial.name}</p>
+                  <p className="text-text-secondary text-sm">{testimonial.company}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* About Marco Section */}
-      <section className="py-20 bg-background">
+      <section id="about" className="py-20 bg-background">
         <div className="container-custom">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
