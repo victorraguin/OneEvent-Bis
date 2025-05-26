@@ -11,31 +11,31 @@ const About: React.FC = () => {
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div className={`transition-all duration-700 ${isInView ? 'opacity-100' : 'opacity-0 translate-y-10'}`}>
             <h2 className="text-primary mb-8 relative inline-block">
-              Our Story
+              Notre Histoire
               <span className="absolute -bottom-2 left-0 w-1/2 h-1 bg-primary"></span>
             </h2>
             <p className="mb-6 text-text-secondary">
-              Founded in 2010, Wassa Percussion is a dynamic collective of master drummers and dancers, dedicated to preserving and sharing the rich percussion traditions of West Africa.
+              Fondé en 2010, Wassa Percussion est un collectif dynamique de maîtres percussionnistes et danseurs, dédiés à la préservation et au partage des riches traditions de percussion d'Afrique de l'Ouest.
             </p>
             <p className="mb-6 text-text-secondary">
-              Our performances blend traditional rhythms with contemporary influences, creating an electrifying experience that captivates audiences worldwide. Each member brings unique expertise from different regions of Africa, creating a rich tapestry of sound and movement.
+              Nos performances mêlent rythmes traditionnels et influences contemporaines, créant une expérience électrisante qui captive le public du monde entier. Chaque membre apporte son expertise unique des différentes régions d'Afrique, créant une riche tapisserie de sons et de mouvements.
             </p>
             <p className="text-text-secondary">
-              Through our performances and workshops, we aim to celebrate the cultural heritage of African percussion and create connections that transcend borders and languages.
+              À travers nos performances et nos ateliers, nous visons à célébrer l'héritage culturel de la percussion africaine et à créer des connexions qui transcendent les frontières et les langues.
             </p>
           </div>
           
           <div className={`relative transition-all duration-700 delay-300 ${isInView ? 'opacity-100' : 'opacity-0 translate-y-10'}`}>
             <div className="image-zoom rounded-lg overflow-hidden">
               <img 
-                src="https://images.pexels.com/photos/8412414/pexels-photo-8412414.jpeg?auto=compress&cs=tinysrgb&w=1200" 
+                src="/WassaPercussion/Wassa_Percussion1.jpg"
                 alt="Wassa Percussion performers" 
                 className="w-full h-auto rounded-lg"
               />
             </div>
             <div className="absolute -bottom-12 -left-12 w-40 h-40 rounded-full overflow-hidden border-4 border-background hidden md:block">
               <img 
-                src="https://images.pexels.com/photos/7957655/pexels-photo-7957655.jpeg?auto=compress&cs=tinysrgb&w=600" 
+                src="/WassaPercussion/Wassa_Percussion2.jpg"
                 alt="Close-up of drums" 
                 className="w-full h-full object-cover"
               />
@@ -45,13 +45,13 @@ const About: React.FC = () => {
         
         {/* Team members */}
         <div className={`mt-24 transition-all duration-700 delay-500 ${isInView ? 'opacity-100' : 'opacity-0 translate-y-10'}`}>
-          <h3 className="text-center mb-12">Our Ensemble</h3>
+          <h3 className="text-center mb-12">Notre Ensemble</h3>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {[
-              { name: "Kofi Mensah", role: "Lead Drummer", image: "https://images.pexels.com/photos/7096069/pexels-photo-7096069.jpeg?auto=compress&cs=tinysrgb&w=600" },
-              { name: "Ama Diop", role: "Dancer & Vocalist", image: "https://images.pexels.com/photos/3810756/pexels-photo-3810756.jpeg?auto=compress&cs=tinysrgb&w=600" },
-              { name: "Kwame Osei", role: "Percussion", image: "https://images.pexels.com/photos/8102152/pexels-photo-8102152.jpeg?auto=compress&cs=tinysrgb&w=600" },
-              { name: "Fatima Kamara", role: "Dancer", image: "https://images.pexels.com/photos/6389849/pexels-photo-6389849.jpeg?auto=compress&cs=tinysrgb&w=600" },
+              { name: "Kofi Mensah", role: "Percussionniste Principal", image: "/WassaPercussion/Wassa_Percussion3.jpg" },
+              { name: "Ama Diop", role: "Danseuse & Chanteuse", image: "/WassaPercussion/Wassa_Percussion4.jpg" },
+              { name: "Kwame Osei", role: "Percussion", image: "/WassaPercussion/Wassa_Percussion5.jpg" },
+              { name: "Fatima Kamara", role: "Danseuse", image: "/WassaPercussion/Wassa_Percussion1.jpg" },
             ].map((member, index) => (
               <div key={index} className="text-center">
                 <div className="rounded-full overflow-hidden w-40 h-40 mx-auto mb-4 image-zoom">

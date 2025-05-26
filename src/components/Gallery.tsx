@@ -17,35 +17,35 @@ const Gallery: React.FC = () => {
   const galleryItems: GalleryItem[] = [
     {
       type: 'image',
-      src: 'https://images.pexels.com/photos/7096086/pexels-photo-7096086.jpeg?auto=compress&cs=tinysrgb&w=1200',
-      caption: 'Wassa Percussion Live at Global Rhythms Festival',
+      src: '/WassaPercussion/Wassa_Percussion.jpg',
+      caption: 'Wassa Percussion Live au Festival Global Rhythms',
     },
     {
       type: 'video',
       src: 'https://player.vimeo.com/video/367752291',
-      thumbnail: 'https://images.pexels.com/photos/8412432/pexels-photo-8412432.jpeg?auto=compress&cs=tinysrgb&w=1200',
-      caption: 'Traditional Djembe Performance',
+      thumbnail: '/WassaPercussion/Wassa_Percussion1.jpg',
+      caption: 'Performance Traditionnelle de Djembé',
     },
     {
       type: 'image',
-      src: 'https://images.pexels.com/photos/6173815/pexels-photo-6173815.jpeg?auto=compress&cs=tinysrgb&w=1200',
-      caption: 'Community Workshop in Dakar',
+      src: '/WassaPercussion/Wassa_Percussion2.jpg',
+      caption: 'Atelier Communautaire à Dakar',
     },
     {
       type: 'image',
-      src: 'https://images.pexels.com/photos/6173990/pexels-photo-6173990.jpeg?auto=compress&cs=tinysrgb&w=1200',
-      caption: 'Cultural Exchange Program',
+      src: '/WassaPercussion/Wassa_Percussion3.jpg',
+      caption: 'Programme d\'Échange Culturel',
     },
     {
       type: 'video',
       src: 'https://player.vimeo.com/video/222732815',
-      thumbnail: 'https://images.pexels.com/photos/5965705/pexels-photo-5965705.jpeg?auto=compress&cs=tinysrgb&w=1200',
-      caption: 'Rhythms of West Africa',
+      thumbnail: '/WassaPercussion/Wassa_Percussion4.jpg',
+      caption: 'Rythmes d\'Afrique de l\'Ouest',
     },
     {
       type: 'image',
-      src: 'https://images.pexels.com/photos/8412423/pexels-photo-8412423.jpeg?auto=compress&cs=tinysrgb&w=1200',
-      caption: 'Festival Performance',
+      src: '/WassaPercussion/Wassa_Percussion5.jpg',
+      caption: 'Performance Festival',
     },
   ];
 
@@ -63,11 +63,11 @@ const Gallery: React.FC = () => {
     <section id="gallery" ref={sectionRef} className="section bg-background">
       <div className="container-custom">
         <h2 className="text-primary mb-4 relative inline-block">
-          Gallery
+          Galerie
           <span className="absolute -bottom-2 left-0 w-1/2 h-1 bg-primary"></span>
         </h2>
         <p className="text-text-secondary mb-12 max-w-2xl">
-          Experience the energy and passion of Wassa Percussion through our performances and workshops around the world.
+          Découvrez l'énergie et la passion de Wassa Percussion à travers nos performances et ateliers dans le monde entier.
         </p>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -107,7 +107,7 @@ const Gallery: React.FC = () => {
           <button 
             className="absolute top-4 right-4 text-white hover:text-primary z-10"
             onClick={closeModal}
-            aria-label="Close modal"
+            aria-label="Fermer"
           >
             <X size={32} />
           </button>

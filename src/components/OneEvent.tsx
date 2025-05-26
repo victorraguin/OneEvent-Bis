@@ -9,38 +9,38 @@ const OneEvent: React.FC = () => {
   const services = [
     {
       icon: Music,
-      title: "Percussion Workshops",
-      description: "Interactive drum circles and rhythm workshops for all levels"
+      title: "Ateliers de Percussion",
+      description: "Cercles de tambours interactifs et ateliers de rythme pour tous niveaux"
     },
     {
       icon: Brain,
-      title: "Music Quiz & Blind Tests",
-      description: "Engaging musical challenges and themed competitions"
+      title: "Quiz Musical & Blind Tests",
+      description: "Défis musicaux captivants et compétitions thématiques"
     },
     {
       icon: Users,
       title: "Team Building",
-      description: "Rhythm-based activities for corporate events and team bonding"
+      description: "Activités rythmiques pour événements d'entreprise et cohésion d'équipe"
     },
     {
       icon: PartyPopper,
-      title: "Event Animation",
-      description: "Professional entertainment for private parties and corporate events"
+      title: "Animation d'Événements",
+      description: "Divertissement professionnel pour fêtes privées et événements d'entreprise"
     }
   ];
 
   const upcomingEvents = [
     {
-      date: "Mar 15, 2024",
-      title: "Corporate Team Building",
+      date: "15 Mars 2024",
+      title: "Team Building Entreprise",
       location: "Tech Hub, Paris",
-      description: "Interactive rhythm workshop for startup teams"
+      description: "Atelier de rythme interactif pour équipes de startup"
     },
     {
-      date: "Mar 22, 2024",
-      title: "90s Music Quiz Night",
+      date: "22 Mars 2024",
+      title: "Soirée Quiz Années 90",
       location: "Le Petit Café, Lyon",
-      description: "Test your knowledge of 90s hits"
+      description: "Testez vos connaissances des hits des années 90"
     }
   ];
 
@@ -50,7 +50,7 @@ const OneEvent: React.FC = () => {
       <section 
         className="relative h-screen flex items-center justify-center"
         style={{
-          backgroundImage: 'url(https://images.pexels.com/photos/2747449/pexels-photo-2747449.jpeg?auto=compress&cs=tinysrgb&w=1920)',
+          backgroundImage: 'url("/OneEvent/OneEvent_Marco_Animation.jpg")',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}
@@ -61,10 +61,10 @@ const OneEvent: React.FC = () => {
             ONE EVENT
           </h1>
           <p className="text-xl md:text-2xl text-text-secondary mb-8 max-w-2xl mx-auto">
-            Creating Unforgettable Entertainment Experiences
+            Créateur d'Expériences de Divertissement Inoubliables
           </p>
           <a href="#contact" className="btn btn-primary">
-            Book an Event
+            Réserver un Événement
           </a>
         </div>
       </section>
@@ -73,11 +73,11 @@ const OneEvent: React.FC = () => {
       <section ref={sectionRef} className="py-20 bg-surface">
         <div className="container-custom">
           <h2 className="text-primary mb-4 relative inline-block">
-            Our Services
+            Nos Services
             <span className="absolute -bottom-2 left-0 w-1/2 h-1 bg-primary"></span>
           </h2>
           <p className="text-text-secondary mb-12 max-w-2xl">
-            From interactive workshops to engaging entertainment, we create memorable experiences for any occasion.
+            Des ateliers interactifs aux animations engageantes, nous créons des expériences mémorables pour toutes les occasions.
           </p>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -103,18 +103,18 @@ const OneEvent: React.FC = () => {
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
               <img 
-                src="https://images.pexels.com/photos/7520935/pexels-photo-7520935.jpeg?auto=compress&cs=tinysrgb&w=1200" 
+                src="/OneEvent/OneEvent_Marco_Microphone.jpg"
                 alt="Marco" 
                 className="rounded-lg w-full h-[500px] object-cover"
               />
             </div>
             <div>
               <h2 className="text-primary mb-4 relative inline-block">
-                Meet Marco
+                Rencontrez Marco
                 <span className="absolute -bottom-2 left-0 w-1/2 h-1 bg-primary"></span>
               </h2>
               <p className="text-text-secondary mb-6">
-                With over 15 years of experience in event entertainment and music education, Marco brings passion and expertise to every event. Specializing in interactive music experiences, team building, and cultural workshops, he creates engaging and memorable moments for all participants.
+                Avec plus de 15 ans d'expérience dans l'animation d'événements et l'éducation musicale, Marco apporte passion et expertise à chaque événement. Spécialisé dans les expériences musicales interactives, le team building et les ateliers culturels, il crée des moments engageants et mémorables pour tous les participants.
               </p>
               <div className="space-y-4">
                 <div className="flex items-center gap-4">
@@ -139,7 +139,7 @@ const OneEvent: React.FC = () => {
       <section className="py-20 bg-surface">
         <div className="container-custom">
           <h2 className="text-primary mb-4 relative inline-block">
-            Upcoming Events
+            Événements à Venir
             <span className="absolute -bottom-2 left-0 w-1/2 h-1 bg-primary"></span>
           </h2>
           <div className="grid md:grid-cols-2 gap-8 mt-12">
@@ -170,14 +170,14 @@ const OneEvent: React.FC = () => {
       <section id="contact" className="py-20 bg-background">
         <div className="container-custom">
           <h2 className="text-primary mb-4 relative inline-block">
-            Book an Event
+            Réserver un Événement
             <span className="absolute -bottom-2 left-0 w-1/2 h-1 bg-primary"></span>
           </h2>
           <div className="grid md:grid-cols-2 gap-12 mt-12">
             <div>
               <form className="space-y-6">
                 <div>
-                  <label htmlFor="name" className="block text-text-secondary mb-2">Your Name</label>
+                  <label htmlFor="name" className="block text-text-secondary mb-2">Votre Nom</label>
                   <input
                     type="text"
                     id="name"
@@ -185,7 +185,7 @@ const OneEvent: React.FC = () => {
                   />
                 </div>
                 <div>
-                  <label htmlFor="email" className="block text-text-secondary mb-2">Email Address</label>
+                  <label htmlFor="email" className="block text-text-secondary mb-2">Adresse Email</label>
                   <input
                     type="email"
                     id="email"
@@ -193,16 +193,16 @@ const OneEvent: React.FC = () => {
                   />
                 </div>
                 <div>
-                  <label htmlFor="event-type" className="block text-text-secondary mb-2">Event Type</label>
+                  <label htmlFor="event-type" className="block text-text-secondary mb-2">Type d'Événement</label>
                   <select
                     id="event-type"
                     className="w-full bg-surface border border-gray-700 rounded-lg px-4 py-2 text-text-primary focus:outline-none focus:ring-2 focus:ring-primary"
                   >
-                    <option value="">Select an event type</option>
-                    <option value="workshop">Percussion Workshop</option>
-                    <option value="quiz">Music Quiz</option>
+                    <option value="">Sélectionnez un type d'événement</option>
+                    <option value="workshop">Atelier de Percussion</option>
+                    <option value="quiz">Quiz Musical</option>
                     <option value="team-building">Team Building</option>
-                    <option value="private">Private Event</option>
+                    <option value="private">Événement Privé</option>
                   </select>
                 </div>
                 <div>
@@ -214,18 +214,18 @@ const OneEvent: React.FC = () => {
                   ></textarea>
                 </div>
                 <button type="submit" className="btn btn-primary w-full">
-                  Send Message
+                  Envoyer le Message
                 </button>
               </form>
             </div>
             <div>
               <div className="bg-surface p-8 rounded-lg">
-                <h3 className="text-xl font-semibold mb-6">Contact Information</h3>
+                <h3 className="text-xl font-semibold mb-6">Informations de Contact</h3>
                 <div className="space-y-6">
                   <div className="flex items-start">
                     <Phone className="text-primary mr-4 flex-shrink-0" size={20} />
                     <div>
-                      <div className="font-medium">Phone</div>
+                      <div className="font-medium">Téléphone</div>
                       <a href="tel:+33123456789" className="text-text-secondary hover:text-primary transition-colors">
                         +33 1 23 45 67 89
                       </a>
@@ -243,10 +243,10 @@ const OneEvent: React.FC = () => {
                   <div className="flex items-start">
                     <MapPin className="text-primary mr-4 flex-shrink-0" size={20} />
                     <div>
-                      <div className="font-medium">Location</div>
+                      <div className="font-medium">Localisation</div>
                       <div className="text-text-secondary">
-                        Based in Lyon, France<br />
-                        Available for events nationwide
+                        Basé à Lyon, France<br />
+                        Disponible pour des événements dans toute la France
                       </div>
                     </div>
                   </div>
