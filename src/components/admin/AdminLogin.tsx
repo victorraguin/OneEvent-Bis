@@ -41,8 +41,8 @@ const AdminLogin: React.FC = () => {
       }
     } catch (error: any) {
       console.error('Login error:', error);
-      if (error.message?.includes('fetch')) {
-        setError('Erreur de connexion au serveur. Vérifiez votre configuration Supabase.');
+      if (error.message?.includes('fetch') || error.name === 'AuthRetryableFetchError') {
+        setError('Erreur de connexion CORS. Vérifiez que votre domaine localhost:5173 est autorisé dans les paramètres Supabase Authentication > URL Configuration.');
       } else {
         setError(error.message || 'Erreur de connexion');
       }
