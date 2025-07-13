@@ -38,12 +38,18 @@ const AdminDashboard: React.FC = () => {
     // Vérifier si l'utilisateur est connecté
     const checkAuth = async () => {
       if (!supabase) {
+        console.warn('Supabase non configuré - redirection vers admin');
         navigate('/admin');
         return;
       }
       
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) {
+      try {
+        const { data: { user } } = await supabase.auth.getUser();
+        if (!user) {
+          navigate('/admin');
+        }
+      } catch (error) {
+        console.warn('Erreur lors de la vérification auth:', error);
         navigate('/admin');
       }
     };
