@@ -40,7 +40,12 @@ const AdminLogin: React.FC = () => {
         navigate('/admin/dashboard');
       }
     } catch (error: any) {
-      setError(error.message || 'Erreur de connexion');
+      console.error('Login error:', error);
+      if (error.message?.includes('fetch')) {
+        setError('Erreur de connexion au serveur. Vérifiez votre configuration Supabase.');
+      } else {
+        setError(error.message || 'Erreur de connexion');
+      }
     } finally {
       setIsLoading(false);
     }

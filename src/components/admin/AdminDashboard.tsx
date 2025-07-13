@@ -49,8 +49,9 @@ const AdminDashboard: React.FC = () => {
           navigate('/admin');
         }
       } catch (error) {
-        console.warn('Erreur lors de la vérification auth - Supabase peut ne pas être configuré:', error);
-        navigate('/admin');
+        console.warn('Erreur lors de la vérification auth:', error);
+        // Ne pas rediriger automatiquement en cas d'erreur réseau
+        // L'utilisateur peut rester sur la page et réessayer
       }
     };
     checkAuth();
