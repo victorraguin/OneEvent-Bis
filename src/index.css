@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 :root {
+  /* Dark theme (default) */
   --color-primary: #E9724C;
   --color-secondary: #5B8E4F;
   --color-accent: #FFA07A;
@@ -15,14 +16,30 @@
   --color-text-secondary: #CCCCCC;
 }
 
+[data-theme="light"] {
+  /* Light theme */
+  --color-primary: #E9724C;
+  --color-secondary: #5B8E4F;
+  --color-accent: #FF8A65;
+  --color-success: #4CAF50;
+  --color-warning: #FF9800;
+  --color-error: #F44336;
+  --color-background: #FFFFFF;
+  --color-surface: #F8F9FA;
+  --color-text-primary: #212121;
+  --color-text-secondary: #666666;
+}
+
 @layer base {
   html {
     @apply scroll-smooth;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
   
   body {
     @apply bg-background text-text-primary font-body;
     overflow-x: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -67,9 +84,23 @@
   .container-custom {
     @apply w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
   }
+
+  /* Theme-aware components */
+  .surface-elevated {
+    @apply bg-surface;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+
+  [data-theme="light"] .surface-elevated {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+
+  [data-theme="dark"] .surface-elevated {
+    box-shadow: 0 4px 6px -1px rgba(255, 255, 255, 0.05), 0 2px 4px -1px rgba(255, 255, 255, 0.03);
+  }
 }
 
-/* Custom scrollbar */
+/* Custom scrollbar with theme support */
 ::-webkit-scrollbar {
   width: 8px;
 }
@@ -116,4 +147,9 @@
 
 .image-zoom:hover img {
   transform: scale(1.05);
+}
+
+/* Theme transition for all elements */
+* {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }

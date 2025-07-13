@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Instagram, Facebook, Youtube } from 'lucide-react';
+import ThemeToggle from './ThemeToggle';
 
 interface NavbarProps {
   currentSite: 'wassa' | 'oneEvent';
@@ -72,7 +73,8 @@ const Navbar: React.FC<NavbarProps> = ({ currentSite, onSiteChange }) => {
               </button>
             </li>
           </ul>
-          <div className="flex gap-4 items-center">
+          <div className="flex gap-4 items-center border-l border-gray-600 pl-6">
+            <ThemeToggle />
             <a href="#" className="text-text-secondary hover:text-primary transition-colors" aria-label="Instagram">
               <Instagram size={20} />
             </a>
@@ -126,7 +128,13 @@ const Navbar: React.FC<NavbarProps> = ({ currentSite, onSiteChange }) => {
               </button>
             </li>
           </ul>
-          <div className="flex gap-6 mt-8">
+          <div className="flex gap-6 mt-8 pt-6 border-t border-gray-600">
+            <div className="flex items-center gap-4 w-full">
+              <span className="text-text-secondary">Thème:</span>
+              <ThemeToggle />
+            </div>
+          </div>
+          <div className="flex gap-6 mt-6">
             <a href="#" className="text-text-secondary hover:text-primary transition-colors" aria-label="Instagram">
               <Instagram size={24} />
             </a>

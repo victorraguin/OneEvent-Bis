@@ -14,6 +14,9 @@ export default {
         surface: 'var(--color-surface)',
         'text-primary': 'var(--color-text-primary)',
         'text-secondary': 'var(--color-text-secondary)',
+        // Additional theme-aware colors
+        'border-light': '#E5E7EB',
+        'border-dark': '#374151',
       },
       fontFamily: {
         display: ['Ubuntu', 'sans-serif'],
@@ -31,6 +34,9 @@ export default {
       opacity: {
         '[.90]': '.90',
         '50': '0.5'
+      },
+      borderColor: {
+        DEFAULT: 'var(--color-text-secondary)',
       },
     },
   },

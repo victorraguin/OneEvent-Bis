@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { ThemeProvider } from "./contexts/ThemeContext";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import About from "./components/About";
@@ -31,28 +32,30 @@ function App() {
   }
 
   return (
-    <div
-      className={`min-h-screen bg-background text-text-primary transition-opacity duration-500 ${
-        isTransitioning ? "opacity-0" : "opacity-100"
-      }`}
-    >
-      <Navbar currentSite={selectedSite} onSiteChange={handleSiteSelection} />
-      {selectedSite === "wassa" ? (
-        <>
-          <main>
-            <Hero />
-            <About />
-            <Gallery />
-            <Events />
-            <MusicPlayer />
-            <Contact />
-          </main>
-          <Footer />
-        </>
-      ) : (
-        <OneEvent />
-      )}
-    </div>
+    <ThemeProvider>
+      <div
+        className={`min-h-screen bg-background text-text-primary transition-opacity duration-500 ${
+          isTransitioning ? "opacity-0" : "opacity-100"
+        }`}
+      >
+        <Navbar currentSite={selectedSite} onSiteChange={handleSiteSelection} />
+        {selectedSite === "wassa" ? (
+          <>
+            <main>
+              <Hero />
+              <About />
+              <Gallery />
+              <Events />
+              <MusicPlayer />
+              <Contact />
+            </main>
+            <Footer />
+          </>
+        ) : (
+          <OneEvent />
+        )}
+      </div>
+    </ThemeProvider>
   );
 }
 
