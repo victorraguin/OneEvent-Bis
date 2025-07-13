@@ -27,9 +27,12 @@ const AdminLogin: React.FC = () => {
     }
 
     try {
+      // Essayer avec des options supplémentaires pour contourner CORS
       const { data, error } = await supabase.auth.signInWithPassword({
         email: credentials.email,
         password: credentials.password,
+      }, {
+        redirectTo: undefined
       });
 
       if (error) {
