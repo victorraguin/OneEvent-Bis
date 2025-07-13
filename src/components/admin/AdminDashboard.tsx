@@ -38,8 +38,8 @@ const AdminDashboard: React.FC = () => {
     // Vérifier si l'utilisateur est connecté
     const checkAuth = async () => {
       if (!supabase) {
-        console.warn('Supabase non configuré - redirection vers admin');
-        navigate('/admin');
+        // Ne pas rediriger automatiquement si Supabase n'est pas configuré
+        // L'utilisateur peut toujours voir la page de connexion
         return;
       }
       
@@ -49,7 +49,7 @@ const AdminDashboard: React.FC = () => {
           navigate('/admin');
         }
       } catch (error) {
-        console.warn('Erreur lors de la vérification auth:', error);
+        console.warn('Erreur lors de la vérification auth - Supabase peut ne pas être configuré:', error);
         navigate('/admin');
       }
     };

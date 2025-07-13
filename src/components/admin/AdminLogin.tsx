@@ -21,7 +21,7 @@ const AdminLogin: React.FC = () => {
 
     // Vérifier si Supabase est configuré
     if (!supabase) {
-      setError('Supabase n\'est pas configuré. Veuillez configurer les variables d\'environnement.');
+      setError('Supabase n\'est pas configuré. Veuillez cliquer sur "Connect to Supabase" en haut à droite pour configurer votre projet.');
       setIsLoading(false);
       return;
     }

@@ -3,17 +3,15 @@ import { createClient } from '@supabase/supabase-js';
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://placeholder.supabase.co';
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'placeholder-key';
 
-// Vérification des variables d'environnement
-if (!import.meta.env.VITE_SUPABASE_URL || !import.meta.env.VITE_SUPABASE_ANON_KEY) {
-  console.warn('⚠️ Variables Supabase manquantes. Utilisez "Connect to Supabase" pour configurer.');
-  console.warn('Variables actuelles:', {
-    url: import.meta.env.VITE_SUPABASE_URL ? 'Configurée' : 'Manquante',
-    key: import.meta.env.VITE_SUPABASE_ANON_KEY ? 'Configurée' : 'Manquante'
-  });
-}
+// Vérifier si les variables d'environnement sont réellement configurées (pas les placeholders)
+const isSupabaseConfigured = 
+  import.meta.env.VITE_SUPABASE_URL && 
+  import.meta.env.VITE_SUPABASE_ANON_KEY &&
+  import.meta.env.VITE_SUPABASE_URL !== 'https://placeholder.supabase.co' &&
+  import.meta.env.VITE_SUPABASE_ANON_KEY !== 'placeholder-key';
 
-// Créer le client seulement si les variables sont configurées
-export const supabase = import.meta.env.VITE_SUPABASE_URL && import.meta.env.VITE_SUPABASE_ANON_KEY
+// Créer le client seulement si Supabase est réellement configuré
+export const supabase = isSupabaseConfigured
   ? createClient(supabaseUrl, supabaseAnonKey)
   : null;
 
