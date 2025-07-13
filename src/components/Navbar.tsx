@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Instagram, Facebook, Youtube } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import ThemeToggle from './ThemeToggle';
 
 interface NavbarProps {
@@ -51,7 +51,7 @@ const Navbar: React.FC<NavbarProps> = ({ currentSite, onSiteChange }) => {
     >
       <div className="container-custom flex justify-between items-center">
         <a href="#" className="text-2xl font-display text-primary tracking-wider">
-          {currentSite === 'wassa' ? 'WASSA' : 'ONE EVENT'}
+          {currentSite === 'wassa' ? 'WASSA' : "WAN'EVENT"}
         </a>
 
         {/* Desktop Navigation */}
@@ -69,21 +69,12 @@ const Navbar: React.FC<NavbarProps> = ({ currentSite, onSiteChange }) => {
                 onClick={handleSiteSwitch}
                 className="text-primary hover:text-primary/80 transition-colors"
               >
-                Voir {currentSite === 'wassa' ? 'One Event' : 'Wassa'}
+                Voir {currentSite === 'wassa' ? "Wan'Event" : 'Wassa'}
               </button>
             </li>
           </ul>
-          <div className="flex gap-4 items-center border-l border-gray-600 pl-6">
+          <div className="flex items-center border-l border-gray-600 pl-6">
             <ThemeToggle />
-            <a href="#" className="text-text-secondary hover:text-primary transition-colors" aria-label="Instagram">
-              <Instagram size={20} />
-            </a>
-            <a href="#" className="text-text-secondary hover:text-primary transition-colors" aria-label="Facebook">
-              <Facebook size={20} />
-            </a>
-            <a href="#" className="text-text-secondary hover:text-primary transition-colors" aria-label="YouTube">
-              <Youtube size={20} />
-            </a>
           </div>
         </div>
 
@@ -124,7 +115,7 @@ const Navbar: React.FC<NavbarProps> = ({ currentSite, onSiteChange }) => {
                 }}
                 className="block py-3 text-primary hover:text-primary/80 transition-colors text-left w-full"
               >
-                Voir {currentSite === 'wassa' ? 'One Event' : 'Wassa'}
+                Voir {currentSite === 'wassa' ? "Wan'Event" : 'Wassa'}
               </button>
             </li>
           </ul>
@@ -133,17 +124,6 @@ const Navbar: React.FC<NavbarProps> = ({ currentSite, onSiteChange }) => {
               <span className="text-text-secondary">Thème:</span>
               <ThemeToggle />
             </div>
-          </div>
-          <div className="flex gap-6 mt-6">
-            <a href="#" className="text-text-secondary hover:text-primary transition-colors" aria-label="Instagram">
-              <Instagram size={24} />
-            </a>
-            <a href="#" className="text-text-secondary hover:text-primary transition-colors" aria-label="Facebook">
-              <Facebook size={24} />
-            </a>
-            <a href="#" className="text-text-secondary hover:text-primary transition-colors" aria-label="YouTube">
-              <Youtube size={24} />
-            </a>
           </div>
         </div>
       </div>

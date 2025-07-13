@@ -48,6 +48,14 @@ const Footer: React.FC = () => {
                 S'abonner
               </button>
             </form>
+            <div className="mt-6">
+              <a 
+                href="/admin" 
+                className="text-text-secondary hover:text-primary transition-colors text-sm"
+              >
+                Administration
+              </a>
+            </div>
           </div>
         </div>
         
