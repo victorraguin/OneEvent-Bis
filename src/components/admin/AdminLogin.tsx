@@ -19,6 +19,13 @@ const AdminLogin: React.FC = () => {
     setIsLoading(true);
     setError('');
 
+    // Vérifier si Supabase est configuré
+    if (!supabase) {
+      setError('Supabase n\'est pas configuré. Veuillez configurer les variables d\'environnement.');
+      setIsLoading(false);
+      return;
+    }
+
     try {
       const { data, error } = await supabase.auth.signInWithPassword({
         email: credentials.email,

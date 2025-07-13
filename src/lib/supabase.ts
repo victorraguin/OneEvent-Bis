@@ -1,14 +1,21 @@
 import { createClient } from '@supabase/supabase-js';
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://your-project.supabase.co';
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'your-anon-key';
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://placeholder.supabase.co';
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'placeholder-key';
 
-// Configuration par défaut pour le développement
-if (!import.meta.env.VITE_SUPABASE_URL) {
+// Vérification des variables d'environnement
+if (!import.meta.env.VITE_SUPABASE_URL || !import.meta.env.VITE_SUPABASE_ANON_KEY) {
   console.warn('⚠️ Variables Supabase manquantes. Utilisez "Connect to Supabase" pour configurer.');
+  console.warn('Variables actuelles:', {
+    url: import.meta.env.VITE_SUPABASE_URL ? 'Configurée' : 'Manquante',
+    key: import.meta.env.VITE_SUPABASE_ANON_KEY ? 'Configurée' : 'Manquante'
+  });
 }
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+// Créer le client seulement si les variables sont configurées
+export const supabase = import.meta.env.VITE_SUPABASE_URL && import.meta.env.VITE_SUPABASE_ANON_KEY
+  ? createClient(supabaseUrl, supabaseAnonKey)
+  : null;
 
 // Types pour TypeScript
 export interface Event {

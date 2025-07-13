@@ -37,6 +37,11 @@ const AdminDashboard: React.FC = () => {
   useEffect(() => {
     // Vérifier si l'utilisateur est connecté
     const checkAuth = async () => {
+      if (!supabase) {
+        navigate('/admin');
+        return;
+      }
+      
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) {
         navigate('/admin');
@@ -46,11 +51,17 @@ const AdminDashboard: React.FC = () => {
   }, [navigate]);
 
   const handleLogout = async () => {
+    if (!supabase) return;
     await supabase.auth.signOut();
     navigate('/admin');
   };
 
   const loadData = async () => {
+    if (!supabase) {
+      console.warn('Supabase non configuré');
+      return;
+    }
+    
     setIsLoading(true);
     try {
       switch (activeTab) {
@@ -118,6 +129,8 @@ const AdminDashboard: React.FC = () => {
   const handleDelete = async (id: string, table: string) => {
     if (!confirm('Êtes-vous sûr de vouloir supprimer cet élément ?')) return;
 
+    if (!supabase) return;
+
     try {
       await supabase.from(table).delete().eq('id', id);
       loadData();
@@ -127,6 +140,8 @@ const AdminDashboard: React.FC = () => {
   };
 
   const handleSave = async (data: any, table: string, isEdit: boolean = false) => {
+    if (!supabase) return;
+    
     try {
       if (isEdit) {
         await supabase.from(table).update(data).eq('id', data.id);
