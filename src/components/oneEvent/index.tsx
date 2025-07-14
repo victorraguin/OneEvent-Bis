@@ -6,6 +6,7 @@ import Testimonials from './Testimonials';
 import About from './About';
 import Events from './Events';
 import Contact from './Contact';
+import Footer from './Footer';
 
 const OneEvent: React.FC = () => {
   return (
@@ -17,6 +18,7 @@ const OneEvent: React.FC = () => {
       <Partners />
       <Testimonials />
       <Contact />
+      <Footer />
     </div>
   );
 };
