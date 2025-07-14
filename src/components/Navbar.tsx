@@ -51,7 +51,7 @@ const Navbar: React.FC<NavbarProps> = ({ currentSite, onSiteChange }) => {
     >
       <div className="container-custom flex justify-between items-center">
         <a href="#" className="text-2xl font-display text-primary tracking-wider">
-          {currentSite === 'wassa' ? 'WASSA' : "WAN'EVENT"}
+          {currentSite === 'wassa' ? 'WASSA' : 'WAN\'EVENT'}
         </a>
 
         {/* Desktop Navigation */}
@@ -69,7 +69,7 @@ const Navbar: React.FC<NavbarProps> = ({ currentSite, onSiteChange }) => {
                 onClick={handleSiteSwitch}
                 className="text-primary hover:text-primary/80 transition-colors"
               >
-                Voir {currentSite === 'wassa' ? "Wan'Event" : 'Wassa'}
+                Voir {currentSite === 'wassa' ? 'Wan\'Event' : 'Wassa'}
               </button>
             </li>
           </ul>
@@ -115,7 +115,7 @@ const Navbar: React.FC<NavbarProps> = ({ currentSite, onSiteChange }) => {
                 }}
                 className="block py-3 text-primary hover:text-primary/80 transition-colors text-left w-full"
               >
-                Voir {currentSite === 'wassa' ? "Wan'Event" : 'Wassa'}
+                Voir {currentSite === 'wassa' ? 'Wan\'Event' : 'Wassa'}
               </button>
             </li>
           </ul>

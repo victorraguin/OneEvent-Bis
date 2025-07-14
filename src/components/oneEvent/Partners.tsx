@@ -1,16 +1,69 @@
 import React from 'react';
 import Marquee from 'react-fast-marquee';
-
-const partners = [
-  { name: "Société Générale", logo: "/OneEvent/logos/societe-generale.png" },
-  { name: "BNP Paribas", logo: "/OneEvent/logos/bnp.png" },
-  { name: "Orange", logo: "/OneEvent/logos/orange.png" },
-  { name: "Decathlon", logo: "/OneEvent/logos/decathlon.png" },
-  { name: "Carrefour", logo: "/OneEvent/logos/carrefour.png" },
-  { name: "Total", logo: "/OneEvent/logos/total.png" }
-];
+import { supabase, Partner } from '../../lib/supabase';
 
 const Partners: React.FC = () => {
+  const [partners, setPartners] = React.useState<Partner[]>([]);
+
+  React.useEffect(() => {
+    const loadPartners = async () => {
+      if (!supabase) return;
+      
+      try {
+        const { data } = await supabase
+          .from('partners')
+          .select('*')
+          .order('order_index', { ascending: true });
+        
+        if (data) {
+          setPartners(data);
+        }
+      } catch (error) {
+        console.error('Error loading partners:', error);
+      }
+    };
+
+    loadPartners();
+  }, []);
+
+  // Fallback data if Supabase not configured
+  const defaultPartners = [
+    { 
+      id: '1',
+      name: "Société Générale", 
+      logo_url: "https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=200&h=100&fit=crop",
+      website_url: "https://www.societegenerale.com",
+      order_index: 1,
+      created_at: new Date().toISOString()
+    },
+    { 
+      id: '2',
+      name: "BNP Paribas", 
+      logo_url: "https://images.pexels.com/photos/3184338/pexels-photo-3184338.jpeg?auto=compress&cs=tinysrgb&w=200&h=100&fit=crop",
+      website_url: "https://www.bnpparibas.com",
+      order_index: 2,
+      created_at: new Date().toISOString()
+    },
+    { 
+      id: '3',
+      name: "Orange", 
+      logo_url: "https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=200&h=100&fit=crop",
+      website_url: "https://www.orange.com",
+      order_index: 3,
+      created_at: new Date().toISOString()
+    },
+    { 
+      id: '4',
+      name: "Decathlon", 
+      logo_url: "https://images.pexels.com/photos/3184360/pexels-photo-3184360.jpeg?auto=compress&cs=tinysrgb&w=200&h=100&fit=crop",
+      website_url: "https://www.decathlon.com",
+      order_index: 4,
+      created_at: new Date().toISOString()
+    }
+  ];
+
+  const partnersToShow = partners.length > 0 ? partners : defaultPartners;
+
   return (
     <section className="py-16 bg-background">
       <div className="container-custom">
@@ -25,10 +78,10 @@ const Partners: React.FC = () => {
             speed={40}
             pauseOnHover={true}
           >
-            {partners.map((partner, index) => (
-              <div key={index} className="mx-8">
+            {partnersToShow.map((partner, index) => (
+              <div key={partner.id || index} className="mx-8">
                 <img
-                  src={partner.logo}
+                  src={partner.logo_url}
                   alt={partner.name}
                   className="h-12 w-auto grayscale hover:grayscale-0 transition-all duration-300"
                 />

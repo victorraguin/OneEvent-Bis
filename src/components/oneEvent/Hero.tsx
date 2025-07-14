@@ -13,7 +13,7 @@ const Hero: React.FC = () => {
       <div className="absolute inset-0 bg-black/60"></div>
       <div className="relative z-10 text-center px-4">
         <h1 className="text-5xl md:text-7xl font-display mb-6">
-          ONE EVENT
+          WAN'EVENT
         </h1>
         <p className="text-xl md:text-2xl text-text-secondary mb-8 max-w-2xl mx-auto">
           Créateur d'Expériences de Divertissement Inoubliables

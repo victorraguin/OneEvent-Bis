@@ -1,9 +1,42 @@
 import React, { useEffect, useRef } from 'react';
+import { supabase, EnsembleMember } from '../lib/supabase';
 import { useInView } from '../hooks/useInView';
 
 const About: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, { threshold: 0.2 });
+  const [ensembleMembers, setEnsembleMembers] = React.useState<EnsembleMember[]>([]);
+
+  useEffect(() => {
+    const loadEnsemble = async () => {
+      if (!supabase) return;
+      
+      try {
+        const { data } = await supabase
+          .from('ensemble')
+          .select('*')
+          .order('order_index', { ascending: true });
+        
+        if (data) {
+          setEnsembleMembers(data);
+        }
+      } catch (error) {
+        console.error('Error loading ensemble:', error);
+      }
+    };
+
+    loadEnsemble();
+  }, []);
+
+  // Fallback data if Supabase not configured
+  const defaultMembers = [
+    { name: "Kofi Mensah", role: "Percussionniste Principal", image_url: "/WassaPercussion/Wassa_Percussion3.jpg" },
+    { name: "Ama Diop", role: "Danseuse & Chanteuse", image_url: "/WassaPercussion/Wassa_Percussion4.jpg" },
+    { name: "Kwame Osei", role: "Percussion", image_url: "/WassaPercussion/Wassa_Percussion5.jpg" },
+    { name: "Fatima Kamara", role: "Danseuse", image_url: "/WassaPercussion/Wassa_Percussion1.jpg" },
+  ];
+
+  const membersToShow = ensembleMembers.length > 0 ? ensembleMembers : defaultMembers;
 
   return (
     <section id="about" ref={sectionRef} className="section bg-surface">
@@ -47,22 +80,20 @@ const About: React.FC = () => {
         <div className={`mt-24 transition-all duration-700 delay-500 ${isInView ? 'opacity-100' : 'opacity-0 translate-y-10'}`}>
           <h3 className="text-center mb-12">Notre Ensemble</h3>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {[
-              { name: "Kofi Mensah", role: "Percussionniste Principal", image: "/WassaPercussion/Wassa_Percussion3.jpg" },
-              { name: "Ama Diop", role: "Danseuse & Chanteuse", image: "/WassaPercussion/Wassa_Percussion4.jpg" },
-              { name: "Kwame Osei", role: "Percussion", image: "/WassaPercussion/Wassa_Percussion5.jpg" },
-              { name: "Fatima Kamara", role: "Danseuse", image: "/WassaPercussion/Wassa_Percussion1.jpg" },
-            ].map((member, index) => (
+            {membersToShow.map((member, index) => (
               <div key={index} className="text-center">
                 <div className="rounded-full overflow-hidden w-40 h-40 mx-auto mb-4 image-zoom">
                   <img 
-                    src={member.image} 
+                    src={member.image_url || "/WassaPercussion/Wassa_Percussion1.jpg"} 
                     alt={member.name} 
                     className="w-full h-full object-cover"
                   />
                 </div>
                 <h4 className="text-lg font-medium">{member.name}</h4>
                 <p className="text-text-secondary text-sm">{member.role}</p>
+                {member.bio && (
+                  <p className="text-text-secondary text-xs mt-1">{member.bio}</p>
+                )}
               </div>
             ))}
           </div>

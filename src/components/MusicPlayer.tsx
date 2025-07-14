@@ -1,13 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Play, Pause, SkipBack, SkipForward, Volume2, VolumeX } from 'lucide-react';
+import { supabase, MusicTrack } from '../lib/supabase';
 import { useInView } from '../hooks/useInView';
-
-interface Track {
-  title: string;
-  artist: string;
-  src: string;
-  image: string;
-}
 
 const MusicPlayer: React.FC = () => {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -17,31 +11,65 @@ const MusicPlayer: React.FC = () => {
   const [currentTime, setCurrentTime] = useState(0);
   const [isMuted, setIsMuted] = useState(false);
   const [volume, setVolume] = useState(0.7);
+  const [tracks, setTracks] = useState<MusicTrack[]>([]);
   const audioRef = useRef<HTMLAudioElement>(null);
   const progressBarRef = useRef<HTMLDivElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, { threshold: 0.2 });
 
-  const tracks: Track[] = [
+  React.useEffect(() => {
+    const loadMusic = async () => {
+      if (!supabase) return;
+      
+      try {
+        const { data } = await supabase
+          .from('music')
+          .select('*')
+          .order('order_index', { ascending: true });
+        
+        if (data) {
+          setTracks(data);
+        }
+      } catch (error) {
+        console.error('Error loading music:', error);
+      }
+    };
+
+    loadMusic();
+  }, []);
+
+  // Fallback data if Supabase not configured
+  const defaultTracks: MusicTrack[] = [
     {
+      id: '1',
       title: "Rhythm of Senegal",
       artist: "Wassa Percussion",
       src: "https://cdn.pixabay.com/download/audio/2023/04/21/audio_0624cb19aa.mp3?filename=african-percussion-141912.mp3",
-      image: "https://images.pexels.com/photos/2531728/pexels-photo-2531728.jpeg?auto=compress&cs=tinysrgb&w=600"
+      image: "https://images.pexels.com/photos/2531728/pexels-photo-2531728.jpeg?auto=compress&cs=tinysrgb&w=600",
+      order_index: 1,
+      created_at: new Date().toISOString()
     },
     {
+      id: '2',
       title: "Djembe Fusion",
       artist: "Wassa Percussion",
       src: "https://cdn.pixabay.com/download/audio/2022/11/17/audio_89ef77c9a3.mp3?filename=moroccan-desert-145307.mp3",
-      image: "https://images.pexels.com/photos/6884636/pexels-photo-6884636.jpeg?auto=compress&cs=tinysrgb&w=600"
+      image: "https://images.pexels.com/photos/6884636/pexels-photo-6884636.jpeg?auto=compress&cs=tinysrgb&w=600",
+      order_index: 2,
+      created_at: new Date().toISOString()
     },
     {
+      id: '3',
       title: "Ancestral Beats",
       artist: "Wassa Percussion",
       src: "https://cdn.pixabay.com/download/audio/2022/09/29/audio_1d3fc408d2.mp3?filename=arabic-139726.mp3",
-      image: "https://images.pexels.com/photos/2797369/pexels-photo-2797369.jpeg?auto=compress&cs=tinysrgb&w=600"
+      image: "https://images.pexels.com/photos/2797369/pexels-photo-2797369.jpeg?auto=compress&cs=tinysrgb&w=600",
+      order_index: 3,
+      created_at: new Date().toISOString()
     }
   ];
+
+  const tracksToShow = tracks.length > 0 ? tracks : defaultTracks;
 
   useEffect(() => {
     const audio = audioRef.current;
@@ -140,7 +168,8 @@ const MusicPlayer: React.FC = () => {
     return `${minutes}:${seconds.toString().padStart(2, '0')}`;
   };
 
-  const track = tracks[currentTrack];
+  const track = tracksToShow[currentTrack] || tracksToShow[0];
+  if (!track) return null;
 
   return (
     <section id="music" ref={sectionRef} className="section bg-background relative overflow-hidden">
@@ -251,9 +280,9 @@ const MusicPlayer: React.FC = () => {
             <div className="p-6">
               <h4 className="text-lg font-medium mb-4">More Tracks</h4>
               <div className="space-y-3">
-                {tracks.map((t, index) => (
+                {tracksToShow.map((t, index) => (
                   <div 
-                    key={index}
+                    key={t.id || index}
                     className={`flex items-center gap-4 p-3 rounded-lg cursor-pointer hover:bg-background/30 transition-colors ${
                       currentTrack === index ? 'bg-background/30' : ''
                     }`}
@@ -264,7 +293,7 @@ const MusicPlayer: React.FC = () => {
                   >
                     <div className="w-10 h-10 rounded overflow-hidden flex-shrink-0">
                       <img 
-                        src={t.image} 
+                        src={t.image || "https://images.pexels.com/photos/2531728/pexels-photo-2531728.jpeg?auto=compress&cs=tinysrgb&w=600"} 
                         alt={t.title} 
                         className="w-full h-full object-cover"
                       />

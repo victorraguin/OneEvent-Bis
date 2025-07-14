@@ -1,53 +1,97 @@
 import React, { useState, useRef } from 'react';
 import { Play, X } from 'lucide-react';
+import { supabase, GalleryItem } from '../lib/supabase';
 import { useInView } from '../hooks/useInView';
-
-interface GalleryItem {
-  type: 'image' | 'video';
-  src: string;
-  thumbnail?: string;
-  caption: string;
-}
 
 const Gallery: React.FC = () => {
   const [selectedItem, setSelectedItem] = useState<GalleryItem | null>(null);
+  const [galleryItems, setGalleryItems] = useState<GalleryItem[]>([]);
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, { threshold: 0.1 });
 
-  const galleryItems: GalleryItem[] = [
+  React.useEffect(() => {
+    const loadGallery = async () => {
+      if (!supabase) return;
+      
+      try {
+        const { data } = await supabase
+          .from('gallery')
+          .select('*')
+          .eq('site', 'wassa')
+          .order('order_index', { ascending: true });
+        
+        if (data) {
+          setGalleryItems(data);
+        }
+      } catch (error) {
+        console.error('Error loading gallery:', error);
+      }
+    };
+
+    loadGallery();
+  }, []);
+
+  // Fallback data if Supabase not configured
+  const defaultGalleryItems: GalleryItem[] = [
     {
+      id: '1',
+      site: 'wassa',
       type: 'image',
       src: '/WassaPercussion/Wassa_Percussion.jpg',
       caption: 'Wassa Percussion Live au Festival Global Rhythms',
+      order_index: 1,
+      created_at: new Date().toISOString()
     },
     {
+      id: '2',
+      site: 'wassa',
       type: 'video',
       src: 'https://player.vimeo.com/video/367752291',
       thumbnail: '/WassaPercussion/Wassa_Percussion1.jpg',
       caption: 'Performance Traditionnelle de Djembé',
+      order_index: 2,
+      created_at: new Date().toISOString()
     },
     {
+      id: '3',
+      site: 'wassa',
       type: 'image',
       src: '/WassaPercussion/Wassa_Percussion2.jpg',
       caption: 'Atelier Communautaire à Dakar',
+      order_index: 3,
+      created_at: new Date().toISOString()
     },
     {
+      id: '4',
+      site: 'wassa',
       type: 'image',
       src: '/WassaPercussion/Wassa_Percussion3.jpg',
       caption: 'Programme d\'Échange Culturel',
+      order_index: 4,
+      created_at: new Date().toISOString()
     },
     {
+      id: '5',
+      site: 'wassa',
       type: 'video',
       src: 'https://player.vimeo.com/video/222732815',
       thumbnail: '/WassaPercussion/Wassa_Percussion4.jpg',
       caption: 'Rythmes d\'Afrique de l\'Ouest',
+      order_index: 5,
+      created_at: new Date().toISOString()
     },
     {
+      id: '6',
+      site: 'wassa',
       type: 'image',
       src: '/WassaPercussion/Wassa_Percussion5.jpg',
       caption: 'Performance Festival',
+      order_index: 6,
+      created_at: new Date().toISOString()
     },
   ];
+
+  const itemsToShow = galleryItems.length > 0 ? galleryItems : defaultGalleryItems;
 
   const openModal = (item: GalleryItem) => {
     setSelectedItem(item);
@@ -71,9 +115,9 @@ const Gallery: React.FC = () => {
         </p>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {galleryItems.map((item, index) => (
+          {itemsToShow.map((item, index) => (
             <div 
-              key={index} 
+              key={item.id || index} 
               className={`cursor-pointer overflow-hidden rounded-lg transition-all duration-700 delay-${index * 100} ${
                 isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
               }`}

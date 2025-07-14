@@ -77,7 +77,7 @@ const LandingSelector: React.FC<LandingSelectorProps> = ({ onSelect }) => {
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="text-center transform transition-transform duration-500 group-hover:scale-110">
                 <h1 className="text-4xl md:text-6xl font-display text-white mb-4">
-                  ONE EVENT
+                  WAN'EVENT
                 </h1>
                 <p className="text-lg text-text-secondary">
                   Vivez des Expériences Événementielles Uniques
