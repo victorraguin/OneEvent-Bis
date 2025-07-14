@@ -137,6 +137,7 @@ const Contact: React.FC = () => {
               </form>
             </div>
           </div>
+          </div>
           
           <div className={`optimized-transition transition-all duration-300 delay-150 ${isInView ? 'opacity-100' : 'opacity-0 translate-y-6'}`}>
             <div className="h-full flex flex-col">
