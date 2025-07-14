@@ -53,7 +53,7 @@ const Contact: React.FC = () => {
         
         <div className="grid md:grid-cols-2 gap-12">
           <div className={`transition-all duration-700 ${isInView ? 'opacity-100' : 'opacity-0 translate-y-10'}`}>
-          <div className={`optimized-transition transition-all duration-300 ${isInView ? 'opacity-100' : 'opacity-0 translate-y-6'}`}>
+          <div className={`optimized-transition transition-all duration-500 ${isInView ? 'opacity-100' : 'opacity-0 translate-y-6'}`}>
             <div className="bg-background p-8 rounded-lg">
               <h3 className="text-xl font-semibold mb-6">Get In Touch</h3>
               
@@ -139,7 +139,7 @@ const Contact: React.FC = () => {
           </div>
           </div>
           
-          <div className={`optimized-transition transition-all duration-300 delay-150 ${isInView ? 'opacity-100' : 'opacity-0 translate-y-6'}`}>
+          <div className={`optimized-transition transition-all duration-500 delay-150 ${isInView ? 'opacity-100' : 'opacity-0 translate-y-6'}`}>
             <div className="h-full flex flex-col">
               <div className="bg-background p-8 rounded-lg mb-6 flex-1">
                 <h3 className="text-xl font-semibold mb-6">Contact Information</h3>

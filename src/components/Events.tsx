@@ -108,7 +108,7 @@ const Events: React.FC = () => {
           {eventsToShow.map((event, index) => (
             <div 
               key={event.id || index} 
-              className={`bg-background rounded-lg overflow-hidden optimized-transition transition-all duration-300 delay-${Math.min(index * 50, 200)} ${
+              className={`bg-background rounded-lg overflow-hidden optimized-transition transition-all duration-500 delay-${Math.min(index * 100, 400)} ${
                 isInView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-6'
               }`}
             >

@@ -45,7 +45,7 @@ const Navbar: React.FC<NavbarProps> = ({ currentSite, onSiteChange }) => {
 
   return (
     <nav
-      className={`fixed top-0 left-0 w-full z-50 optimized-transition transition-all duration-200 ${
+      className={`fixed top-0 left-0 w-full z-50 optimized-transition transition-all duration-300 ${
         isScrolled || isMenuOpen ? 'bg-surface/95 backdrop-blur-md py-3' : 'bg-transparent py-6'
       }`}
     >

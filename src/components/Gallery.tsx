@@ -118,7 +118,7 @@ const Gallery: React.FC = () => {
           {itemsToShow.map((item, index) => (
             <div 
               key={item.id || index} 
-              className={`cursor-pointer overflow-hidden rounded-lg optimized-transition transition-all duration-300 delay-${Math.min(index * 50, 300)} ${
+              className={`cursor-pointer overflow-hidden rounded-lg optimized-transition transition-all duration-500 delay-${Math.min(index * 75, 400)} ${
                 isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
               }`}
               onClick={() => openModal(item)}

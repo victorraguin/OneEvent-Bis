@@ -189,8 +189,8 @@ const MusicPlayer: React.FC = () => {
         </p>
         
         <div 
-          className={`bg-surface rounded-lg overflow-hidden optimized-transition transition-all duration-300 ${
-            isInView ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+          className={`bg-surface rounded-lg overflow-hidden optimized-transition transition-all duration-600 ${
+            isInView ? 'opacity-100 scale-100' : 'opacity-0 scale-98'
           }`}
         >
           <div className="p-6 flex flex-col md:flex-row gap-8 items-center">
