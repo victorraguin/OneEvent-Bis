@@ -1,30 +1,16 @@
-import { createClient } from '@supabase/supabase-js';
+import { createClient } from "@supabase/supabase-js";
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://placeholder.supabase.co';
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'placeholder-key';
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
-// Vérifier si les variables d'environnement sont réellement configurées (pas les placeholders)
-const isSupabaseConfigured = 
-  import.meta.env.VITE_SUPABASE_URL && 
-  import.meta.env.VITE_SUPABASE_ANON_KEY &&
-  import.meta.env.VITE_SUPABASE_URL !== 'https://placeholder.supabase.co' &&
-  import.meta.env.VITE_SUPABASE_ANON_KEY !== 'placeholder-key';
+const supabase = createClient(supabaseUrl, supabaseKey);
 
-// Créer le client seulement si Supabase est réellement configuré
-export const supabase = isSupabaseConfigured
-  ? createClient(supabaseUrl, supabaseAnonKey, {
-      auth: {
-        persistSession: true,
-        autoRefreshToken: true,
-        detectSessionInUrl: false
-      }
-    })
-  : null;
+export { supabase };
 
-// Types pour TypeScript
+// Types pour TypeScript (restent identiques)
 export interface Event {
   id: string;
-  site: 'wassa' | 'wanevent';
+  site: "wassa" | "wanevent";
   title: string;
   date: string;
   time?: string;
@@ -37,8 +23,8 @@ export interface Event {
 
 export interface GalleryItem {
   id: string;
-  site: 'wassa' | 'wanevent';
-  type: 'image' | 'video';
+  site: "wassa" | "wanevent";
+  type: "image" | "video";
   src: string;
   thumbnail?: string;
   caption: string;
