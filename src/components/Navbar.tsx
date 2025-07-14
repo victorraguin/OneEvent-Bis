@@ -91,7 +91,6 @@ const Navbar: React.FC<NavbarProps> = ({ currentSite, onSiteChange }) => {
       {/* Mobile Menu */}
       <div 
         className={`fixed inset-0 bg-surface/95 backdrop-blur-md z-40 pt-20 transition-transform duration-300 md:hidden ${
-        className={`fixed inset-0 bg-surface/95 backdrop-blur-md z-40 pt-20 optimized-transition transition-transform duration-200 md:hidden ${
           isMenuOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
