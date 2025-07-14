@@ -73,7 +73,10 @@ const About: React.FC = () => {
                 className="w-full h-full object-cover"
               />
             </div>
+          </div>
+        </div>
         <div className={`optimized-transition transition-all duration-500 ${isInView ? 'opacity-100' : 'opacity-0 translate-y-6'}`}>
+        </div>
         <div className={`optimized-transition transition-all duration-500 delay-150 ${isInView ? 'opacity-100' : 'opacity-0 translate-y-6'}`}>
         </div>
         
