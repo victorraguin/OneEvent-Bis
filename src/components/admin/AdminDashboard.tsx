@@ -10,12 +10,16 @@ import {
   Plus,
   Edit,
   Trash2,
-  Save,
-  X,
   Briefcase,
   Handshake
 } from 'lucide-react';
 import { supabase, Event, GalleryItem, MusicTrack, EnsembleMember, Service, Partner } from '../../lib/supabase';
+import EventForm from './forms/EventForm';
+import GalleryForm from './forms/GalleryForm';
+import MusicForm from './forms/MusicForm';
+import EnsembleForm from './forms/EnsembleForm';
+import ServicesForm from './forms/ServicesForm';
+import PartnersForm from './forms/PartnersForm';
 
 const AdminDashboard: React.FC = () => {
   const [activeTab, setActiveTab] = useState('events');
@@ -156,498 +160,9 @@ const AdminDashboard: React.FC = () => {
     }
   };
 
-  // Event Form
-  const renderEventForm = (event?: Event) => {
-    const [formData, setFormData] = useState(event || {
-      site: activeSite,
-      title: '',
-      date: '',
-      time: '',
-      location: '',
-      description: '',
-      image_url: ''
-    });
-
-    return (
-      <div className="bg-surface p-6 rounded-lg mb-6">
-        <h3 className="text-xl font-semibold mb-4">
-          {event ? 'Modifier l\'événement' : 'Nouvel événement'}
-        </h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <input
-            type="text"
-            placeholder="Titre"
-            value={formData.title}
-            onChange={(e) => setFormData({...formData, title: e.target.value})}
-            className="bg-background border border-gray-600 rounded px-3 py-2 text-text-primary"
-            required
-          />
-          <input
-            type="date"
-            value={formData.date}
-            onChange={(e) => setFormData({...formData, date: e.target.value})}
-            className="bg-background border border-gray-600 rounded px-3 py-2 text-text-primary"
-            required
-          />
-          <input
-            type="time"
-            value={formData.time || ''}
-            onChange={(e) => setFormData({...formData, time: e.target.value})}
-            className="bg-background border border-gray-600 rounded px-3 py-2 text-text-primary"
-          />
-          <input
-            type="text"
-            placeholder="Lieu"
-            value={formData.location}
-            onChange={(e) => setFormData({...formData, location: e.target.value})}
-            className="bg-background border border-gray-600 rounded px-3 py-2 text-text-primary"
-            required
-          />
-          <input
-            type="url"
-            placeholder="URL de l'image"
-            value={formData.image_url || ''}
-            onChange={(e) => setFormData({...formData, image_url: e.target.value})}
-            className="bg-background border border-gray-600 rounded px-3 py-2 text-text-primary"
-          />
-          <textarea
-            placeholder="Description"
-            value={formData.description || ''}
-            onChange={(e) => setFormData({...formData, description: e.target.value})}
-            className="bg-background border border-gray-600 rounded px-3 py-2 md:col-span-2 text-text-primary"
-            rows={3}
-          />
-        </div>
-        <div className="flex gap-2 mt-4">
-          <button
-            onClick={async () => {
-              if (!formData.title || !formData.date || !formData.location) {
-                alert('Veuillez remplir tous les champs obligatoires');
-                return;
-              }
-              await handleSave(formData, 'events', !!event);
-            }}
-            className="btn btn-primary"
-          >
-            <Save size={16} className="mr-2" />
-            Sauvegarder
-          </button>
-          <button
-            onClick={() => {
-              setEditingItem(null);
-              setShowAddForm(false);
-            }}
-            className="btn btn-outline"
-          >
-            <X size={16} className="mr-2" />
-            Annuler
-          </button>
-        </div>
-      </div>
-    );
-  };
-
-  // Gallery Form
-  const renderGalleryForm = (item?: GalleryItem) => {
-    const [formData, setFormData] = useState(item || {
-      site: activeSite,
-      type: 'image',
-      src: '',
-      thumbnail: '',
-      caption: '',
-      order_index: 0
-    });
-
-    return (
-      <div className="bg-surface p-6 rounded-lg mb-6">
-        <h3 className="text-xl font-semibold mb-4">
-          {item ? 'Modifier l\'élément' : 'Nouvel élément de galerie'}
-        </h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <select
-            value={formData.type}
-            onChange={(e) => setFormData({...formData, type: e.target.value as 'image' | 'video'})}
-            className="bg-background border border-gray-600 rounded px-3 py-2 text-text-primary"
-          >
-            <option value="image">Image</option>
-            <option value="video">Vidéo</option>
-          </select>
-          <input
-            type="number"
-            placeholder="Ordre"
-            value={formData.order_index}
-            onChange={(e) => setFormData({...formData, order_index: parseInt(e.target.value)})}
-            className="bg-background border border-gray-600 rounded px-3 py-2 text-text-primary"
-          />
-          <input
-            type="url"
-            placeholder="URL source"
-            value={formData.src}
-            onChange={(e) => setFormData({...formData, src: e.target.value})}
-            className="bg-background border border-gray-600 rounded px-3 py-2 text-text-primary"
-            required
-          />
-          <input
-            type="url"
-            placeholder="URL miniature (pour vidéos)"
-            value={formData.thumbnail || ''}
-            onChange={(e) => setFormData({...formData, thumbnail: e.target.value})}
-            className="bg-background border border-gray-600 rounded px-3 py-2 text-text-primary"
-          />
-          <input
-            type="text"
-            placeholder="Légende"
-            value={formData.caption}
-            onChange={(e) => setFormData({...formData, caption: e.target.value})}
-            className="bg-background border border-gray-600 rounded px-3 py-2 md:col-span-2 text-text-primary"
-            required
-          />
-        </div>
-        <div className="flex gap-2 mt-4">
-          <button
-            onClick={async () => {
-              if (!formData.src || !formData.caption) {
-                alert('Veuillez remplir tous les champs obligatoires');
-                return;
-              }
-              await handleSave(formData, 'gallery', !!item);
-            }}
-            className="btn btn-primary"
-          >
-            <Save size={16} className="mr-2" />
-            Sauvegarder
-          </button>
-          <button
-            onClick={() => {
-              setEditingItem(null);
-              setShowAddForm(false);
-            }}
-            className="btn btn-outline"
-          >
-            <X size={16} className="mr-2" />
-            Annuler
-          </button>
-        </div>
-      </div>
-    );
-  };
-
-  // Music Form
-  const renderMusicForm = (track?: MusicTrack) => {
-    const [formData, setFormData] = useState(track || {
-      title: '',
-      artist: '',
-      src: '',
-      image: '',
-      order_index: 0
-    });
-
-    return (
-      <div className="bg-surface p-6 rounded-lg mb-6">
-        <h3 className="text-xl font-semibold mb-4">
-          {track ? 'Modifier la piste' : 'Nouvelle piste musicale'}
-        </h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <input
-            type="text"
-            placeholder="Titre"
-            value={formData.title}
-            onChange={(e) => setFormData({...formData, title: e.target.value})}
-            className="bg-background border border-gray-600 rounded px-3 py-2 text-text-primary"
-            required
-          />
-          <input
-            type="text"
-            placeholder="Artiste"
-            value={formData.artist}
-            onChange={(e) => setFormData({...formData, artist: e.target.value})}
-            className="bg-background border border-gray-600 rounded px-3 py-2 text-text-primary"
-            required
-          />
-          <input
-            type="url"
-            placeholder="URL audio"
-            value={formData.src}
-            onChange={(e) => setFormData({...formData, src: e.target.value})}
-            className="bg-background border border-gray-600 rounded px-3 py-2 text-text-primary"
-            required
-          />
-          <input
-            type="url"
-            placeholder="URL image"
-            value={formData.image || ''}
-            onChange={(e) => setFormData({...formData, image: e.target.value})}
-            className="bg-background border border-gray-600 rounded px-3 py-2 text-text-primary"
-          />
-          <input
-            type="number"
-            placeholder="Ordre"
-            value={formData.order_index}
-            onChange={(e) => setFormData({...formData, order_index: parseInt(e.target.value)})}
-            className="bg-background border border-gray-600 rounded px-3 py-2 md:col-span-2 text-text-primary"
-          />
-        </div>
-        <div className="flex gap-2 mt-4">
-          <button
-            onClick={async () => {
-              if (!formData.title || !formData.artist || !formData.src) {
-                alert('Veuillez remplir tous les champs obligatoires');
-                return;
-              }
-              await handleSave(formData, 'music', !!track);
-            }}
-            className="btn btn-primary"
-          >
-            <Save size={16} className="mr-2" />
-            Sauvegarder
-          </button>
-          <button
-            onClick={() => {
-              setEditingItem(null);
-              setShowAddForm(false);
-            }}
-            className="btn btn-outline"
-          >
-            <X size={16} className="mr-2" />
-            Annuler
-          </button>
-        </div>
-      </div>
-    );
-  };
-
-  // Ensemble Form
-  const renderEnsembleForm = (member?: EnsembleMember) => {
-    const [formData, setFormData] = useState(member || {
-      name: '',
-      role: '',
-      image_url: '',
-      bio: '',
-      order_index: 0
-    });
-
-    return (
-      <div className="bg-surface p-6 rounded-lg mb-6">
-        <h3 className="text-xl font-semibold mb-4">
-          {member ? 'Modifier le membre' : 'Nouveau membre de l\'ensemble'}
-        </h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <input
-            type="text"
-            placeholder="Nom"
-            value={formData.name}
-            onChange={(e) => setFormData({...formData, name: e.target.value})}
-            className="bg-background border border-gray-600 rounded px-3 py-2 text-text-primary"
-            required
-          />
-          <input
-            type="text"
-            placeholder="Rôle"
-            value={formData.role}
-            onChange={(e) => setFormData({...formData, role: e.target.value})}
-            className="bg-background border border-gray-600 rounded px-3 py-2 text-text-primary"
-            required
-          />
-          <input
-            type="url"
-            placeholder="URL image"
-            value={formData.image_url || ''}
-            onChange={(e) => setFormData({...formData, image_url: e.target.value})}
-            className="bg-background border border-gray-600 rounded px-3 py-2 text-text-primary"
-          />
-          <input
-            type="number"
-            placeholder="Ordre"
-            value={formData.order_index}
-            onChange={(e) => setFormData({...formData, order_index: parseInt(e.target.value)})}
-            className="bg-background border border-gray-600 rounded px-3 py-2 text-text-primary"
-          />
-          <textarea
-            placeholder="Biographie"
-            value={formData.bio || ''}
-            onChange={(e) => setFormData({...formData, bio: e.target.value})}
-            className="bg-background border border-gray-600 rounded px-3 py-2 md:col-span-2 text-text-primary"
-            rows={3}
-          />
-        </div>
-        <div className="flex gap-2 mt-4">
-          <button
-            onClick={async () => {
-              if (!formData.name || !formData.role) {
-                alert('Veuillez remplir tous les champs obligatoires');
-                return;
-              }
-              await handleSave(formData, 'ensemble', !!member);
-            }}
-            className="btn btn-primary"
-          >
-            <Save size={16} className="mr-2" />
-            Sauvegarder
-          </button>
-          <button
-            onClick={() => {
-              setEditingItem(null);
-              setShowAddForm(false);
-            }}
-            className="btn btn-outline"
-          >
-            <X size={16} className="mr-2" />
-            Annuler
-          </button>
-        </div>
-      </div>
-    );
-  };
-
-  // Services Form
-  const renderServicesForm = (service?: Service) => {
-    const [formData, setFormData] = useState(service || {
-      title: '',
-      description: '',
-      icon: '',
-      order_index: 0
-    });
-
-    return (
-      <div className="bg-surface p-6 rounded-lg mb-6">
-        <h3 className="text-xl font-semibold mb-4">
-          {service ? 'Modifier le service' : 'Nouveau service'}
-        </h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <input
-            type="text"
-            placeholder="Titre"
-            value={formData.title}
-            onChange={(e) => setFormData({...formData, title: e.target.value})}
-            className="bg-background border border-gray-600 rounded px-3 py-2 text-text-primary"
-            required
-          />
-          <input
-            type="text"
-            placeholder="Icône (nom Lucide)"
-            value={formData.icon}
-            onChange={(e) => setFormData({...formData, icon: e.target.value})}
-            className="bg-background border border-gray-600 rounded px-3 py-2 text-text-primary"
-            required
-          />
-          <input
-            type="number"
-            placeholder="Ordre"
-            value={formData.order_index}
-            onChange={(e) => setFormData({...formData, order_index: parseInt(e.target.value)})}
-            className="bg-background border border-gray-600 rounded px-3 py-2 text-text-primary"
-          />
-          <textarea
-            placeholder="Description"
-            value={formData.description}
-            onChange={(e) => setFormData({...formData, description: e.target.value})}
-            className="bg-background border border-gray-600 rounded px-3 py-2 md:col-span-2 text-text-primary"
-            rows={3}
-            required
-          />
-        </div>
-        <div className="flex gap-2 mt-4">
-          <button
-            onClick={async () => {
-              if (!formData.title || !formData.description || !formData.icon) {
-                alert('Veuillez remplir tous les champs obligatoires');
-                return;
-              }
-              await handleSave(formData, 'services', !!service);
-            }}
-            className="btn btn-primary"
-          >
-            <Save size={16} className="mr-2" />
-            Sauvegarder
-          </button>
-          <button
-            onClick={() => {
-              setEditingItem(null);
-              setShowAddForm(false);
-            }}
-            className="btn btn-outline"
-          >
-            <X size={16} className="mr-2" />
-            Annuler
-          </button>
-        </div>
-      </div>
-    );
-  };
-
-  // Partners Form
-  const renderPartnersForm = (partner?: Partner) => {
-    const [formData, setFormData] = useState(partner || {
-      name: '',
-      logo_url: '',
-      website_url: '',
-      order_index: 0
-    });
-
-    return (
-      <div className="bg-surface p-6 rounded-lg mb-6">
-        <h3 className="text-xl font-semibold mb-4">
-          {partner ? 'Modifier le partenaire' : 'Nouveau partenaire'}
-        </h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <input
-            type="text"
-            placeholder="Nom"
-            value={formData.name}
-            onChange={(e) => setFormData({...formData, name: e.target.value})}
-            className="bg-background border border-gray-600 rounded px-3 py-2 text-text-primary"
-            required
-          />
-          <input
-            type="url"
-            placeholder="URL du logo"
-            value={formData.logo_url}
-            onChange={(e) => setFormData({...formData, logo_url: e.target.value})}
-            className="bg-background border border-gray-600 rounded px-3 py-2 text-text-primary"
-            required
-          />
-          <input
-            type="url"
-            placeholder="URL du site web"
-            value={formData.website_url || ''}
-            onChange={(e) => setFormData({...formData, website_url: e.target.value})}
-            className="bg-background border border-gray-600 rounded px-3 py-2 text-text-primary"
-          />
-          <input
-            type="number"
-            placeholder="Ordre"
-            value={formData.order_index}
-            onChange={(e) => setFormData({...formData, order_index: parseInt(e.target.value)})}
-            className="bg-background border border-gray-600 rounded px-3 py-2 text-text-primary"
-          />
-        </div>
-        <div className="flex gap-2 mt-4">
-          <button
-            onClick={async () => {
-              if (!formData.name || !formData.logo_url) {
-                alert('Veuillez remplir tous les champs obligatoires');
-                return;
-              }
-              await handleSave(formData, 'partners', !!partner);
-            }}
-            className="btn btn-primary"
-          >
-            <Save size={16} className="mr-2" />
-            Sauvegarder
-          </button>
-          <button
-            onClick={() => {
-              setEditingItem(null);
-              setShowAddForm(false);
-            }}
-            className="btn btn-outline"
-          >
-            <X size={16} className="mr-2" />
-            Annuler
-          </button>
-        </div>
-      </div>
-    );
+  const handleCancel = () => {
+    setEditingItem(null);
+    setShowAddForm(false);
   };
 
   // Render tabs content
@@ -671,8 +186,21 @@ const AdminDashboard: React.FC = () => {
                 Nouvel événement
               </button>
             </div>
-            {showAddForm && renderEventForm()}
-            {editingItem && renderEventForm(editingItem)}
+            {showAddForm && (
+              <EventForm
+                activeSite={activeSite}
+                onSave={handleSave}
+                onCancel={handleCancel}
+              />
+            )}
+            {editingItem && (
+              <EventForm
+                event={editingItem}
+                activeSite={activeSite}
+                onSave={handleSave}
+                onCancel={handleCancel}
+              />
+            )}
             <div className="space-y-4">
               {events.map((event) => (
                 <div key={event.id} className="bg-surface p-4 rounded-lg">
@@ -708,8 +236,21 @@ const AdminDashboard: React.FC = () => {
                 Nouvel élément
               </button>
             </div>
-            {showAddForm && renderGalleryForm()}
-            {editingItem && renderGalleryForm(editingItem)}
+            {showAddForm && (
+              <GalleryForm
+                activeSite={activeSite}
+                onSave={handleSave}
+                onCancel={handleCancel}
+              />
+            )}
+            {editingItem && (
+              <GalleryForm
+                item={editingItem}
+                activeSite={activeSite}
+                onSave={handleSave}
+                onCancel={handleCancel}
+              />
+            )}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {gallery.map((item) => (
                 <div key={item.id} className="bg-surface p-4 rounded-lg">
@@ -740,8 +281,19 @@ const AdminDashboard: React.FC = () => {
                 Nouvelle piste
               </button>
             </div>
-            {showAddForm && renderMusicForm()}
-            {editingItem && renderMusicForm(editingItem)}
+            {showAddForm && (
+              <MusicForm
+                onSave={handleSave}
+                onCancel={handleCancel}
+              />
+            )}
+            {editingItem && (
+              <MusicForm
+                track={editingItem}
+                onSave={handleSave}
+                onCancel={handleCancel}
+              />
+            )}
             <div className="space-y-4">
               {music.map((track) => (
                 <div key={track.id} className="bg-surface p-4 rounded-lg flex items-center gap-4">
@@ -775,8 +327,19 @@ const AdminDashboard: React.FC = () => {
                 Nouveau membre
               </button>
             </div>
-            {showAddForm && renderEnsembleForm()}
-            {editingItem && renderEnsembleForm(editingItem)}
+            {showAddForm && (
+              <EnsembleForm
+                onSave={handleSave}
+                onCancel={handleCancel}
+              />
+            )}
+            {editingItem && (
+              <EnsembleForm
+                member={editingItem}
+                onSave={handleSave}
+                onCancel={handleCancel}
+              />
+            )}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {ensemble.map((member) => (
                 <div key={member.id} className="bg-surface p-4 rounded-lg">
@@ -809,8 +372,19 @@ const AdminDashboard: React.FC = () => {
                 Nouveau service
               </button>
             </div>
-            {showAddForm && renderServicesForm()}
-            {editingItem && renderServicesForm(editingItem)}
+            {showAddForm && (
+              <ServicesForm
+                onSave={handleSave}
+                onCancel={handleCancel}
+              />
+            )}
+            {editingItem && (
+              <ServicesForm
+                service={editingItem}
+                onSave={handleSave}
+                onCancel={handleCancel}
+              />
+            )}
             <div className="space-y-4">
               {services.map((service) => (
                 <div key={service.id} className="bg-surface p-4 rounded-lg">
@@ -845,8 +419,19 @@ const AdminDashboard: React.FC = () => {
                 Nouveau partenaire
               </button>
             </div>
-            {showAddForm && renderPartnersForm()}
-            {editingItem && renderPartnersForm(editingItem)}
+            {showAddForm && (
+              <PartnersForm
+                onSave={handleSave}
+                onCancel={handleCancel}
+              />
+            )}
+            {editingItem && (
+              <PartnersForm
+                partner={editingItem}
+                onSave={handleSave}
+                onCancel={handleCancel}
+              />
+            )}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {partners.map((partner) => (
                 <div key={partner.id} className="bg-surface p-4 rounded-lg">
