@@ -89,5 +89,6 @@ const LandingSelector: React.FC<LandingSelectorProps> = ({ onSelect }) => {
       </div>
     </ThemeProvider>
   );
+}
 
 export default LandingSelector;
