@@ -12,8 +12,8 @@ import {
   Trash2,
   Save,
   X,
-  Eye,
-  EyeOff
+  Briefcase,
+  Handshake
 } from 'lucide-react';
 import { supabase, Event, GalleryItem, MusicTrack, EnsembleMember, Service, Partner } from '../../lib/supabase';
 
@@ -35,13 +35,8 @@ const AdminDashboard: React.FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Vérifier si l'utilisateur est connecté
     const checkAuth = async () => {
-      if (!supabase) {
-        // Ne pas rediriger automatiquement si Supabase n'est pas configuré
-        // L'utilisateur peut toujours voir la page de connexion
-        return;
-      }
+      if (!supabase) return;
       
       try {
         const { data: { user } } = await supabase.auth.getUser();
@@ -50,8 +45,6 @@ const AdminDashboard: React.FC = () => {
         }
       } catch (error) {
         console.warn('Erreur lors de la vérification auth:', error);
-        // Ne pas rediriger automatiquement en cas d'erreur réseau
-        // L'utilisateur peut rester sur la page et réessayer
       }
     };
     checkAuth();
@@ -135,7 +128,6 @@ const AdminDashboard: React.FC = () => {
 
   const handleDelete = async (id: string, table: string) => {
     if (!confirm('Êtes-vous sûr de vouloir supprimer cet élément ?')) return;
-
     if (!supabase) return;
 
     try {
@@ -164,6 +156,7 @@ const AdminDashboard: React.FC = () => {
     }
   };
 
+  // Event Form
   const renderEventForm = (event?: Event) => {
     const [formData, setFormData] = useState(event || {
       site: activeSite,
@@ -254,62 +247,643 @@ const AdminDashboard: React.FC = () => {
     );
   };
 
-  const renderEventsTab = () => (
-    <div>
-      <div className="flex justify-between items-center mb-6">
-        <h2 className="text-2xl font-bold">Gestion des Événements - {activeSite === 'wassa' ? 'Wassa Percussion' : "Wan'Event"}</h2>
-        <button
-          onClick={() => setShowAddForm(true)}
-          className="btn btn-primary"
-        >
-          <Plus size={16} className="mr-2" />
-          Nouvel événement
-        </button>
+  // Gallery Form
+  const renderGalleryForm = (item?: GalleryItem) => {
+    const [formData, setFormData] = useState(item || {
+      site: activeSite,
+      type: 'image',
+      src: '',
+      thumbnail: '',
+      caption: '',
+      order_index: 0
+    });
+
+    return (
+      <div className="bg-surface p-6 rounded-lg mb-6">
+        <h3 className="text-xl font-semibold mb-4">
+          {item ? 'Modifier l\'élément' : 'Nouvel élément de galerie'}
+        </h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <select
+            value={formData.type}
+            onChange={(e) => setFormData({...formData, type: e.target.value as 'image' | 'video'})}
+            className="bg-background border border-gray-600 rounded px-3 py-2 text-text-primary"
+          >
+            <option value="image">Image</option>
+            <option value="video">Vidéo</option>
+          </select>
+          <input
+            type="number"
+            placeholder="Ordre"
+            value={formData.order_index}
+            onChange={(e) => setFormData({...formData, order_index: parseInt(e.target.value)})}
+            className="bg-background border border-gray-600 rounded px-3 py-2 text-text-primary"
+          />
+          <input
+            type="url"
+            placeholder="URL source"
+            value={formData.src}
+            onChange={(e) => setFormData({...formData, src: e.target.value})}
+            className="bg-background border border-gray-600 rounded px-3 py-2 text-text-primary"
+            required
+          />
+          <input
+            type="url"
+            placeholder="URL miniature (pour vidéos)"
+            value={formData.thumbnail || ''}
+            onChange={(e) => setFormData({...formData, thumbnail: e.target.value})}
+            className="bg-background border border-gray-600 rounded px-3 py-2 text-text-primary"
+          />
+          <input
+            type="text"
+            placeholder="Légende"
+            value={formData.caption}
+            onChange={(e) => setFormData({...formData, caption: e.target.value})}
+            className="bg-background border border-gray-600 rounded px-3 py-2 md:col-span-2 text-text-primary"
+            required
+          />
+        </div>
+        <div className="flex gap-2 mt-4">
+          <button
+            onClick={async () => {
+              if (!formData.src || !formData.caption) {
+                alert('Veuillez remplir tous les champs obligatoires');
+                return;
+              }
+              await handleSave(formData, 'gallery', !!item);
+            }}
+            className="btn btn-primary"
+          >
+            <Save size={16} className="mr-2" />
+            Sauvegarder
+          </button>
+          <button
+            onClick={() => {
+              setEditingItem(null);
+              setShowAddForm(false);
+            }}
+            className="btn btn-outline"
+          >
+            <X size={16} className="mr-2" />
+            Annuler
+          </button>
+        </div>
       </div>
+    );
+  };
 
-      {showAddForm && renderEventForm()}
-      {editingItem && renderEventForm(editingItem)}
+  // Music Form
+  const renderMusicForm = (track?: MusicTrack) => {
+    const [formData, setFormData] = useState(track || {
+      title: '',
+      artist: '',
+      src: '',
+      image: '',
+      order_index: 0
+    });
 
-      <div className="space-y-4">
-        {events.map((event) => (
-          <div key={event.id} className="bg-surface p-4 rounded-lg">
-            <div className="flex justify-between items-start">
-              <div>
-                <h3 className="text-lg font-semibold">{event.title}</h3>
-                <p className="text-text-secondary">{event.date} {event.time && `- ${event.time}`}</p>
-                <p className="text-text-secondary">{event.location}</p>
-                {event.description && (
-                  <p className="text-text-secondary mt-2">{event.description}</p>
-                )}
-              </div>
-              <div className="flex gap-2">
-                <button
-                  onClick={() => setEditingItem(event)}
-                  className="text-primary hover:text-primary/80"
-                >
-                  <Edit size={16} />
-                </button>
-                <button
-                  onClick={() => handleDelete(event.id, 'events')}
-                  className="text-error hover:text-error/80"
-                >
-                  <Trash2 size={16} />
-                </button>
-              </div>
+    return (
+      <div className="bg-surface p-6 rounded-lg mb-6">
+        <h3 className="text-xl font-semibold mb-4">
+          {track ? 'Modifier la piste' : 'Nouvelle piste musicale'}
+        </h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <input
+            type="text"
+            placeholder="Titre"
+            value={formData.title}
+            onChange={(e) => setFormData({...formData, title: e.target.value})}
+            className="bg-background border border-gray-600 rounded px-3 py-2 text-text-primary"
+            required
+          />
+          <input
+            type="text"
+            placeholder="Artiste"
+            value={formData.artist}
+            onChange={(e) => setFormData({...formData, artist: e.target.value})}
+            className="bg-background border border-gray-600 rounded px-3 py-2 text-text-primary"
+            required
+          />
+          <input
+            type="url"
+            placeholder="URL audio"
+            value={formData.src}
+            onChange={(e) => setFormData({...formData, src: e.target.value})}
+            className="bg-background border border-gray-600 rounded px-3 py-2 text-text-primary"
+            required
+          />
+          <input
+            type="url"
+            placeholder="URL image"
+            value={formData.image || ''}
+            onChange={(e) => setFormData({...formData, image: e.target.value})}
+            className="bg-background border border-gray-600 rounded px-3 py-2 text-text-primary"
+          />
+          <input
+            type="number"
+            placeholder="Ordre"
+            value={formData.order_index}
+            onChange={(e) => setFormData({...formData, order_index: parseInt(e.target.value)})}
+            className="bg-background border border-gray-600 rounded px-3 py-2 md:col-span-2 text-text-primary"
+          />
+        </div>
+        <div className="flex gap-2 mt-4">
+          <button
+            onClick={async () => {
+              if (!formData.title || !formData.artist || !formData.src) {
+                alert('Veuillez remplir tous les champs obligatoires');
+                return;
+              }
+              await handleSave(formData, 'music', !!track);
+            }}
+            className="btn btn-primary"
+          >
+            <Save size={16} className="mr-2" />
+            Sauvegarder
+          </button>
+          <button
+            onClick={() => {
+              setEditingItem(null);
+              setShowAddForm(false);
+            }}
+            className="btn btn-outline"
+          >
+            <X size={16} className="mr-2" />
+            Annuler
+          </button>
+        </div>
+      </div>
+    );
+  };
+
+  // Ensemble Form
+  const renderEnsembleForm = (member?: EnsembleMember) => {
+    const [formData, setFormData] = useState(member || {
+      name: '',
+      role: '',
+      image_url: '',
+      bio: '',
+      order_index: 0
+    });
+
+    return (
+      <div className="bg-surface p-6 rounded-lg mb-6">
+        <h3 className="text-xl font-semibold mb-4">
+          {member ? 'Modifier le membre' : 'Nouveau membre de l\'ensemble'}
+        </h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <input
+            type="text"
+            placeholder="Nom"
+            value={formData.name}
+            onChange={(e) => setFormData({...formData, name: e.target.value})}
+            className="bg-background border border-gray-600 rounded px-3 py-2 text-text-primary"
+            required
+          />
+          <input
+            type="text"
+            placeholder="Rôle"
+            value={formData.role}
+            onChange={(e) => setFormData({...formData, role: e.target.value})}
+            className="bg-background border border-gray-600 rounded px-3 py-2 text-text-primary"
+            required
+          />
+          <input
+            type="url"
+            placeholder="URL image"
+            value={formData.image_url || ''}
+            onChange={(e) => setFormData({...formData, image_url: e.target.value})}
+            className="bg-background border border-gray-600 rounded px-3 py-2 text-text-primary"
+          />
+          <input
+            type="number"
+            placeholder="Ordre"
+            value={formData.order_index}
+            onChange={(e) => setFormData({...formData, order_index: parseInt(e.target.value)})}
+            className="bg-background border border-gray-600 rounded px-3 py-2 text-text-primary"
+          />
+          <textarea
+            placeholder="Biographie"
+            value={formData.bio || ''}
+            onChange={(e) => setFormData({...formData, bio: e.target.value})}
+            className="bg-background border border-gray-600 rounded px-3 py-2 md:col-span-2 text-text-primary"
+            rows={3}
+          />
+        </div>
+        <div className="flex gap-2 mt-4">
+          <button
+            onClick={async () => {
+              if (!formData.name || !formData.role) {
+                alert('Veuillez remplir tous les champs obligatoires');
+                return;
+              }
+              await handleSave(formData, 'ensemble', !!member);
+            }}
+            className="btn btn-primary"
+          >
+            <Save size={16} className="mr-2" />
+            Sauvegarder
+          </button>
+          <button
+            onClick={() => {
+              setEditingItem(null);
+              setShowAddForm(false);
+            }}
+            className="btn btn-outline"
+          >
+            <X size={16} className="mr-2" />
+            Annuler
+          </button>
+        </div>
+      </div>
+    );
+  };
+
+  // Services Form
+  const renderServicesForm = (service?: Service) => {
+    const [formData, setFormData] = useState(service || {
+      title: '',
+      description: '',
+      icon: '',
+      order_index: 0
+    });
+
+    return (
+      <div className="bg-surface p-6 rounded-lg mb-6">
+        <h3 className="text-xl font-semibold mb-4">
+          {service ? 'Modifier le service' : 'Nouveau service'}
+        </h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <input
+            type="text"
+            placeholder="Titre"
+            value={formData.title}
+            onChange={(e) => setFormData({...formData, title: e.target.value})}
+            className="bg-background border border-gray-600 rounded px-3 py-2 text-text-primary"
+            required
+          />
+          <input
+            type="text"
+            placeholder="Icône (nom Lucide)"
+            value={formData.icon}
+            onChange={(e) => setFormData({...formData, icon: e.target.value})}
+            className="bg-background border border-gray-600 rounded px-3 py-2 text-text-primary"
+            required
+          />
+          <input
+            type="number"
+            placeholder="Ordre"
+            value={formData.order_index}
+            onChange={(e) => setFormData({...formData, order_index: parseInt(e.target.value)})}
+            className="bg-background border border-gray-600 rounded px-3 py-2 text-text-primary"
+          />
+          <textarea
+            placeholder="Description"
+            value={formData.description}
+            onChange={(e) => setFormData({...formData, description: e.target.value})}
+            className="bg-background border border-gray-600 rounded px-3 py-2 md:col-span-2 text-text-primary"
+            rows={3}
+            required
+          />
+        </div>
+        <div className="flex gap-2 mt-4">
+          <button
+            onClick={async () => {
+              if (!formData.title || !formData.description || !formData.icon) {
+                alert('Veuillez remplir tous les champs obligatoires');
+                return;
+              }
+              await handleSave(formData, 'services', !!service);
+            }}
+            className="btn btn-primary"
+          >
+            <Save size={16} className="mr-2" />
+            Sauvegarder
+          </button>
+          <button
+            onClick={() => {
+              setEditingItem(null);
+              setShowAddForm(false);
+            }}
+            className="btn btn-outline"
+          >
+            <X size={16} className="mr-2" />
+            Annuler
+          </button>
+        </div>
+      </div>
+    );
+  };
+
+  // Partners Form
+  const renderPartnersForm = (partner?: Partner) => {
+    const [formData, setFormData] = useState(partner || {
+      name: '',
+      logo_url: '',
+      website_url: '',
+      order_index: 0
+    });
+
+    return (
+      <div className="bg-surface p-6 rounded-lg mb-6">
+        <h3 className="text-xl font-semibold mb-4">
+          {partner ? 'Modifier le partenaire' : 'Nouveau partenaire'}
+        </h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <input
+            type="text"
+            placeholder="Nom"
+            value={formData.name}
+            onChange={(e) => setFormData({...formData, name: e.target.value})}
+            className="bg-background border border-gray-600 rounded px-3 py-2 text-text-primary"
+            required
+          />
+          <input
+            type="url"
+            placeholder="URL du logo"
+            value={formData.logo_url}
+            onChange={(e) => setFormData({...formData, logo_url: e.target.value})}
+            className="bg-background border border-gray-600 rounded px-3 py-2 text-text-primary"
+            required
+          />
+          <input
+            type="url"
+            placeholder="URL du site web"
+            value={formData.website_url || ''}
+            onChange={(e) => setFormData({...formData, website_url: e.target.value})}
+            className="bg-background border border-gray-600 rounded px-3 py-2 text-text-primary"
+          />
+          <input
+            type="number"
+            placeholder="Ordre"
+            value={formData.order_index}
+            onChange={(e) => setFormData({...formData, order_index: parseInt(e.target.value)})}
+            className="bg-background border border-gray-600 rounded px-3 py-2 text-text-primary"
+          />
+        </div>
+        <div className="flex gap-2 mt-4">
+          <button
+            onClick={async () => {
+              if (!formData.name || !formData.logo_url) {
+                alert('Veuillez remplir tous les champs obligatoires');
+                return;
+              }
+              await handleSave(formData, 'partners', !!partner);
+            }}
+            className="btn btn-primary"
+          >
+            <Save size={16} className="mr-2" />
+            Sauvegarder
+          </button>
+          <button
+            onClick={() => {
+              setEditingItem(null);
+              setShowAddForm(false);
+            }}
+            className="btn btn-outline"
+          >
+            <X size={16} className="mr-2" />
+            Annuler
+          </button>
+        </div>
+      </div>
+    );
+  };
+
+  // Render tabs content
+  const renderTabContent = () => {
+    if (isLoading) {
+      return (
+        <div className="flex justify-center items-center h-64">
+          <div className="text-text-secondary">Chargement...</div>
+        </div>
+      );
+    }
+
+    switch (activeTab) {
+      case 'events':
+        return (
+          <div>
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-2xl font-bold">Gestion des Événements - {activeSite === 'wassa' ? 'Wassa Percussion' : "Wan'Event"}</h2>
+              <button onClick={() => setShowAddForm(true)} className="btn btn-primary">
+                <Plus size={16} className="mr-2" />
+                Nouvel événement
+              </button>
+            </div>
+            {showAddForm && renderEventForm()}
+            {editingItem && renderEventForm(editingItem)}
+            <div className="space-y-4">
+              {events.map((event) => (
+                <div key={event.id} className="bg-surface p-4 rounded-lg">
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <h3 className="text-lg font-semibold">{event.title}</h3>
+                      <p className="text-text-secondary">{event.date} {event.time && `- ${event.time}`}</p>
+                      <p className="text-text-secondary">{event.location}</p>
+                      {event.description && <p className="text-text-secondary mt-2">{event.description}</p>}
+                    </div>
+                    <div className="flex gap-2">
+                      <button onClick={() => setEditingItem(event)} className="text-primary hover:text-primary/80">
+                        <Edit size={16} />
+                      </button>
+                      <button onClick={() => handleDelete(event.id, 'events')} className="text-error hover:text-error/80">
+                        <Trash2 size={16} />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
-        ))}
-      </div>
-    </div>
-  );
+        );
+
+      case 'gallery':
+        return (
+          <div>
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-2xl font-bold">Gestion de la Galerie - {activeSite === 'wassa' ? 'Wassa Percussion' : "Wan'Event"}</h2>
+              <button onClick={() => setShowAddForm(true)} className="btn btn-primary">
+                <Plus size={16} className="mr-2" />
+                Nouvel élément
+              </button>
+            </div>
+            {showAddForm && renderGalleryForm()}
+            {editingItem && renderGalleryForm(editingItem)}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {gallery.map((item) => (
+                <div key={item.id} className="bg-surface p-4 rounded-lg">
+                  <img src={item.type === 'video' ? item.thumbnail : item.src} alt={item.caption} className="w-full h-32 object-cover rounded mb-2" />
+                  <p className="text-sm font-medium">{item.caption}</p>
+                  <p className="text-xs text-text-secondary">{item.type} - Ordre: {item.order_index}</p>
+                  <div className="flex gap-2 mt-2">
+                    <button onClick={() => setEditingItem(item)} className="text-primary hover:text-primary/80">
+                      <Edit size={14} />
+                    </button>
+                    <button onClick={() => handleDelete(item.id, 'gallery')} className="text-error hover:text-error/80">
+                      <Trash2 size={14} />
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+
+      case 'music':
+        return (
+          <div>
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-2xl font-bold">Gestion de la Musique</h2>
+              <button onClick={() => setShowAddForm(true)} className="btn btn-primary">
+                <Plus size={16} className="mr-2" />
+                Nouvelle piste
+              </button>
+            </div>
+            {showAddForm && renderMusicForm()}
+            {editingItem && renderMusicForm(editingItem)}
+            <div className="space-y-4">
+              {music.map((track) => (
+                <div key={track.id} className="bg-surface p-4 rounded-lg flex items-center gap-4">
+                  {track.image && <img src={track.image} alt={track.title} className="w-16 h-16 object-cover rounded" />}
+                  <div className="flex-1">
+                    <h3 className="text-lg font-semibold">{track.title}</h3>
+                    <p className="text-text-secondary">{track.artist}</p>
+                    <p className="text-xs text-text-secondary">Ordre: {track.order_index}</p>
+                  </div>
+                  <div className="flex gap-2">
+                    <button onClick={() => setEditingItem(track)} className="text-primary hover:text-primary/80">
+                      <Edit size={16} />
+                    </button>
+                    <button onClick={() => handleDelete(track.id, 'music')} className="text-error hover:text-error/80">
+                      <Trash2 size={16} />
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+
+      case 'ensemble':
+        return (
+          <div>
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-2xl font-bold">Gestion de l'Ensemble</h2>
+              <button onClick={() => setShowAddForm(true)} className="btn btn-primary">
+                <Plus size={16} className="mr-2" />
+                Nouveau membre
+              </button>
+            </div>
+            {showAddForm && renderEnsembleForm()}
+            {editingItem && renderEnsembleForm(editingItem)}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {ensemble.map((member) => (
+                <div key={member.id} className="bg-surface p-4 rounded-lg">
+                  {member.image_url && <img src={member.image_url} alt={member.name} className="w-full h-32 object-cover rounded mb-2" />}
+                  <h3 className="text-lg font-semibold">{member.name}</h3>
+                  <p className="text-text-secondary">{member.role}</p>
+                  {member.bio && <p className="text-sm text-text-secondary mt-2">{member.bio}</p>}
+                  <p className="text-xs text-text-secondary mt-2">Ordre: {member.order_index}</p>
+                  <div className="flex gap-2 mt-2">
+                    <button onClick={() => setEditingItem(member)} className="text-primary hover:text-primary/80">
+                      <Edit size={14} />
+                    </button>
+                    <button onClick={() => handleDelete(member.id, 'ensemble')} className="text-error hover:text-error/80">
+                      <Trash2 size={14} />
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+
+      case 'services':
+        return (
+          <div>
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-2xl font-bold">Gestion des Services</h2>
+              <button onClick={() => setShowAddForm(true)} className="btn btn-primary">
+                <Plus size={16} className="mr-2" />
+                Nouveau service
+              </button>
+            </div>
+            {showAddForm && renderServicesForm()}
+            {editingItem && renderServicesForm(editingItem)}
+            <div className="space-y-4">
+              {services.map((service) => (
+                <div key={service.id} className="bg-surface p-4 rounded-lg">
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <h3 className="text-lg font-semibold">{service.title}</h3>
+                      <p className="text-text-secondary">{service.description}</p>
+                      <p className="text-xs text-text-secondary mt-2">Icône: {service.icon} - Ordre: {service.order_index}</p>
+                    </div>
+                    <div className="flex gap-2">
+                      <button onClick={() => setEditingItem(service)} className="text-primary hover:text-primary/80">
+                        <Edit size={16} />
+                      </button>
+                      <button onClick={() => handleDelete(service.id, 'services')} className="text-error hover:text-error/80">
+                        <Trash2 size={16} />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+
+      case 'partners':
+        return (
+          <div>
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-2xl font-bold">Gestion des Partenaires</h2>
+              <button onClick={() => setShowAddForm(true)} className="btn btn-primary">
+                <Plus size={16} className="mr-2" />
+                Nouveau partenaire
+              </button>
+            </div>
+            {showAddForm && renderPartnersForm()}
+            {editingItem && renderPartnersForm(editingItem)}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {partners.map((partner) => (
+                <div key={partner.id} className="bg-surface p-4 rounded-lg">
+                  <img src={partner.logo_url} alt={partner.name} className="w-full h-20 object-contain rounded mb-2" />
+                  <h3 className="text-lg font-semibold">{partner.name}</h3>
+                  {partner.website_url && (
+                    <a href={partner.website_url} target="_blank" rel="noopener noreferrer" className="text-primary text-sm hover:underline">
+                      Visiter le site
+                    </a>
+                  )}
+                  <p className="text-xs text-text-secondary mt-2">Ordre: {partner.order_index}</p>
+                  <div className="flex gap-2 mt-2">
+                    <button onClick={() => setEditingItem(partner)} className="text-primary hover:text-primary/80">
+                      <Edit size={14} />
+                    </button>
+                    <button onClick={() => handleDelete(partner.id, 'partners')} className="text-error hover:text-error/80">
+                      <Trash2 size={14} />
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+
+      default:
+        return <div>Sélectionnez un onglet</div>;
+    }
+  };
 
   const tabs = [
     { id: 'events', label: 'Événements', icon: Calendar },
     { id: 'gallery', label: 'Galerie', icon: Image },
     { id: 'music', label: 'Musique', icon: Music, wassaOnly: true },
     { id: 'ensemble', label: 'Ensemble', icon: Users, wassaOnly: true },
-    { id: 'services', label: 'Services', icon: Settings, waneventOnly: true },
-    { id: 'partners', label: 'Partenaires', icon: Users, waneventOnly: true },
+    { id: 'services', label: 'Services', icon: Briefcase, waneventOnly: true },
+    { id: 'partners', label: 'Partenaires', icon: Handshake, waneventOnly: true },
   ];
 
   const filteredTabs = tabs.filter(tab => {
@@ -344,16 +918,10 @@ const AdminDashboard: React.FC = () => {
                   Wan'Event
                 </button>
               </div>
-              <button
-                onClick={() => navigate('/')}
-                className="btn btn-outline mr-2"
-              >
+              <button onClick={() => navigate('/')} className="btn btn-outline mr-2">
                 Retour au site
               </button>
-              <button
-                onClick={handleLogout}
-                className="btn btn-outline"
-              >
+              <button onClick={handleLogout} className="btn btn-outline">
                 <LogOut size={16} className="mr-2" />
                 Déconnexion
               </button>
@@ -385,16 +953,7 @@ const AdminDashboard: React.FC = () => {
 
           {/* Main content */}
           <div className="flex-1 p-6 overflow-y-auto">
-            {isLoading ? (
-              <div className="flex justify-center items-center h-64">
-                <div className="text-text-secondary">Chargement...</div>
-              </div>
-            ) : (
-              <>
-                {activeTab === 'events' && renderEventsTab()}
-                {/* Autres onglets à implémenter selon les besoins */}
-              </>
-            )}
+            {renderTabContent()}
           </div>
         </div>
       </div>
