@@ -108,8 +108,8 @@ const Events: React.FC = () => {
           {eventsToShow.map((event, index) => (
             <div 
               key={event.id || index} 
-              className={`bg-background rounded-lg overflow-hidden transition-all duration-700 delay-${index * 100} ${
-                isInView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'
+              className={`bg-background rounded-lg overflow-hidden optimized-transition transition-all duration-300 delay-${Math.min(index * 50, 200)} ${
+                isInView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-6'
               }`}
             >
               <div className="flex flex-col md:flex-row">

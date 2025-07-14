@@ -42,7 +42,7 @@ const About: React.FC = () => {
     <section id="about" ref={sectionRef} className="section bg-surface">
       <div className="container-custom">
         <div className="grid md:grid-cols-2 gap-12 items-center">
-          <div className={`transition-all duration-700 ${isInView ? 'opacity-100' : 'opacity-0 translate-y-10'}`}>
+          <div className={`optimized-transition transition-all duration-300 ${isInView ? 'opacity-100' : 'opacity-0 translate-y-6'}`}>
             <h2 className="text-primary mb-8 relative inline-block">
               Notre Histoire
               <span className="absolute -bottom-2 left-0 w-1/2 h-1 bg-primary"></span>
@@ -58,7 +58,7 @@ const About: React.FC = () => {
             </p>
           </div>
           
-          <div className={`relative transition-all duration-700 delay-300 ${isInView ? 'opacity-100' : 'opacity-0 translate-y-10'}`}>
+          <div className={`relative optimized-transition transition-all duration-300 delay-150 ${isInView ? 'opacity-100' : 'opacity-0 translate-y-6'}`}>
             <div className="image-zoom rounded-lg overflow-hidden">
               <img 
                 src="/WassaPercussion/Wassa_Percussion1.jpg"
@@ -77,7 +77,7 @@ const About: React.FC = () => {
         </div>
         
         {/* Team members */}
-        <div className={`mt-24 transition-all duration-700 delay-500 ${isInView ? 'opacity-100' : 'opacity-0 translate-y-10'}`}>
+        <div className={`mt-24 optimized-transition transition-all duration-300 delay-200 ${isInView ? 'opacity-100' : 'opacity-0 translate-y-6'}`}>
           <h3 className="text-center mb-12">Notre Ensemble</h3>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {membersToShow.map((member, index) => (

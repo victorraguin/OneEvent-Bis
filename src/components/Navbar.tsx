@@ -45,7 +45,7 @@ const Navbar: React.FC<NavbarProps> = ({ currentSite, onSiteChange }) => {
 
   return (
     <nav
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 w-full z-50 optimized-transition transition-all duration-200 ${
         isScrolled || isMenuOpen ? 'bg-surface/95 backdrop-blur-md py-3' : 'bg-transparent py-6'
       }`}
     >
@@ -91,6 +91,7 @@ const Navbar: React.FC<NavbarProps> = ({ currentSite, onSiteChange }) => {
       {/* Mobile Menu */}
       <div 
         className={`fixed inset-0 bg-surface/95 backdrop-blur-md z-40 pt-20 transition-transform duration-300 md:hidden ${
+        className={`fixed inset-0 bg-surface/95 backdrop-blur-md z-40 pt-20 optimized-transition transition-transform duration-200 md:hidden ${
           isMenuOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >

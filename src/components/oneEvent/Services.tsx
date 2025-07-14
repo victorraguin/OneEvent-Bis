@@ -94,8 +94,8 @@ const Services: React.FC = () => {
             return (
             <div 
               key={service.id || index}
-              className={`bg-background p-6 rounded-lg transition-all duration-700 delay-${index * 100} ${
-                isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+              className={`bg-background p-6 rounded-lg optimized-transition transition-all duration-300 delay-${Math.min(index * 50, 200)} ${
+                isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
               }`}
             >
               <IconComponent className="text-primary mb-4" size={32} />

@@ -29,12 +29,13 @@ const LandingSelector: React.FC<LandingSelectorProps> = ({ onSelect }) => {
           {/* Wassa Percussion */}
           <div
             className={`relative w-full md:w-1/2 h-[50vh] md:h-screen cursor-pointer group transition-all duration-700 ${
+            className={`relative w-full md:w-1/2 h-[50vh] md:h-screen cursor-pointer group optimized-transition transition-all duration-400 ${
               hoveredSite === "oneEvent"
                 ? "md:w-1/3 opacity-50"
                 : hoveredSite === "wassa"
                 ? "md:w-2/3"
                 : ""
-            } ${isTransitioning ? "scale-95 opacity-0" : ""}`}
+            } ${isTransitioning ? "scale-98 opacity-0" : ""}`}
             onClick={() => handleSelect("wassa")}
             onMouseEnter={() => setHoveredSite("wassa")}
             onMouseLeave={() => setHoveredSite(null)}
@@ -59,12 +60,13 @@ const LandingSelector: React.FC<LandingSelectorProps> = ({ onSelect }) => {
           {/* One Event */}
           <div
             className={`relative w-full md:w-1/2 h-[50vh] md:h-screen cursor-pointer group transition-all duration-700 ${
+            className={`relative w-full md:w-1/2 h-[50vh] md:h-screen cursor-pointer group optimized-transition transition-all duration-400 ${
               hoveredSite === "wassa"
                 ? "md:w-1/3 opacity-50"
                 : hoveredSite === "oneEvent"
                 ? "md:w-2/3"
                 : ""
-            } ${isTransitioning ? "scale-95 opacity-0" : ""}`}
+            } ${isTransitioning ? "scale-98 opacity-0" : ""}`}
             onClick={() => handleSelect("oneEvent")}
             onMouseEnter={() => setHoveredSite("oneEvent")}
             onMouseLeave={() => setHoveredSite(null)}

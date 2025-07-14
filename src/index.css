@@ -119,11 +119,11 @@
 
 /* Animation utilities */
 .fade-in {
-  animation: fadeIn 0.5s ease-in forwards;
+  animation: fadeIn 0.3s ease-out forwards;
 }
 
 .slide-up {
-  animation: slideUp 0.7s ease-out forwards;
+  animation: slideUp 0.4s ease-out forwards;
 }
 
 @keyframes fadeIn {
@@ -136,13 +136,27 @@
   to { transform: translateY(0); opacity: 1; }
 }
 
+/* Optimized animations with GPU acceleration */
+.optimized-transition {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+}
+
+.smooth-transform {
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
 /* Image hover effects */
 .image-zoom {
   overflow: hidden;
+  will-change: transform;
 }
 
 .image-zoom img {
-  transition: transform 0.5s ease;
+  transition: transform 0.3s ease-out;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
 }
 
 .image-zoom:hover img {
@@ -151,5 +165,5 @@
 
 /* Theme transition for all elements */
 * {
-  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  transition: background-color 0.2s ease-out, color 0.2s ease-out, border-color 0.2s ease-out;
 }
