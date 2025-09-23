@@ -1,7 +1,7 @@
-import React from 'react';
-import { Music, Users, Brain, PartyPopper } from 'lucide-react';
-import { supabase, Service } from '../../lib/supabase';
-import { useInView } from '../../hooks/useInView';
+import React from "react";
+import { Music, Users, Brain, PartyPopper } from "lucide-react";
+import { supabase, Service } from "../../lib/supabase";
+import { useInView } from "../../hooks/useInView";
 
 const Services: React.FC = () => {
   const [services, setServices] = React.useState<Service[]>([]);
@@ -11,18 +11,18 @@ const Services: React.FC = () => {
   React.useEffect(() => {
     const loadServices = async () => {
       if (!supabase) return;
-      
+
       try {
         const { data } = await supabase
-          .from('services')
-          .select('*')
-          .order('order_index', { ascending: true });
-        
+          .from("services")
+          .select("*")
+          .order("order_index", { ascending: true });
+
         if (data) {
           setServices(data);
         }
       } catch (error) {
-        console.error('Error loading services:', error);
+        console.error("Error loading services:", error);
       }
     };
 
@@ -32,48 +32,60 @@ const Services: React.FC = () => {
   // Fallback data if Supabase not configured
   const defaultServices = [
     {
-      id: '1',
+      id: "1",
       title: "Ateliers de Percussion",
-      description: "Cercles de tambours interactifs et ateliers de rythme pour tous niveaux",
+      description:
+        "Cercles de tambours interactifs et ateliers de rythme pour tous niveaux",
       icon: "Music",
+      image: "/OneEvent/OneEvent_Marco.jpg",
       order_index: 1,
-      created_at: new Date().toISOString()
+      created_at: new Date().toISOString(),
     },
     {
-      id: '2',
+      id: "2",
       title: "Quiz Musical & Blind Tests",
       description: "Défis musicaux captivants et compétitions thématiques",
       icon: "Brain",
+      image: "/OneEvent/OneEvent_Marco_Microphone.jpg",
       order_index: 2,
-      created_at: new Date().toISOString()
+      created_at: new Date().toISOString(),
     },
     {
-      id: '3',
+      id: "3",
       title: "Team Building",
-      description: "Activités rythmiques pour événements d'entreprise et cohésion d'équipe",
+      description:
+        "Activités rythmiques pour événements d'entreprise et cohésion d'équipe",
       icon: "Users",
+      image: "/OneEvent/Marco_OneEvent_Animation.jpg",
       order_index: 3,
-      created_at: new Date().toISOString()
+      created_at: new Date().toISOString(),
     },
     {
-      id: '4',
+      id: "4",
       title: "Animation d'Événements",
-      description: "Divertissement professionnel pour fêtes privées et événements d'entreprise",
+      description:
+        "Divertissement professionnel pour fêtes privées et événements d'entreprise",
       icon: "PartyPopper",
+      image: "/OneEvent/OneEvent_Marco_Animation.jpg",
       order_index: 4,
-      created_at: new Date().toISOString()
-    }
+      created_at: new Date().toISOString(),
+    },
   ];
 
   const servicesToShow = services.length > 0 ? services : defaultServices;
 
   const getIcon = (iconName: string) => {
     switch (iconName) {
-      case 'Music': return Music;
-      case 'Brain': return Brain;
-      case 'Users': return Users;
-      case 'PartyPopper': return PartyPopper;
-      default: return Music;
+      case "Music":
+        return Music;
+      case "Brain":
+        return Brain;
+      case "Users":
+        return Users;
+      case "PartyPopper":
+        return PartyPopper;
+      default:
+        return Music;
     }
   };
 
@@ -85,24 +97,50 @@ const Services: React.FC = () => {
           <span className="absolute -bottom-2 left-0 w-1/2 h-1 bg-primary"></span>
         </h2>
         <p className="text-text-secondary mb-12 max-w-2xl">
-          Des ateliers interactifs aux animations engageantes, nous créons des expériences mémorables pour toutes les occasions.
+          Des ateliers interactifs aux animations engageantes, nous créons des
+          expériences mémorables pour toutes les occasions.
         </p>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid md:grid-cols-2 gap-8">
           {servicesToShow.map((service, index) => {
             const IconComponent = getIcon(service.icon);
             return (
-            <div 
-              key={service.id || index}
-              className={`bg-background p-6 rounded-lg optimized-transition transition-all duration-500 delay-${Math.min(index * 100, 400)} ${
-                isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
-              }`}
-            >
-              <IconComponent className="text-primary mb-4" size={32} />
-              <h3 className="text-xl font-semibold mb-2">{service.title}</h3>
-              <p className="text-text-secondary">{service.description}</p>
-            </div>
-          );
+              <div
+                key={service.id || index}
+                className={`relative overflow-hidden rounded-lg group cursor-pointer optimized-transition transition-all duration-500 delay-${Math.min(
+                  index * 100,
+                  400
+                )} ${
+                  isInView
+                    ? "opacity-100 translate-y-0"
+                    : "opacity-0 translate-y-6"
+                }`}
+              >
+                {/* Image de fond */}
+                <div className="relative h-80 overflow-hidden">
+                  <img
+                    src={service.image || "/OneEvent/OneEvent_Marco.jpg"}
+                    alt={service.title}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                  {/* Overlay gradient */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+
+                  {/* Contenu en bas */}
+                  <div className="absolute bottom-0 left-0 right-0 p-6">
+                    <h3 className="text-2xl font-bold text-white mb-3">
+                      {service.title}
+                    </h3>
+                    <p className="text-gray-200 text-sm leading-relaxed">
+                      {service.description}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Effet hover */}
+                <div className="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              </div>
+            );
           })}
         </div>
       </div>

@@ -1,5 +1,5 @@
-import React from 'react';
-import { Instagram, Facebook, Youtube, Twitter } from 'lucide-react';
+import React from "react";
+import { Instagram, Facebook, Phone } from "lucide-react";
 
 const SocialSidebar: React.FC = () => {
   return (
@@ -10,28 +10,31 @@ const SocialSidebar: React.FC = () => {
           className="w-10 h-10 rounded-full bg-background flex items-center justify-center hover:bg-primary hover:text-background transition-all duration-300 group"
           aria-label="Instagram"
         >
-          <Instagram size={18} className="group-hover:scale-110 transition-transform" />
+          <Instagram
+            size={18}
+            className="group-hover:scale-110 transition-transform"
+          />
         </a>
         <a
           href="#"
           className="w-10 h-10 rounded-full bg-background flex items-center justify-center hover:bg-primary hover:text-background transition-all duration-300 group"
           aria-label="Facebook"
         >
-          <Facebook size={18} className="group-hover:scale-110 transition-transform" />
+          <Facebook
+            size={18}
+            className="group-hover:scale-110 transition-transform"
+          />
         </a>
+
         <a
-          href="#"
-          className="w-10 h-10 rounded-full bg-background flex items-center justify-center hover:bg-primary hover:text-background transition-all duration-300 group"
-          aria-label="YouTube"
+          href="tel:+33123456789"
+          className="phone-cta w-10 h-10 rounded-full bg-background hover:bg-primary flex items-center justify-center text-primary hover:text-background transition-all duration-300 group border border-primary"
+          aria-label="Téléphone"
         >
-          <Youtube size={18} className="group-hover:scale-110 transition-transform" />
-        </a>
-        <a
-          href="#"
-          className="w-10 h-10 rounded-full bg-background flex items-center justify-center hover:bg-primary hover:text-background transition-all duration-300 group"
-          aria-label="Twitter"
-        >
-          <Twitter size={18} className="group-hover:scale-110 transition-transform" />
+          <Phone
+            size={18}
+            className="group-hover:scale-110 transition-transform"
+          />
         </a>
       </div>
     </div>

@@ -45,6 +45,9 @@ export interface GalleryItem {
   caption: string;
   order_index: number;
   created_at: string;
+  source?: 'manual' | 'instagram' | 'facebook';
+  external_id?: string;
+  permalink?: string;
 }
 
 export interface MusicTrack {

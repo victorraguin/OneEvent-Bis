@@ -4,28 +4,28 @@
 
 :root {
   /* Dark theme (default) */
-  --color-primary: #E9724C;
-  --color-secondary: #5B8E4F;
-  --color-accent: #FFA07A;
-  --color-success: #68A357;
-  --color-warning: #FFB347;
-  --color-error: #FF6B6B;
+  --color-primary: #e9724c;
+  --color-secondary: #5b8e4f;
+  --color-accent: #ffa07a;
+  --color-success: #68a357;
+  --color-warning: #ffb347;
+  --color-error: #ff6b6b;
   --color-background: #121212;
-  --color-surface: #1E1E1E;
-  --color-text-primary: #F5F5F5;
-  --color-text-secondary: #CCCCCC;
+  --color-surface: #1e1e1e;
+  --color-text-primary: #f5f5f5;
+  --color-text-secondary: #cccccc;
 }
 
 [data-theme="light"] {
   /* Light theme */
-  --color-primary: #E9724C;
-  --color-secondary: #5B8E4F;
-  --color-accent: #FF8A65;
-  --color-success: #4CAF50;
-  --color-warning: #FF9800;
-  --color-error: #F44336;
-  --color-background: #FFFFFF;
-  --color-surface: #F8F9FA;
+  --color-primary: #e9724c;
+  --color-secondary: #5b8e4f;
+  --color-accent: #ff8a65;
+  --color-success: #4caf50;
+  --color-warning: #ff9800;
+  --color-error: #f44336;
+  --color-background: #ffffff;
+  --color-surface: #f8f9fa;
   --color-text-primary: #212121;
   --color-text-secondary: #666666;
 }
@@ -35,14 +35,19 @@
     @apply scroll-smooth;
     transition: background-color 0.3s ease, color 0.3s ease;
   }
-  
+
   body {
     @apply bg-background text-text-primary font-body;
     overflow-x: hidden;
     transition: background-color 0.3s ease, color 0.3s ease;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply font-display font-bold;
     line-height: 1.2;
   }
@@ -88,15 +93,18 @@
   /* Theme-aware components */
   .surface-elevated {
     @apply bg-surface;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+      0 2px 4px -1px rgba(0, 0, 0, 0.06);
   }
 
   [data-theme="light"] .surface-elevated {
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+      0 2px 4px -1px rgba(0, 0, 0, 0.06);
   }
 
   [data-theme="dark"] .surface-elevated {
-    box-shadow: 0 4px 6px -1px rgba(255, 255, 255, 0.05), 0 2px 4px -1px rgba(255, 255, 255, 0.03);
+    box-shadow: 0 4px 6px -1px rgba(255, 255, 255, 0.05),
+      0 2px 4px -1px rgba(255, 255, 255, 0.03);
   }
 }
 
@@ -127,13 +135,23 @@
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes slideUp {
-  from { transform: translateY(30px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 /* Optimized animations with GPU acceleration */
@@ -163,7 +181,99 @@
   transform: scale(1.05);
 }
 
+/* Animated phone CTA - pour petits boutons ronds */
+.phone-cta {
+  position: relative;
+  overflow: visible;
+  isolation: isolate;
+}
+
+.phone-cta::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  border-radius: inherit;
+  background: conic-gradient(
+    from 0deg,
+    transparent,
+    var(--color-primary),
+    var(--color-primary),
+    transparent
+  );
+  animation: spin 2s linear infinite;
+  z-index: -2;
+}
+
+.phone-cta::after {
+  content: "";
+  position: absolute;
+  top: -0.5px;
+  left: -0.5px;
+  right: -0.5px;
+  bottom: -0.5px;
+  border-radius: inherit;
+  background: var(--color-background);
+  z-index: -1;
+}
+
+/* Phone CTA Contact - sans animation pour gros boutons */
+.phone-cta-contact {
+  position: relative;
+}
+
+/* Version mobile optimisée pour petits boutons */
+@media (max-width: 768px) {
+  .phone-cta::before {
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    animation-duration: 3s; /* Plus lent sur mobile pour économiser la batterie */
+  }
+
+  .phone-cta {
+    /* Éviter les problèmes de débordement sur mobile */
+    contain: layout;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 /* Theme transition for all elements */
 * {
-  transition: background-color 0.2s ease-out, color 0.2s ease-out, border-color 0.2s ease-out;
+  transition: background-color 0.2s ease-out, color 0.2s ease-out,
+    border-color 0.2s ease-out;
+}
+
+/* Hide scrollbar for gallery carousel */
+.scrollbar-hide {
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
+
+/* Smooth scrolling for gallery */
+.gallery-scroll {
+  scroll-behavior: smooth;
+}
+
+/* Text truncation utilities */
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }

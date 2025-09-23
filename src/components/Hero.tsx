@@ -17,7 +17,7 @@ const Hero: React.FC = () => {
         backgroundPosition: "center",
       }}
     >
-      <div className="absolute inset-0 bg-black/60 z-0"></div>
+      <div className="absolute inset-0 bg-black/40 z-0"></div>
 
       <div
         className={`container-custom relative z-10 text-center ${

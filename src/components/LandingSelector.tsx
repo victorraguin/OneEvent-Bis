@@ -24,7 +24,7 @@ const LandingSelector: React.FC<LandingSelectorProps> = ({ onSelect }) => {
         <div className="absolute top-6 right-6 z-10">
           <ThemeToggle />
         </div>
-        
+
         <div className="flex-1 flex flex-col md:flex-row">
           {/* Wassa Percussion */}
           <div
@@ -56,7 +56,7 @@ const LandingSelector: React.FC<LandingSelectorProps> = ({ onSelect }) => {
             </div>
           </div>
 
-          {/* One Event */}
+          {/* Wan'Events */}
           <div
             className={`relative w-full md:w-1/2 h-[50vh] md:h-screen cursor-pointer group optimized-transition transition-all duration-500 ${
               hoveredSite === "wassa"
@@ -71,13 +71,13 @@ const LandingSelector: React.FC<LandingSelectorProps> = ({ onSelect }) => {
           >
             <img
               src="/OneEvent/OneEvent_Marco.jpg"
-              alt="One Event"
+              alt="Wan'Events"
               className="w-full h-full object-cover brightness-50 group-hover:brightness-75 transition-all duration-500"
             />
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="text-center transform transition-transform duration-500 group-hover:scale-110">
                 <h1 className="text-4xl md:text-6xl font-display text-white mb-4">
-                  WAN'EVENT
+                  Wan'Events
                 </h1>
                 <p className="text-lg text-text-secondary">
                   Vivez des Expériences Événementielles Uniques
@@ -89,6 +89,6 @@ const LandingSelector: React.FC<LandingSelectorProps> = ({ onSelect }) => {
       </div>
     </ThemeProvider>
   );
-}
+};
 
 export default LandingSelector;

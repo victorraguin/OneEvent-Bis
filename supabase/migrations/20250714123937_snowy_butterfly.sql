@@ -2,12 +2,12 @@
   # Add sample data for all tables
 
   1. Sample Data Added
-    - Events: Sample events for both Wassa and Wan'Event
+    - Events: Sample events for both Wassa and One Event
     - Gallery: Sample images and videos for both sites
     - Music: Sample music tracks for Wassa
     - Ensemble: Sample team members for Wassa
-    - Services: Sample services for Wan'Event
-    - Partners: Sample partners for Wan'Event
+    - Services: Sample services for One Event
+    - Partners: Sample partners for One Event
 
   2. Data Structure
     - All tables populated with realistic sample data
