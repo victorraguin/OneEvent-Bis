@@ -10,6 +10,8 @@ const Gallery: React.FC = () => {
   const [isHovered, setIsHovered] = useState(false);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
   const sectionRef = useRef<HTMLElement>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(sectionRef, { threshold: 0.1 });
@@ -198,6 +200,31 @@ const Gallery: React.FC = () => {
       return () => document.removeEventListener("keydown", handleKeyDown);
     }
   }, [selectedItem, selectedItemIndex, itemsToShow]);
+
+  // Touch handlers for swipe navigation
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > 50;
+    const isRightSwipe = distance < -50;
+
+    if (isLeftSwipe && selectedItem) {
+      goToNext();
+    }
+    if (isRightSwipe && selectedItem) {
+      goToPrevious();
+    }
+  };
 
   const updateScrollButtons = () => {
     if (scrollContainerRef.current) {
@@ -394,7 +421,12 @@ const Gallery: React.FC = () => {
 
       {/* Modal */}
       {selectedItem && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4">
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4"
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+        >
           <button
             className="absolute top-4 right-4 text-white hover:text-primary z-10"
             onClick={closeModal}
