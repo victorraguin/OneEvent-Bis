@@ -12,12 +12,12 @@ const Hero: React.FC = () => {
     <section
       className="relative h-screen flex items-center justify-center"
       style={{
-        backgroundImage: "url('WassaPercussion/Wassa_Percussion4.jpg')",
+        backgroundImage: "url('WassaPercussion/Wassa_Percussion.jpg')",
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
     >
-      <div className="absolute inset-0 bg-black/40 z-0"></div>
+      <div className="absolute inset-0 bg-black/60 z-0"></div>
 
       <div
         className={`container-custom relative z-10 text-center ${
@@ -25,7 +25,7 @@ const Hero: React.FC = () => {
         }`}
       >
         <h1 className="text-5xl md:text-7xl lg:text-8xl font-display mb-6 text-white">
-          <span className="block">WASSA</span>
+          <span className="block">Wassa</span>
           <span className="text-primary text-3xl md:text-4xl lg:text-5xl mt-2 block">
             PERCUSSION
           </span>

@@ -1,10 +1,11 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Play, X, ChevronLeft, ChevronRight } from "lucide-react";
 import { supabase, GalleryItem } from "../lib/supabase";
 import { useInView } from "../hooks/useInView";
 
 const Gallery: React.FC = () => {
   const [selectedItem, setSelectedItem] = useState<GalleryItem | null>(null);
+  const [selectedItemIndex, setSelectedItemIndex] = useState<number>(0);
   const [galleryItems, setGalleryItems] = useState<GalleryItem[]>([]);
   const [isHovered, setIsHovered] = useState(false);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
@@ -42,7 +43,7 @@ const Gallery: React.FC = () => {
       site: "wassa",
       type: "image",
       src: "/WassaPercussion/Wassa_Percussion.jpg",
-      caption: "Wassa Percussion Live au Festival Global Rhythms",
+      caption: "Wassa Percussion – performance en live",
       order_index: 1,
       created_at: new Date().toISOString(),
     },
@@ -52,7 +53,7 @@ const Gallery: React.FC = () => {
       type: "video",
       src: "https://player.vimeo.com/video/367752291",
       thumbnail: "/WassaPercussion/Wassa_Percussion1.jpg",
-      caption: "Performance Traditionnelle de Djembé",
+      caption: "Performance traditionnelle de djembé",
       order_index: 2,
       created_at: new Date().toISOString(),
     },
@@ -61,7 +62,7 @@ const Gallery: React.FC = () => {
       site: "wassa",
       type: "image",
       src: "/WassaPercussion/Wassa_Percussion2.jpg",
-      caption: "Atelier Communautaire à Dakar",
+      caption: "Atelier communautaire",
       order_index: 3,
       created_at: new Date().toISOString(),
     },
@@ -70,7 +71,7 @@ const Gallery: React.FC = () => {
       site: "wassa",
       type: "image",
       src: "/WassaPercussion/Wassa_Percussion3.jpg",
-      caption: "Programme d'Échange Culturel",
+      caption: "Programme d'échange culturel",
       order_index: 4,
       created_at: new Date().toISOString(),
     },
@@ -89,8 +90,53 @@ const Gallery: React.FC = () => {
       site: "wassa",
       type: "image",
       src: "/WassaPercussion/Wassa_Percussion5.jpg",
-      caption: "Performance Festival",
+      caption: "Performance en festival",
       order_index: 6,
+      created_at: new Date().toISOString(),
+    },
+    {
+      id: "7",
+      site: "wassa",
+      type: "image",
+      src: "/WassaPercussion/Wassa_Percussion_Djembe.jpg",
+      caption: "Solo de djembé",
+      order_index: 7,
+      created_at: new Date().toISOString(),
+    },
+    {
+      id: "8",
+      site: "wassa",
+      type: "image",
+      src: "/WassaPercussion/Wassa_Percussion_Groupe.jpg",
+      caption: "Le groupe Wassa Percussion",
+      order_index: 8,
+      created_at: new Date().toISOString(),
+    },
+    {
+      id: "9",
+      site: "wassa",
+      type: "image",
+      src: "/WassaPercussion/Wassa_Percussion_Initiation.jpg",
+      caption: "Initiation percussions",
+      order_index: 9,
+      created_at: new Date().toISOString(),
+    },
+    {
+      id: "10",
+      site: "wassa",
+      type: "image",
+      src: "/WassaPercussion/Wassa_Percussion_Initiation_2.jpg",
+      caption: "Atelier d'initiation",
+      order_index: 10,
+      created_at: new Date().toISOString(),
+    },
+    {
+      id: "11",
+      site: "wassa",
+      type: "image",
+      src: "/WassaPercussion/Wassa_Percussion_Moutier.jpg",
+      caption: "Concert à Moutier",
+      order_index: 11,
       created_at: new Date().toISOString(),
     },
   ];
@@ -98,8 +144,16 @@ const Gallery: React.FC = () => {
   const itemsToShow =
     galleryItems.length > 0 ? galleryItems : defaultGalleryItems;
 
-  const openModal = (item: GalleryItem) => {
+  const openModal = (item: GalleryItem, index?: number) => {
     setSelectedItem(item);
+    const itemIndex =
+      index ??
+      itemsToShow.findIndex(
+        (i) =>
+          i.id === item.id ||
+          itemsToShow.indexOf(i) === itemsToShow.indexOf(item)
+      );
+    setSelectedItemIndex(itemIndex);
     document.body.style.overflow = "hidden";
   };
 
@@ -107,6 +161,43 @@ const Gallery: React.FC = () => {
     setSelectedItem(null);
     document.body.style.overflow = "auto";
   };
+
+  const goToPrevious = () => {
+    const newIndex =
+      selectedItemIndex > 0 ? selectedItemIndex - 1 : itemsToShow.length - 1;
+    setSelectedItemIndex(newIndex);
+    setSelectedItem(itemsToShow[newIndex]);
+  };
+
+  const goToNext = () => {
+    const newIndex =
+      selectedItemIndex < itemsToShow.length - 1 ? selectedItemIndex + 1 : 0;
+    setSelectedItemIndex(newIndex);
+    setSelectedItem(itemsToShow[newIndex]);
+  };
+
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (!selectedItem) return;
+
+      if (event.key === "ArrowLeft") {
+        event.preventDefault();
+        goToPrevious();
+      } else if (event.key === "ArrowRight") {
+        event.preventDefault();
+        goToNext();
+      } else if (event.key === "Escape") {
+        event.preventDefault();
+        closeModal();
+      }
+    };
+
+    if (selectedItem) {
+      document.addEventListener("keydown", handleKeyDown);
+      return () => document.removeEventListener("keydown", handleKeyDown);
+    }
+  }, [selectedItem, selectedItemIndex, itemsToShow]);
 
   const updateScrollButtons = () => {
     if (scrollContainerRef.current) {
@@ -184,7 +275,7 @@ const Gallery: React.FC = () => {
         } else {
           container.scrollBy({ left: scrollAmount, behavior: "smooth" });
         }
-      }, 4000); // Scroll every 4 seconds
+      }, 2000); // Scroll every 2 seconds
 
       return () => clearInterval(interval);
     }
@@ -238,7 +329,7 @@ const Gallery: React.FC = () => {
                     ? "opacity-100 translate-y-0"
                     : "opacity-0 translate-y-6"
                 }`}
-                onClick={() => openModal(item)}
+                onClick={() => openModal(item, index)}
               >
                 <div className="relative group image-zoom">
                   <img
@@ -274,7 +365,7 @@ const Gallery: React.FC = () => {
                     ? "opacity-100 translate-y-0"
                     : "opacity-0 translate-y-6"
                 }`}
-                onClick={() => openModal(item)}
+                onClick={() => openModal(item, index)}
               >
                 <div className="relative group image-zoom">
                   <img
@@ -312,6 +403,26 @@ const Gallery: React.FC = () => {
             <X size={32} />
           </button>
 
+          {/* Navigation buttons */}
+          {itemsToShow.length > 1 && (
+            <>
+              <button
+                className="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-black/60 hover:bg-primary text-white flex items-center justify-center transition-all duration-300 hover:scale-110"
+                onClick={goToPrevious}
+                aria-label="Image précédente"
+              >
+                <ChevronLeft size={24} />
+              </button>
+              <button
+                className="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-black/60 hover:bg-primary text-white flex items-center justify-center transition-all duration-300 hover:scale-110"
+                onClick={goToNext}
+                aria-label="Image suivante"
+              >
+                <ChevronRight size={24} />
+              </button>
+            </>
+          )}
+
           <div className="max-w-5xl w-full max-h-screen overflow-auto">
             {selectedItem.type === "image" ? (
               <img
@@ -330,9 +441,12 @@ const Gallery: React.FC = () => {
                 ></iframe>
               </div>
             )}
-            <p className="text-white text-center mt-4">
-              {selectedItem.caption}
-            </p>
+            <div className="text-center mt-4">
+              <p className="text-white mb-2">{selectedItem.caption}</p>
+              <p className="text-gray-400 text-sm">
+                {selectedItemIndex + 1} / {itemsToShow.length}
+              </p>
+            </div>
           </div>
         </div>
       )}

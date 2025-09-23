@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Menu, X, Phone } from "lucide-react";
-import ThemeToggle from "./ThemeToggle";
 
 interface NavbarProps {
   currentSite: "wassa" | "oneEvent";
@@ -31,16 +30,16 @@ const Navbar: React.FC<NavbarProps> = ({ currentSite, onSiteChange }) => {
   const navLinks =
     currentSite === "wassa"
       ? [
-          { href: "#about", label: "À Propos" },
-          { href: "#gallery", label: "Galerie" },
           { href: "#prestations", label: "Prestations" },
+          { href: "#gallery", label: "Galerie" },
+          { href: "#about", label: "À Propos" },
           { href: "#music", label: "Musique" },
           { href: "#contact", label: "Contact" },
         ]
       : [
           { href: "#services", label: "Services" },
-          { href: "#about", label: "À Propos de Marco" },
           { href: "#gallery", label: "Galerie" },
+          { href: "#about", label: "À Propos de Marco Douka" },
           { href: "#testimonials", label: "Témoignages" },
           { href: "#contact", label: "Contact" },
         ];
@@ -58,7 +57,7 @@ const Navbar: React.FC<NavbarProps> = ({ currentSite, onSiteChange }) => {
           href="#"
           className="text-2xl font-display text-primary tracking-wider"
         >
-          {currentSite === "wassa" ? "WASSA" : "Wan'Events"}
+          {currentSite === "wassa" ? "Wassa Percussion" : "Wan'Events"}
         </a>
 
         {/* Desktop Navigation */}
@@ -79,7 +78,8 @@ const Navbar: React.FC<NavbarProps> = ({ currentSite, onSiteChange }) => {
                 onClick={handleSiteSwitch}
                 className="text-primary hover:text-primary/80 transition-colors"
               >
-                Voir {currentSite === "wassa" ? "Wan'Events" : "Wassa"}
+                Voir{" "}
+                {currentSite === "wassa" ? "Wan'Events" : "Wassa Percussion"}
               </button>
             </li>
           </ul>
@@ -95,7 +95,6 @@ const Navbar: React.FC<NavbarProps> = ({ currentSite, onSiteChange }) => {
                 className="group-hover:scale-110 transition-transform"
               />
             </a>
-            <ThemeToggle />
           </div>
         </div>
 
@@ -113,11 +112,13 @@ const Navbar: React.FC<NavbarProps> = ({ currentSite, onSiteChange }) => {
             onClick={handleSiteSwitch}
             className="px-3 h-10 rounded-full bg-background hover:bg-primary text-primary hover:text-background transition-all duration-300 border border-primary text-xs"
             aria-label={`Voir ${
-              currentSite === "wassa" ? "Wan'Events" : "Wassa"
+              currentSite === "wassa" ? "Wan'Events" : "Wassa Percussion"
             }`}
-            title={`Voir ${currentSite === "wassa" ? "Wan'Events" : "Wassa"}`}
+            title={`Voir ${
+              currentSite === "wassa" ? "Wan'Events" : "Wassa Percussion"
+            }`}
           >
-            {currentSite === "wassa" ? "Wan'Events" : "Wassa"}
+            {currentSite === "wassa" ? "Wan'Events" : "Wassa Percussion"}
           </button>
           <button
             className="text-text-primary"
@@ -156,16 +157,11 @@ const Navbar: React.FC<NavbarProps> = ({ currentSite, onSiteChange }) => {
                 }}
                 className="block py-3 text-primary hover:text-primary/80 transition-colors text-left w-full"
               >
-                Voir {currentSite === "wassa" ? "Wan'Events" : "Wassa"}
+                Voir{" "}
+                {currentSite === "wassa" ? "Wan'Events" : "Wassa Percussion"}
               </button>
             </li>
           </ul>
-          <div className="flex justify-center mt-8 pt-6 border-t border-gray-600">
-            <div className="flex items-center gap-4">
-              <span className="text-text-secondary">Thème:</span>
-              <ThemeToggle />
-            </div>
-          </div>
         </div>
       </div>
     </nav>

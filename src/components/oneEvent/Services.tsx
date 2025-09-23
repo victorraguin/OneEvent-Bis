@@ -1,5 +1,5 @@
 import React from "react";
-import { Music, Users, Brain, PartyPopper } from "lucide-react";
+import { Music, Users, Brain, PartyPopper, Mic } from "lucide-react";
 import { supabase, Service } from "../../lib/supabase";
 import { useInView } from "../../hooks/useInView";
 
@@ -33,41 +33,52 @@ const Services: React.FC = () => {
   const defaultServices = [
     {
       id: "1",
-      title: "Ateliers de Percussion",
+      title: "Quiz & Blind Tests",
       description:
-        "Cercles de tambours interactifs et ateliers de rythme pour tous niveaux",
-      icon: "Music",
-      image: "/OneEvent/OneEvent_Marco.jpg",
+        "Quiz musicaux, blind tests et karaoké pour animer vos soirées et événements en Loire Atlantique (44)",
+      icon: "Brain",
+      image: "/OneEvent/OneEvent_Marco_Microphone.jpg",
       order_index: 1,
       created_at: new Date().toISOString(),
     },
     {
       id: "2",
-      title: "Quiz Musical & Blind Tests",
-      description: "Défis musicaux captivants et compétitions thématiques",
-      icon: "Brain",
-      image: "/OneEvent/OneEvent_Marco_Microphone.jpg",
+      title: "Karaoké",
+      description:
+        "Soirées karaoké animées par Marco Douka pour tous vos événements privés et professionnels",
+      icon: "Mic",
+      image: "/OneEvent/OneEvent_Marco_Animation.jpg",
       order_index: 2,
       created_at: new Date().toISOString(),
     },
     {
       id: "3",
-      title: "Team Building",
+      title: "Cours de Percussion",
       description:
-        "Activités rythmiques pour événements d'entreprise et cohésion d'équipe",
-      icon: "Users",
-      image: "/OneEvent/Marco_OneEvent_Animation.jpg",
+        "Ateliers et cours de percussion en équipe pour le team building d'entreprise à Pornic et région",
+      icon: "Music",
+      image: "/OneEvent/OneEvent_Marco.jpg",
       order_index: 3,
       created_at: new Date().toISOString(),
     },
     {
       id: "4",
-      title: "Animation d'Événements",
+      title: "Team Building Percussion",
       description:
-        "Divertissement professionnel pour fêtes privées et événements d'entreprise",
-      icon: "PartyPopper",
-      image: "/OneEvent/OneEvent_Marco_Animation.jpg",
+        "Activités rythmiques pour renforcer la cohésion d'équipe dans vos entreprises (Bretagne, Vendée)",
+      icon: "Users",
+      image: "/OneEvent/Marco_OneEvent_Animation.jpg",
       order_index: 4,
+      created_at: new Date().toISOString(),
+    },
+    {
+      id: "5",
+      title: "Animation & Maître de Cérémonie",
+      description:
+        "Animation professionnelle et maître de cérémonie pour mariages, festivals et événements d'entreprise",
+      icon: "PartyPopper",
+      image: "/OneEvent/WanEvents_Marco_Foot_Animation.jpg",
+      order_index: 5,
       created_at: new Date().toISOString(),
     },
   ];
@@ -84,6 +95,8 @@ const Services: React.FC = () => {
         return Users;
       case "PartyPopper":
         return PartyPopper;
+      case "Mic":
+        return Mic;
       default:
         return Music;
     }
@@ -97,11 +110,12 @@ const Services: React.FC = () => {
           <span className="absolute -bottom-2 left-0 w-1/2 h-1 bg-primary"></span>
         </h2>
         <p className="text-text-secondary mb-12 max-w-2xl">
-          Des ateliers interactifs aux animations engageantes, nous créons des
-          expériences mémorables pour toutes les occasions.
+          Animation d'événements, quiz musicaux, karaoké et team building
+          percussion avec Marco Douka. Interventions en Loire Atlantique,
+          Bretagne et Vendée.
         </p>
 
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {servicesToShow.map((service, index) => {
             const IconComponent = getIcon(service.icon);
             return (

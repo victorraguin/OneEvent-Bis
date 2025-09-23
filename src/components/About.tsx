@@ -111,24 +111,49 @@ const About: React.FC = () => {
             isInView ? "opacity-100" : "opacity-0 translate-y-6"
           }`}
         >
-          <h3 className="text-center mb-12">Notre Ensemble</h3>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          <h3 className="text-primary mb-4 relative inline-block text-center w-full">
+            <span className="relative">
+              Notre Ensemble
+              <span className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-1/2 h-1 bg-primary"></span>
+            </span>
+          </h3>
+          <p className="text-text-secondary mb-12 text-center max-w-2xl mx-auto">
+            Découvrez les talentueux artistes qui donnent vie aux rythmes de
+            Wassa Percussion
+          </p>
+          <div className="grid grid-cols-2 gap-6">
             {membersToShow.map((member, index) => (
-              <div key={index} className="text-center">
-                <div className="rounded-full overflow-hidden w-40 h-40 mx-auto mb-4 image-zoom">
-                  <img
-                    src={
-                      member.image_url ||
-                      "/WassaPercussion/Wassa_Percussion1.jpg"
-                    }
-                    alt={member.name}
-                    className="w-full h-full object-cover"
-                  />
+              <div
+                key={index}
+                className="group relative bg-surface rounded-2xl p-4 text-center hover:bg-surface/80 transition-all duration-300 hover:scale-105 hover:shadow-xl border border-gray-800/50 hover:border-primary/30"
+              >
+                <div className="relative mb-6">
+                  <div className="rounded-full overflow-hidden w-32 h-32 sm:w-40 sm:h-40 mx-auto mb-4 image-zoom border-4 border-primary/20 group-hover:border-primary/60 transition-all duration-300">
+                    <img
+                      src={
+                        member.image_url ||
+                        "/WassaPercussion/Wassa_Percussion1.jpg"
+                      }
+                      alt={member.name}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                    />
+                  </div>
+                  <div className="absolute -top-2 -right-2 w-8 h-8 bg-primary rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <span className="text-background text-sm font-bold">
+                      {index + 1}
+                    </span>
+                  </div>
                 </div>
-                <h4 className="text-lg font-medium">{member.name}</h4>
-                <p className="text-text-secondary text-sm">{member.role}</p>
+                <h4 className="text-lg font-semibold mb-2 text-white group-hover:text-primary transition-colors">
+                  {member.name}
+                </h4>
+                <div className="inline-block px-3 py-1 bg-primary/20 rounded-full mb-3 group-hover:bg-primary/30 transition-colors duration-300">
+                  <p className="text-primary text-sm font-semibold">
+                    {member.role}
+                  </p>
+                </div>
                 {member.bio && (
-                  <p className="text-text-secondary text-xs mt-1">
+                  <p className="text-text-secondary text-xs leading-relaxed">
                     {member.bio}
                   </p>
                 )}

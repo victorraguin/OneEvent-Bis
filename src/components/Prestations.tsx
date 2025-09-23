@@ -7,22 +7,28 @@ const Prestations: React.FC = () => {
 
   const prestations = [
     {
-      title: "Performances Scéniques",
+      title: "Show Percussion",
       description:
-        "Shows percussifs énergétiques pour festivals, salles et événements culturels.",
+        "Spectacles de percussions africaines pour festivals, salles et événements culturels en Loire Atlantique, Bretagne et Vendée.",
       image: "/WassaPercussion/Wassa_Percussion3.jpg",
     },
     {
-      title: "Ateliers et Initiations",
+      title: "Cours Percussion",
       description:
-        "Découverte du djembé et des rythmes d’Afrique de l’Ouest pour tous publics.",
+        "Cours et initiations au djembé et aux rythmes d'Afrique de l'Ouest pour tous niveaux à Pornic (44).",
       image: "/WassaPercussion/Wassa_Percussion5.jpg",
     },
     {
-      title: "Animations d’Événements",
+      title: "Déambulation",
       description:
-        "Interventions sur-mesure pour mariages, entreprises et collectivités.",
-      image: "/WassaPercussion/Wassa_Percussion1.jpg",
+        "Animations percussives itinérantes pour vos événements, festivals et manifestations culturelles.",
+      image: "/WassaPercussion/Wassa_Percussion_Groupe.jpg",
+    },
+    {
+      title: "Réparation Djembés",
+      description:
+        "Service professionnel de réparation et maintenance de djembés et instruments de percussion africaine.",
+      image: "/WassaPercussion/Wassa_Percussion_Djembe.jpg",
     },
   ];
 
@@ -39,7 +45,7 @@ const Prestations: React.FC = () => {
             isInView ? "opacity-100" : "opacity-0 translate-y-6"
           }`}
         >
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {prestations.map((p, idx) => (
               <div
                 key={idx}

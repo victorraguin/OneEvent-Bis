@@ -613,7 +613,7 @@ const AdminDashboard: React.FC = () => {
                       : "text-text-secondary"
                   }`}
                 >
-                  Wassa
+                  Wassa Percussion
                 </button>
                 <button
                   onClick={() => setActiveSite("wanevent")}

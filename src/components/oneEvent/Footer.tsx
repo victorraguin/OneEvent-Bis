@@ -104,7 +104,8 @@ const Footer: React.FC = () => {
 
         <div className="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-text-secondary text-sm">
-            &copy; {currentYear} Wan'Events by Marco. Tous droits réservés.
+            &copy; {currentYear} Wan'Events by Marco Douka. Tous droits
+            réservés.
           </p>
           <div className="mt-4 md:mt-0">
             <div className="flex gap-4">

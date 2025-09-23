@@ -84,10 +84,12 @@ const WassaRadio: React.FC<WassaRadioProps> = ({ className = "", title }) => {
     <div
       className={`fixed bottom-4 right-4 z-40 bg-surface/90 backdrop-blur rounded-md border border-white/10 shadow-lg ${className}`}
       style={{ width: 320 }}
-      aria-label={title || "Radio Wassa"}
+      aria-label={title || "Radio Wassa Percussion"}
     >
       <div className="flex items-center justify-between px-3 py-2 border-b border-white/10">
-        <div className="text-sm font-medium">{title || "Radio Wassa"}</div>
+        <div className="text-sm font-medium">
+          {title || "Radio Wassa Percussion"}
+        </div>
         <div className="flex items-center gap-3">
           {embedInfo?.pageUrl ? (
             <a
@@ -122,7 +124,7 @@ const WassaRadio: React.FC<WassaRadioProps> = ({ className = "", title }) => {
       {!isCollapsed && (
         <div className="w-full aspect-video">
           <iframe
-            title="Radio Wassa"
+            title="Radio Wassa Percussion"
             className="w-full h-full rounded-b-md"
             ref={iframeRef}
             src={embedSrcWithApi || undefined}

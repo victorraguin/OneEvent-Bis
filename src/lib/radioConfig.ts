@@ -1,4 +1,4 @@
-// Configuration de la Radio Wassa (YouTube: playlist ou vidéo)
+// Configuration de la Radio Wassa Percussion (YouTube: playlist ou vidéo)
 // Vous pouvez fournir:
 // 1) un ID de playlist via VITE_WASSA_YT_PLAYLIST_ID (ex: PLxxxxxxxxxxxxxxxx)
 // 2) une URL de playlist via VITE_WASSA_YT_PLAYLIST_URL (ex: https://www.youtube.com/playlist?list=PLxxxxxxxxxxxxxxxx)

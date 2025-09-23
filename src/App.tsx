@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import {
   BrowserRouter as Router,
   Routes,
   Route,
   useLocation,
+  useNavigate,
 } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
@@ -21,33 +22,46 @@ import WassaRadio from "./components/WassaRadio";
 import LandingSelector from "./components/LandingSelector";
 import OneEvent from "./components/oneEvent";
 import SocialSidebar from "./components/SocialSidebar";
-import AdminLogin from "./components/admin/AdminLogin";
-import AdminDashboard from "./components/admin/AdminDashboard";
 
 function AppContent() {
   const location = useLocation();
+  const navigate = useNavigate();
   const [selectedSite, setSelectedSite] = useState<"wassa" | "oneEvent" | null>(
     null
   );
   const [isTransitioning, setIsTransitioning] = useState(false);
 
-  // Si on est sur une route admin, ne pas afficher le sélecteur
-  const isAdminRoute = location.pathname.startsWith("/admin");
-
   const handleSiteSelection = (site: "wassa" | "oneEvent") => {
     setIsTransitioning(true);
+    const targetPath = site === "wassa" ? "/wassa-percussion" : "/wan-events";
+
+    // Scroll vers le haut
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+
     setTimeout(() => {
-      setSelectedSite(site);
-      setTimeout(() => {
-        setIsTransitioning(false);
-      }, 50);
+      navigate(targetPath);
+      setIsTransitioning(false);
     }, 200);
   };
 
-  // Afficher le sélecteur seulement si pas de site sélectionné ET pas sur route admin
-  if (!selectedSite && !isAdminRoute) {
-    return <LandingSelector onSelect={handleSiteSelection} />;
-  }
+  // Pour les routes spécifiques, on passera la fonction de navigation via les props
+  const handleSiteChange = (site: "wassa" | "oneEvent") => {
+    const targetPath = site === "wassa" ? "/wassa-percussion" : "/wan-events";
+
+    // Scroll vers le haut avant de naviguer
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+
+    // Navigation avec un petit délai pour que le scroll commence
+    setTimeout(() => {
+      navigate(targetPath);
+    }, 100);
+  };
 
   return (
     <div
@@ -56,38 +70,68 @@ function AppContent() {
       }`}
     >
       <Routes>
-        <Route path="/admin" element={<AdminLogin />} />
-        <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        {/* Route principale avec sélecteur */}
         <Route
           path="/"
+          element={<LandingSelector onSelect={handleSiteSelection} />}
+        />
+
+        {/* Routes pour Wassa Percussion */}
+        <Route
+          path="/wassa"
           element={
             <>
-              {selectedSite && (
-                <>
-                  <Navbar
-                    currentSite={selectedSite}
-                    onSiteChange={handleSiteSelection}
-                  />
-                  <SocialSidebar />
-                  {selectedSite === "wassa" ? (
-                    <>
-                      <main>
-                        <Hero />
-                        <About />
-                        <Prestations />
-                        <Gallery />
-                        {/* Bloc Réservez côté Wassa avec photo Wassa */}
-                        <WassaBooking />
-                      </main>
-                      <Footer />
-                      {/* Mini lecteur Radio Wassa */}
-                      <WassaRadio />
-                    </>
-                  ) : (
-                    <OneEvent />
-                  )}
-                </>
-              )}
+              <Navbar currentSite="wassa" onSiteChange={handleSiteChange} />
+              <SocialSidebar />
+              <main>
+                <Hero />
+                <About />
+                <Prestations />
+                <Gallery />
+                <WassaBooking />
+              </main>
+              <Footer />
+              <WassaRadio />
+            </>
+          }
+        />
+        <Route
+          path="/wassa-percussion"
+          element={
+            <>
+              <Navbar currentSite="wassa" onSiteChange={handleSiteChange} />
+              <SocialSidebar />
+              <main>
+                <Hero />
+                <About />
+                <Prestations />
+                <Gallery />
+                <WassaBooking />
+              </main>
+              <Footer />
+              <WassaRadio />
+            </>
+          }
+        />
+
+        {/* Routes pour Wan'Events */}
+        <Route
+          path="/wanevents"
+          element={
+            <>
+              <Navbar currentSite="oneEvent" onSiteChange={handleSiteChange} />
+              <SocialSidebar />
+              <OneEvent />
+            </>
+          }
+        />
+        <Route
+          path="/wan-events"
+          element={
+            <>
+              <Navbar currentSite="oneEvent" onSiteChange={handleSiteChange} />
+              <SocialSidebar />
+              <OneEvent />
             </>
           }
         />

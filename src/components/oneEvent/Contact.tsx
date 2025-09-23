@@ -43,7 +43,7 @@ const Contact: React.FC = () => {
                     </span>
                   </div>
                   <h3 className="text-lg sm:text-xl font-light text-white mb-2 tracking-wide">
-                    Contactez Marco
+                    Contactez Marco Douka
                   </h3>
                 </div>
 
@@ -51,7 +51,7 @@ const Contact: React.FC = () => {
                 <div className="mb-6">
                   <a
                     href="tel:+33123456789"
-                    aria-label="Appeler Marco maintenant"
+                    aria-label="Appeler Marco Douka maintenant"
                     className="phone-cta-contact w-full flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 border border-primary bg-primary text-black hover:brightness-110 hover:border-primary px-4 py-3 sm:px-6 sm:py-4 rounded-lg font-medium text-sm sm:text-base backdrop-blur-sm transition-all duration-300 group shadow-lg shadow-black/30 hover:shadow-primary/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-900 active:scale-95"
                   >
                     <div className="flex items-center gap-2">
@@ -73,7 +73,7 @@ const Contact: React.FC = () => {
                 <div className="mb-6">
                   <a
                     href="mailto:marco@oneevent.com"
-                    aria-label="Envoyer un email à Marco"
+                    aria-label="Envoyer un email à Marco Douka"
                     className="w-full flex items-center justify-center gap-2 border border-gray-600/60 bg-gray-800/50 text-white hover:bg-primary/20 hover:border-primary/60 px-4 py-3 sm:px-6 sm:py-4 rounded-lg font-normal text-sm backdrop-blur-sm transition-all duration-300 group shadow-md shadow-black/20 hover:shadow-primary/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-900 active:scale-95"
                   >
                     <div className="p-1.5 bg-gray-600/30 group-hover:bg-primary/20 rounded-full transition-colors duration-300">
@@ -109,7 +109,7 @@ const Contact: React.FC = () => {
             <div className="relative bg-gradient-to-br from-primary/20 to-primary/5 p-8 rounded-2xl">
               <img
                 src="/OneEvent/OneEvent_Marco.jpg"
-                alt="Marco - Animateur OneEvent"
+                alt="Marco Douka - Animateur OneEvent"
                 className="w-full h-96 object-cover rounded-xl shadow-lg"
               />
               <div className="absolute -bottom-4 -right-4 bg-primary text-background p-4 rounded-xl shadow-lg">
@@ -132,7 +132,7 @@ const Contact: React.FC = () => {
                 ))}
               </div>
               <p className="text-sm text-text-secondary italic">
-                "Marco a transformé notre événement d'entreprise en moment
+                "Marco Douka a transformé notre événement d'entreprise en moment
                 magique !"
               </p>
               <div className="text-xs text-text-secondary mt-1">

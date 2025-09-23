@@ -1,28 +1,31 @@
-import React, { useState, useEffect } from 'react';
-import { Star } from 'lucide-react';
+import React, { useState, useEffect } from "react";
+import { Star } from "lucide-react";
 
 const testimonials = [
   {
     name: "Sophie Martin",
     company: "Tech Solutions",
-    content: "Une expérience incroyable pour notre équipe ! Marco a su créer une ambiance unique et fédératrice.",
+    content:
+      "Une expérience incroyable pour notre équipe ! Marco Douka a su créer une ambiance unique et fédératrice.",
     rating: 5,
-    image: "/OneEvent/testimonials/sophie.jpg"
+    image: "/OneEvent/testimonials/sophie.jpg",
   },
   {
     name: "Jean Dupont",
     company: "Startup Innovation",
-    content: "Le blind test organisé par Marco était parfaitement adapté à notre soirée d'entreprise. Un vrai succès !",
+    content:
+      "Le blind test organisé par Marco Douka était parfaitement adapté à notre soirée d'entreprise. Un vrai succès !",
     rating: 5,
-    image: "/OneEvent/testimonials/jean.jpg"
+    image: "/OneEvent/testimonials/jean.jpg",
   },
   {
     name: "Marie Lambert",
     company: "Creative Agency",
-    content: "Les ateliers de percussion ont apporté une nouvelle dimension à notre team building. Merci Marco !",
+    content:
+      "Les ateliers de percussion ont apporté une nouvelle dimension à notre team building. Merci Marco Douka !",
     rating: 5,
-    image: "/OneEvent/testimonials/marie.jpg"
-  }
+    image: "/OneEvent/testimonials/marie.jpg",
+  },
 ];
 
 const Testimonials: React.FC = () => {
@@ -45,15 +48,12 @@ const Testimonials: React.FC = () => {
         </h2>
         <div className="mt-12 relative">
           <div className="overflow-hidden">
-            <div 
+            <div
               className="flex transition-transform duration-500 ease-in-out"
               style={{ transform: `translateX(-${currentTestimonial * 100}%)` }}
             >
               {testimonials.map((testimonial, index) => (
-                <div
-                  key={index}
-                  className="w-full flex-shrink-0 px-4"
-                >
+                <div key={index} className="w-full flex-shrink-0 px-4">
                   <div className="bg-background p-8 rounded-lg max-w-2xl mx-auto">
                     <div className="flex gap-1 mb-4">
                       {[...Array(testimonial.rating)].map((_, i) => (
@@ -64,11 +64,15 @@ const Testimonials: React.FC = () => {
                         />
                       ))}
                     </div>
-                    <p className="text-text-secondary mb-6 text-lg italic">"{testimonial.content}"</p>
+                    <p className="text-text-secondary mb-6 text-lg italic">
+                      "{testimonial.content}"
+                    </p>
                     <div className="flex items-center gap-4">
                       <div>
                         <p className="font-semibold">{testimonial.name}</p>
-                        <p className="text-text-secondary text-sm">{testimonial.company}</p>
+                        <p className="text-text-secondary text-sm">
+                          {testimonial.company}
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -81,7 +85,7 @@ const Testimonials: React.FC = () => {
               <button
                 key={index}
                 className={`w-3 h-3 rounded-full transition-colors ${
-                  currentTestimonial === index ? 'bg-primary' : 'bg-gray-600'
+                  currentTestimonial === index ? "bg-primary" : "bg-gray-600"
                 }`}
                 onClick={() => setCurrentTestimonial(index)}
                 aria-label={`Voir le témoignage ${index + 1}`}

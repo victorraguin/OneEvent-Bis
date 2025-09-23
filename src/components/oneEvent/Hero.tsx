@@ -5,7 +5,7 @@ const Hero: React.FC = () => {
     <section
       className="relative h-screen flex items-center justify-center"
       style={{
-        backgroundImage: 'url("/OneEvent/Marco_OneEvent_Animation.jpg")',
+        backgroundImage: 'url("/OneEvent/WanEvents_Marco_Foot_Animation.jpg")',
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
