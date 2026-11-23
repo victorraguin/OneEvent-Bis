@@ -99,7 +99,7 @@ export function AppRoutes() {
             </>
           }
         />
-        {/* Anciennes adresses : redirigées (301 côté Vercel, voir vercel.json). */}
+        {/* Anciennes adresses : redirigées (redirection permanente côté Vercel, voir vercel.json). */}
         <Route path="/wassa" element={<Navigate to={ROUTES.wassa.path} replace />} />
         <Route path="/wanevents" element={<Navigate to={ROUTES.wanEvents.path} replace />} />
         <Route path="*" element={<NotFound />} />

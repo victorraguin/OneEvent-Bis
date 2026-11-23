@@ -56,7 +56,6 @@ for (const route of INDEXABLE_ROUTES) {
 }
 write("404.html", page(ROUTES.notFound, "/404"));
 
-const today = new Date().toISOString().slice(0, 10);
 write(
   "sitemap.xml",
   `<?xml version="1.0" encoding="UTF-8"?>
@@ -64,7 +63,6 @@ write(
 ${INDEXABLE_ROUTES.map(
   (r) => `  <url>
     <loc>${SITE_URL}${r.path === "/" ? "/" : r.path}</loc>
-    <lastmod>${today}</lastmod>
     <changefreq>${r.changefreq ?? "monthly"}</changefreq>
     <priority>${(r.priority ?? 0.5).toFixed(1)}</priority>
     <image:image><image:loc>${SITE_URL}${r.ogImage}</image:loc></image:image>
@@ -97,7 +95,7 @@ User-agent: *
 Allow: /
 Disallow: /admin
 
-${aiBots.map((b) => `User-agent: ${b}\nAllow: /`).join("\n\n")}
+${aiBots.map((b) => `User-agent: ${b}\nAllow: /\nDisallow: /admin`).join("\n\n")}
 
 Sitemap: ${SITE_URL}/sitemap.xml
 `
@@ -120,7 +118,7 @@ write(
 
 ## Zone d'intervention
 
-Basé à Pornic. Se déplace à : ${ALL_CITIES.join(", ")}, dans tout le Pays de Retz et la Loire-Atlantique. Vendée et sud de la Bretagne sur demande.
+Basé à Pornic. Se déplace à : ${ALL_CITIES.join(", ")}, dans tout le Pays de Retz et la Loire-Atlantique. Également en Vendée et en Bretagne.
 
 ## Wan'Events – questions fréquentes
 

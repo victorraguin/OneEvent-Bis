@@ -62,6 +62,10 @@ const Navbar: React.FC<NavbarProps> = ({ currentSite, onSiteChange }) => {
       <div className="container-custom flex justify-between items-center">
         <a
           href={currentSite === "wassa" ? ROUTES.wassa.path : ROUTES.wanEvents.path}
+          onClick={(e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          }}
           className="text-2xl font-display text-primary tracking-wider"
         >
           {currentSite === "wassa" ? "Wassa Percussion" : "Wan'Events"}

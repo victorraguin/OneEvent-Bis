@@ -20,5 +20,14 @@ export function useRouteMeta(route: RouteMeta) {
     setMeta('meta[property="og:url"]', "content", absoluteUrl(route.path));
     setMeta('meta[property="og:title"]', "content", route.title);
     setMeta('meta[property="og:description"]', "content", route.description);
+    setMeta('meta[property="og:image"]', "content", absoluteUrl(route.ogImage));
+    setMeta('meta[name="twitter:title"]', "content", route.title);
+    setMeta('meta[name="twitter:description"]', "content", route.description);
+    setMeta('meta[name="twitter:image"]', "content", absoluteUrl(route.ogImage));
+    setMeta(
+      'meta[name="robots"]',
+      "content",
+      route.noindex ? "noindex, follow" : "index, follow, max-image-preview:large, max-snippet:-1"
+    );
   }, [route]);
 }

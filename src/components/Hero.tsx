@@ -25,7 +25,7 @@ const Hero: React.FC = () => {
         }`}
       >
         <h1 className="text-5xl md:text-7xl lg:text-8xl font-display mb-6 text-white">
-          <span className="block">Wassa</span>
+          <span className="block">Wassa</span>{" "}
           <span className="text-primary text-3xl md:text-4xl lg:text-5xl mt-2 block">
             PERCUSSION
           </span>

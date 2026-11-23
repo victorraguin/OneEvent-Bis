@@ -52,8 +52,8 @@ const LandingSelector: React.FC<LandingSelectorProps> = ({ onSelect }) => {
         >
           <img
             src="/OneEvent/OneEvent_Marco.webp"
-            alt="Marco Douka, animateur Wan'Events, en animation de soirée"
-            fetchPriority="high"
+            alt="Marco Douka, animateur Wan'Events, en pleine animation"
+            {...{ fetchpriority: "high" }}
             className="w-full h-full object-cover brightness-50 group-hover:brightness-75 transition-all duration-500"
           />
           <div className="absolute inset-0 flex items-center justify-center">
@@ -85,7 +85,7 @@ const LandingSelector: React.FC<LandingSelectorProps> = ({ onSelect }) => {
           <img
             src="/WassaPercussion/Wassa_Percussion.webp"
             alt="Le groupe Wassa Percussion en concert de djembés"
-            fetchPriority="high"
+            {...{ fetchpriority: "high" }}
             className="w-full h-full object-cover brightness-50 group-hover:brightness-75 transition-all duration-500"
           />
           <div className="absolute inset-0 flex items-center justify-center">
@@ -108,7 +108,7 @@ const LandingSelector: React.FC<LandingSelectorProps> = ({ onSelect }) => {
           </h2>
           <p className="text-text-secondary text-lg mb-4">
             Basé à <strong>Pornic</strong>, Marco Douka anime vos mariages,
-            soirées d'entreprise, anniversaires et festivals avec{" "}
+            soirées d'entreprise et festivals avec{" "}
             <a href={ROUTES.wanEvents.path} onClick={handleSelect("oneEvent")} className="text-primary underline underline-offset-4">
               Wan'Events
             </a>{" "}

@@ -96,7 +96,7 @@ const Contact: React.FC = () => {
                       Basé à Pornic (44), Loire-Atlantique
                     </div>
                     <div className="text-xs text-gray-400 font-light">
-                      Interventions dans toute la France
+                      Pays de Retz, Saint-Nazaire, Nantes
                     </div>
                   </div>
                 </div>

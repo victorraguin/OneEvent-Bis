@@ -46,7 +46,7 @@ const Footer: React.FC = () => {
 
               <li>
                 <a
-                  href="#music"
+                  href="#faq"
                   className="text-text-secondary hover:text-primary transition-colors"
                 >
                   Musique
@@ -66,7 +66,7 @@ const Footer: React.FC = () => {
 
         <div className="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-text-secondary text-sm">
-            &copy; {currentYear} Wassa Percussion. Tous droits réservés.
+            &copy; <span suppressHydrationWarning>{currentYear}</span> Wassa Percussion. Tous droits réservés.
           </p>
           <div className="mt-4 md:mt-0">
             <ul className="flex gap-6 text-sm">

@@ -23,7 +23,7 @@ const OneEvent: React.FC = () => {
       <Testimonials />
       <ServiceArea
         brand="Wan'Events"
-        intro="Mariages, anniversaires, soirées d'entreprise, séminaires ou festivals : Marco Douka se déplace avec son matériel d'animation dans tout le sud de la Loire-Atlantique, de Pornic à Nantes."
+        intro="Mariages, anniversaires, soirées d'entreprise, séminaires ou festivals : Marco Douka intervient dans tout le sud de la Loire-Atlantique, de Pornic à Nantes."
       />
       <Faq items={WANEVENTS_FAQ} />
       <Contact />

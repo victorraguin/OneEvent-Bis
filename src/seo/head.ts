@@ -19,7 +19,7 @@ export function headTagsFor(route: RouteMeta): string {
       ? `<meta name="robots" content="noindex, follow" />`
       : `<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />`,
     route.noindex ? "" : `<link rel="canonical" href="${url}" />`,
-    `<link rel="alternate" hreflang="fr-FR" href="${url}" />`,
+    route.noindex ? "" : `<link rel="alternate" hreflang="fr-FR" href="${url}" />`,
     `<meta name="geo.region" content="FR-44" />`,
     `<meta name="geo.placename" content="Pornic" />`,
     `<meta property="og:locale" content="fr_FR" />`,

@@ -50,8 +50,7 @@ const ServiceArea: React.FC<ServiceAreaProps> = ({ brand, intro }) => (
           </h3>
           <p className="text-text-secondary">
             Jusqu'à <strong>Nantes</strong>, {SERVICE_AREA.nantesArea.join(", ")}{" "}
-            et toute la Loire-Atlantique. Vendée et sud de la Bretagne sur
-            demande.
+            et toute la Loire-Atlantique, ainsi qu'en Vendée et en Bretagne.
           </p>
         </div>
       </div>

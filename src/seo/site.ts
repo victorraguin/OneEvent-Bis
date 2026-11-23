@@ -17,11 +17,9 @@ export const SITE_URL = (
 export const CONTACT = {
   phone: null as string | null, // ex. "+33612345678"
   email: null as string | null, // ex. "contact@marco-douka.fr"
-  sameAs: [
-    // Liens vers les vrais profils (Facebook, Instagram, YouTube, Google Business…)
-    "https://www.facebook.com/wassapercussion",
-    "https://www.instagram.com/wassapercussion",
-  ],
+  // Liens vers les VRAIS profils publics (Facebook, Instagram, YouTube,
+  // fiche Google Business…), à renseigner une fois vérifiés.
+  sameAs: [] as string[],
 };
 
 export const HOME_BASE = {
@@ -30,9 +28,6 @@ export const HOME_BASE = {
   region: "Pays de la Loire",
   department: "Loire-Atlantique",
   country: "FR",
-  // Centre de Pornic
-  latitude: 47.1153,
-  longitude: -2.1023,
 };
 
 /** Zone d'intervention, du plus proche au plus lointain. */
@@ -79,17 +74,17 @@ export const WANEVENTS_FAQ: FaqItem[] = [
   {
     question: "Dans quelles villes intervenez-vous ?",
     answer:
-      "Wan'Events est basé à Pornic (44) et intervient dans tout le Pays de Retz (La Bernerie-en-Retz, Les Moutiers-en-Retz, Préfailles, Saint-Michel-Chef-Chef, Machecoul…), à Saint-Brevin-les-Pins, Saint-Nazaire, et jusqu'à Nantes et son agglomération. La Vendée et le sud de la Bretagne sont possibles sur demande.",
+      "Wan'Events est basé à Pornic (44) et intervient dans tout le Pays de Retz (La Bernerie-en-Retz, Les Moutiers-en-Retz, Préfailles, Saint-Michel-Chef-Chef, Machecoul…), à Saint-Brevin-les-Pins, Saint-Nazaire, et jusqu'à Nantes et son agglomération. Interventions également en Vendée et en Bretagne.",
   },
   {
     question: "Pour quels types d'événements faire appel à Wan'Events ?",
     answer:
-      "Mariages, anniversaires, soirées privées, séminaires et soirées d'entreprise, team building, festivals, fêtes de village, associations et comités des fêtes.",
+      "Événements privés et professionnels : mariages, soirées, événements d'entreprise et team building, festivals.",
   },
   {
     question: "Comment réserver une animation ?",
     answer:
-      "Contactez Marco Douka par téléphone ou par e-mail depuis la section Contact, en précisant la date, le lieu et le type d'événement, ainsi que le nombre de participants. Il vous répond avec une proposition adaptée.",
+      "Contactez Marco Douka par téléphone ou par e-mail depuis la section Contact, en précisant la date, le lieu et le type d'événement.",
   },
 ];
 
@@ -102,12 +97,12 @@ export const WASSA_FAQ: FaqItem[] = [
   {
     question: "Wassa Percussion peut-il jouer pour mon festival ou mon événement ?",
     answer:
-      "Oui : spectacles de percussions africaines sur scène et déambulations pour festivals, fêtes, mariages et événements culturels à Pornic, Saint-Brevin-les-Pins, Saint-Nazaire, Nantes, dans tout le Pays de Retz et la Loire-Atlantique, ainsi qu'en Vendée et en Bretagne.",
+      "Oui : spectacles de percussions africaines sur scène et déambulations pour festivals, salles, manifestations et événements culturels à Pornic, Saint-Brevin-les-Pins, Saint-Nazaire, Nantes, dans tout le Pays de Retz et la Loire-Atlantique, ainsi qu'en Vendée et en Bretagne.",
   },
   {
     question: "Proposez-vous la réparation de djembés ?",
     answer:
-      "Oui, Wassa Percussion assure la réparation et l'entretien des djembés et des instruments de percussion africaine (peau, cordage, accordage).",
+      "Oui, Wassa Percussion assure la réparation et l'entretien des djembés et des instruments de percussion africaine.",
   },
   {
     question: "Comment réserver Wassa Percussion ?",
@@ -213,12 +208,6 @@ const address = {
   addressCountry: HOME_BASE.country,
 };
 
-const geo = {
-  "@type": "GeoCoordinates",
-  latitude: HOME_BASE.latitude,
-  longitude: HOME_BASE.longitude,
-};
-
 const areaServed = [
   ...ALL_CITIES.map((name) => ({ "@type": "City", name })),
   { "@type": "AdministrativeArea", name: "Pays de Retz" },
@@ -261,13 +250,12 @@ const wanEvents = {
   "@type": "EntertainmentBusiness",
   "@id": ID.wanEvents,
   name: "Wan'Events",
-  alternateName: ["Wan'Events by Marco Douka", "One Event"],
+  alternateName: "Wan'Events by Marco Douka",
   description: ROUTES.wanEvents.description,
   url: absoluteUrl(ROUTES.wanEvents.path),
   image: absoluteUrl("/OneEvent/WanEvents_Marco_Foot_Animation.jpg"),
   founder: { "@id": ID.marco },
   address,
-  geo,
   areaServed,
   ...contactFields(),
   hasOfferCatalog: {
@@ -292,7 +280,6 @@ const wassa = {
   image: absoluteUrl("/WassaPercussion/Wassa_Percussion_Groupe.jpg"),
   member: [{ "@id": ID.marco }],
   address,
-  geo,
   areaServed,
   ...contactFields(),
   ...(CONTACT.sameAs.length ? { sameAs: CONTACT.sameAs } : {}),
