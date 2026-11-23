@@ -7,8 +7,8 @@ const About: React.FC = () => {
       <div className="container-custom">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div>
-            <img
-              src="/OneEvent/OneEvent_Marco_Microphone.jpg"
+            <img loading="lazy" decoding="async"
+              src="/OneEvent/OneEvent_Marco_Microphone.webp"
               alt="Marco Douka"
               className="rounded-lg w-full h-[500px] object-cover"
             />

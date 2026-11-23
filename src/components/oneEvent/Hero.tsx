@@ -5,7 +5,7 @@ const Hero: React.FC = () => {
     <section
       className="relative h-screen flex items-center justify-center"
       style={{
-        backgroundImage: 'url("/OneEvent/WanEvents_Marco_Foot_Animation.jpg")',
+        backgroundImage: 'url("/OneEvent/WanEvents_Marco_Foot_Animation.webp")',
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
@@ -15,6 +15,11 @@ const Hero: React.FC = () => {
         <h1 className="text-5xl md:text-7xl font-display mb-6">Wan'Events</h1>
         <p className="text-xl md:text-2xl text-text-secondary mb-8 max-w-2xl mx-auto">
           Créateur d'Expériences de Divertissement Inoubliables
+        </p>
+        <p className="text-lg md:text-xl text-text-secondary mb-8 max-w-3xl mx-auto">
+          Animateur de soirée, quiz musical, blind test, karaoké et maître de
+          cérémonie à Pornic, Saint-Brevin-les-Pins, Saint-Nazaire, dans le
+          Pays de Retz et jusqu'à Nantes
         </p>
         <a href="#contact" className="btn btn-primary">
           Réserver un Événement

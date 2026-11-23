@@ -1,66 +1,77 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { ThemeProvider } from "./contexts/ThemeContext";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  useLocation,
-  useNavigate,
-} from "react-router-dom";
+import { Navigate, Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import About from "./components/About";
 import Gallery from "./components/Gallery";
-// import Events from "./components/Events";
 import Prestations from "./components/Prestations";
-import MusicPlayer from "./components/MusicPlayer";
-import Contact from "./components/Contact";
-import OneEventContact from "./components/oneEvent/Contact";
 import WassaBooking from "./components/WassaBooking";
 import Footer from "./components/Footer";
 import WassaRadio from "./components/WassaRadio";
 import LandingSelector from "./components/LandingSelector";
 import OneEvent from "./components/oneEvent";
 import SocialSidebar from "./components/SocialSidebar";
+import Faq from "./components/seo/Faq";
+import ServiceArea from "./components/seo/ServiceArea";
+import NotFound from "./components/seo/NotFound";
+import { ROUTES, WASSA_FAQ, routeForPath } from "./seo/site";
+import { useRouteMeta } from "./seo/useRouteMeta";
 
-function AppContent() {
-  const location = useLocation();
+type Site = "wassa" | "oneEvent";
+
+const pathFor = (site: Site) =>
+  site === "wassa" ? ROUTES.wassa.path : ROUTES.wanEvents.path;
+
+const WassaPage: React.FC<{ onSiteChange: (s: Site) => void }> = ({
+  onSiteChange,
+}) => (
+  <>
+    <Navbar currentSite="wassa" onSiteChange={onSiteChange} />
+    <SocialSidebar />
+    <main>
+      <Hero />
+      <About />
+      <Prestations />
+      <Gallery />
+      <ServiceArea
+        brand="Wassa Percussion"
+        intro="Spectacles, déambulations et initiations aux percussions africaines dans le sud de la Loire-Atlantique : Wassa Percussion joue de Pornic à Nantes, en passant par Saint-Brevin-les-Pins, Saint-Nazaire et tout le Pays de Retz."
+      />
+      <Faq items={WASSA_FAQ} />
+      <WassaBooking />
+    </main>
+    <Footer />
+    <WassaRadio />
+  </>
+);
+
+export function AppRoutes() {
   const navigate = useNavigate();
-  const [selectedSite, setSelectedSite] = useState<"wassa" | "oneEvent" | null>(
-    null
-  );
+  const location = useLocation();
   const [isTransitioning, setIsTransitioning] = useState(false);
 
-  const handleSiteSelection = (site: "wassa" | "oneEvent") => {
+  useRouteMeta(routeForPath(location.pathname));
+
+  // Arrivée sur une ancre (#contact…) depuis une autre page.
+  useEffect(() => {
+    if (!location.hash) return;
+    const el = document.getElementById(location.hash.slice(1));
+    el?.scrollIntoView();
+  }, [location.pathname, location.hash]);
+
+  const handleSiteSelection = (site: Site) => {
     setIsTransitioning(true);
-    const targetPath = site === "wassa" ? "/wassa-percussion" : "/wan-events";
-
-    // Scroll vers le haut
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-
+    window.scrollTo({ top: 0, behavior: "smooth" });
     setTimeout(() => {
-      navigate(targetPath);
+      navigate(pathFor(site));
       setIsTransitioning(false);
     }, 200);
   };
 
-  // Pour les routes spécifiques, on passera la fonction de navigation via les props
-  const handleSiteChange = (site: "wassa" | "oneEvent") => {
-    const targetPath = site === "wassa" ? "/wassa-percussion" : "/wan-events";
-
-    // Scroll vers le haut avant de naviguer
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-
-    // Navigation avec un petit délai pour que le scroll commence
-    setTimeout(() => {
-      navigate(targetPath);
-    }, 100);
+  const handleSiteChange = (site: Site) => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    setTimeout(() => navigate(pathFor(site)), 100);
   };
 
   return (
@@ -70,53 +81,16 @@ function AppContent() {
       }`}
     >
       <Routes>
-        {/* Route principale avec sélecteur */}
         <Route
           path="/"
           element={<LandingSelector onSelect={handleSiteSelection} />}
         />
-
-        {/* Routes pour Wassa Percussion */}
         <Route
-          path="/wassa"
-          element={
-            <>
-              <Navbar currentSite="wassa" onSiteChange={handleSiteChange} />
-              <SocialSidebar />
-              <main>
-                <Hero />
-                <About />
-                <Prestations />
-                <Gallery />
-                <WassaBooking />
-              </main>
-              <Footer />
-              <WassaRadio />
-            </>
-          }
+          path={ROUTES.wassa.path}
+          element={<WassaPage onSiteChange={handleSiteChange} />}
         />
         <Route
-          path="/wassa-percussion"
-          element={
-            <>
-              <Navbar currentSite="wassa" onSiteChange={handleSiteChange} />
-              <SocialSidebar />
-              <main>
-                <Hero />
-                <About />
-                <Prestations />
-                <Gallery />
-                <WassaBooking />
-              </main>
-              <Footer />
-              <WassaRadio />
-            </>
-          }
-        />
-
-        {/* Routes pour Wan'Events */}
-        <Route
-          path="/wanevents"
+          path={ROUTES.wanEvents.path}
           element={
             <>
               <Navbar currentSite="oneEvent" onSiteChange={handleSiteChange} />
@@ -125,16 +99,10 @@ function AppContent() {
             </>
           }
         />
-        <Route
-          path="/wan-events"
-          element={
-            <>
-              <Navbar currentSite="oneEvent" onSiteChange={handleSiteChange} />
-              <SocialSidebar />
-              <OneEvent />
-            </>
-          }
-        />
+        {/* Anciennes adresses : redirigées (301 côté Vercel, voir vercel.json). */}
+        <Route path="/wassa" element={<Navigate to={ROUTES.wassa.path} replace />} />
+        <Route path="/wanevents" element={<Navigate to={ROUTES.wanEvents.path} replace />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
   );
@@ -143,9 +111,7 @@ function AppContent() {
 function App() {
   return (
     <ThemeProvider>
-      <Router>
-        <AppContent />
-      </Router>
+      <AppRoutes />
     </ThemeProvider>
   );
 }

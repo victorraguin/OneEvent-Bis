@@ -35,22 +35,22 @@ const About: React.FC = () => {
     {
       name: "Kofi Mensah",
       role: "Percussionniste Principal",
-      image_url: "/WassaPercussion/Wassa_Percussion3.jpg",
+      image_url: "/WassaPercussion/Wassa_Percussion3.webp",
     },
     {
       name: "Ama Diop",
       role: "Danseuse & Chanteuse",
-      image_url: "/WassaPercussion/Wassa_Percussion4.jpg",
+      image_url: "/WassaPercussion/Wassa_Percussion4.webp",
     },
     {
       name: "Kwame Osei",
       role: "Percussion",
-      image_url: "/WassaPercussion/Wassa_Percussion5.jpg",
+      image_url: "/WassaPercussion/Wassa_Percussion5.webp",
     },
     {
       name: "Fatima Kamara",
       role: "Danseuse",
-      image_url: "/WassaPercussion/Wassa_Percussion1.jpg",
+      image_url: "/WassaPercussion/Wassa_Percussion1.webp",
     },
   ];
 
@@ -96,9 +96,9 @@ const About: React.FC = () => {
             }`}
           >
             <div className="image-zoom rounded-lg overflow-hidden">
-              <img
-                src="/WassaPercussion/Wassa_Percussion1.jpg"
-                alt="Wassa Percussion performers"
+              <img loading="lazy" decoding="async"
+                src="/WassaPercussion/Wassa_Percussion1.webp"
+                alt="Les percussionnistes de Wassa Percussion sur scène"
                 className="w-full h-auto rounded-lg"
               />
             </div>
@@ -129,10 +129,10 @@ const About: React.FC = () => {
               >
                 <div className="relative mb-6">
                   <div className="rounded-full overflow-hidden w-32 h-32 sm:w-40 sm:h-40 mx-auto mb-4 image-zoom border-4 border-primary/20 group-hover:border-primary/60 transition-all duration-300">
-                    <img
+                    <img loading="lazy" decoding="async"
                       src={
                         member.image_url ||
-                        "/WassaPercussion/Wassa_Percussion1.jpg"
+                        "/WassaPercussion/Wassa_Percussion1.webp"
                       }
                       alt={member.name}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"

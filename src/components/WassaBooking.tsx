@@ -21,8 +21,8 @@ const WassaBooking: React.FC = () => {
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Visuel Wassa */}
           <div className="relative bg-gradient-to-br from-primary/20 to-primary/5 p-6 rounded-2xl order-last lg:order-first">
-            <img
-              src="/WassaPercussion/Wassa_Percussion4.jpg"
+            <img loading="lazy" decoding="async"
+              src="/WassaPercussion/Wassa_Percussion4.webp"
               alt="Wassa Percussion - Réservez votre événement"
               className="w-full h-96 object-cover rounded-xl shadow-lg"
             />

@@ -10,25 +10,25 @@ const Prestations: React.FC = () => {
       title: "Show Percussion",
       description:
         "Spectacles de percussions africaines pour festivals, salles et événements culturels en Loire Atlantique, Bretagne et Vendée.",
-      image: "/WassaPercussion/Wassa_Percussion3.jpg",
+      image: "/WassaPercussion/Wassa_Percussion3.webp",
     },
     {
       title: "Cours Percussion",
       description:
         "Cours et initiations au djembé et aux rythmes d'Afrique de l'Ouest pour tous niveaux à Pornic (44).",
-      image: "/WassaPercussion/Wassa_Percussion5.jpg",
+      image: "/WassaPercussion/Wassa_Percussion5.webp",
     },
     {
       title: "Déambulation",
       description:
         "Animations percussives itinérantes pour vos événements, festivals et manifestations culturelles.",
-      image: "/WassaPercussion/Wassa_Percussion_Groupe.jpg",
+      image: "/WassaPercussion/Wassa_Percussion_Groupe.webp",
     },
     {
       title: "Réparation Djembés",
       description:
         "Service professionnel de réparation et maintenance de djembés et instruments de percussion africaine.",
-      image: "/WassaPercussion/Wassa_Percussion_Djembe.jpg",
+      image: "/WassaPercussion/Wassa_Percussion_Djembe.webp",
     },
   ];
 
@@ -52,7 +52,7 @@ const Prestations: React.FC = () => {
                 className="relative overflow-hidden rounded-lg group cursor-pointer"
               >
                 <div className="relative h-72 overflow-hidden">
-                  <img
+                  <img loading="lazy" decoding="async"
                     src={p.image}
                     alt={p.title}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
