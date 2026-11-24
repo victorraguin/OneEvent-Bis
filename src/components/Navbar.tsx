@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Menu, X, Phone } from "lucide-react";
+import { ROUTES } from "../seo/site";
 
 interface NavbarProps {
   currentSite: "wassa" | "oneEvent";
@@ -23,7 +24,13 @@ const Navbar: React.FC<NavbarProps> = ({ currentSite, onSiteChange }) => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const handleSiteSwitch = () => {
+  // Lien réel vers l'autre activité (découvrable par les robots), avec
+  // navigation animée côté client au clic.
+  const otherSitePath =
+    currentSite === "wassa" ? ROUTES.wanEvents.path : ROUTES.wassa.path;
+  const handleSiteSwitch = (e?: React.MouseEvent) => {
+    if (e && (e.metaKey || e.ctrlKey || e.shiftKey)) return;
+    e?.preventDefault();
     onSiteChange(currentSite === "wassa" ? "oneEvent" : "wassa");
   };
 
@@ -33,7 +40,7 @@ const Navbar: React.FC<NavbarProps> = ({ currentSite, onSiteChange }) => {
           { href: "#prestations", label: "Prestations" },
           { href: "#gallery", label: "Galerie" },
           { href: "#about", label: "À Propos" },
-          { href: "#music", label: "Musique" },
+          { href: "#faq", label: "FAQ" },
           { href: "#contact", label: "Contact" },
         ]
       : [
@@ -54,7 +61,11 @@ const Navbar: React.FC<NavbarProps> = ({ currentSite, onSiteChange }) => {
     >
       <div className="container-custom flex justify-between items-center">
         <a
-          href="#"
+          href={currentSite === "wassa" ? ROUTES.wassa.path : ROUTES.wanEvents.path}
+          onClick={(e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          }}
           className="text-2xl font-display text-primary tracking-wider"
         >
           {currentSite === "wassa" ? "Wassa Percussion" : "Wan'Events"}
@@ -74,13 +85,14 @@ const Navbar: React.FC<NavbarProps> = ({ currentSite, onSiteChange }) => {
               </li>
             ))}
             <li>
-              <button
+              <a
+                href={otherSitePath}
                 onClick={handleSiteSwitch}
                 className="text-primary hover:text-primary/80 transition-colors"
               >
                 Voir{" "}
                 {currentSite === "wassa" ? "Wan'Events" : "Wassa Percussion"}
-              </button>
+              </a>
             </li>
           </ul>
           <div className="flex items-center gap-4 border-l border-gray-600 pl-6">
@@ -108,9 +120,10 @@ const Navbar: React.FC<NavbarProps> = ({ currentSite, onSiteChange }) => {
           >
             <Phone size={16} />
           </a>
-          <button
+          <a
+            href={otherSitePath}
             onClick={handleSiteSwitch}
-            className="px-3 h-10 rounded-full bg-background hover:bg-primary text-primary hover:text-background transition-all duration-300 border border-primary text-xs"
+            className="flex items-center px-3 h-10 rounded-full bg-background hover:bg-primary text-primary hover:text-background transition-all duration-300 border border-primary text-xs"
             aria-label={`Voir ${
               currentSite === "wassa" ? "Wan'Events" : "Wassa Percussion"
             }`}
@@ -119,7 +132,7 @@ const Navbar: React.FC<NavbarProps> = ({ currentSite, onSiteChange }) => {
             }`}
           >
             {currentSite === "wassa" ? "Wan'Events" : "Wassa Percussion"}
-          </button>
+          </a>
           <button
             className="text-text-primary"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -150,16 +163,17 @@ const Navbar: React.FC<NavbarProps> = ({ currentSite, onSiteChange }) => {
               </li>
             ))}
             <li>
-              <button
-                onClick={() => {
-                  handleSiteSwitch();
+              <a
+                href={otherSitePath}
+                onClick={(e) => {
+                  handleSiteSwitch(e);
                   setIsMenuOpen(false);
                 }}
                 className="block py-3 text-primary hover:text-primary/80 transition-colors text-left w-full"
               >
                 Voir{" "}
                 {currentSite === "wassa" ? "Wan'Events" : "Wassa Percussion"}
-              </button>
+              </a>
             </li>
           </ul>
         </div>

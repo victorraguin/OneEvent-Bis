@@ -44,7 +44,7 @@ const Gallery: React.FC = () => {
       id: "1",
       site: "wanevent",
       type: "image",
-      src: "/OneEvent/OneEvent_Marco.jpg",
+      src: "/OneEvent/OneEvent_Marco.webp",
       caption: "Marco Douka animant un atelier de percussion interactif",
       order_index: 1,
       created_at: new Date().toISOString(),
@@ -53,7 +53,7 @@ const Gallery: React.FC = () => {
       id: "2",
       site: "wanevent",
       type: "image",
-      src: "/OneEvent/OneEvent_Marco_Animation.jpg",
+      src: "/OneEvent/OneEvent_Marco_Animation.webp",
       caption: "Animation d'événement corporatif avec quiz musical",
       order_index: 2,
       created_at: new Date().toISOString(),
@@ -62,7 +62,7 @@ const Gallery: React.FC = () => {
       id: "3",
       site: "wanevent",
       type: "image",
-      src: "/OneEvent/OneEvent_Marco_Microphone.jpg",
+      src: "/OneEvent/OneEvent_Marco_Microphone.webp",
       caption: "Marco Douka présentant un quiz musical engageant",
       order_index: 3,
       created_at: new Date().toISOString(),
@@ -71,7 +71,7 @@ const Gallery: React.FC = () => {
       id: "4",
       site: "wanevent",
       type: "image",
-      src: "/OneEvent/Marco_OneEvent_Animation.jpg",
+      src: "/OneEvent/Marco_OneEvent_Animation.webp",
       caption: "Team building musical pour entreprise",
       order_index: 4,
       created_at: new Date().toISOString(),
@@ -80,7 +80,7 @@ const Gallery: React.FC = () => {
       id: "5",
       site: "wanevent",
       type: "image",
-      src: "/OneEvent/WanEvents_Marco_Foot_Animation.jpg",
+      src: "/OneEvent/WanEvents_Marco_Foot_Animation.webp",
       caption: "Animation football – mise en ambiance par Wan'Events",
       order_index: 5,
       created_at: new Date().toISOString(),
@@ -89,7 +89,7 @@ const Gallery: React.FC = () => {
       id: "6",
       site: "wanevent",
       type: "image",
-      src: "/OneEvent/WanEvents_Marco_Foot_Animation2.jpg",
+      src: "/OneEvent/WanEvents_Marco_Foot_Animation2.webp",
       caption: "Animation sportive – énergie et bonne humeur",
       order_index: 6,
       created_at: new Date().toISOString(),
@@ -313,7 +313,7 @@ const Gallery: React.FC = () => {
                 onClick={() => openModal(item, index)}
               >
                 <div className="relative group image-zoom">
-                  <img
+                  <img loading="lazy" decoding="async"
                     src={item.type === "video" ? item.thumbnail : item.src}
                     alt={item.caption}
                     className="w-full h-48 object-cover"
@@ -349,7 +349,7 @@ const Gallery: React.FC = () => {
                 onClick={() => openModal(item, index)}
               >
                 <div className="relative group image-zoom">
-                  <img
+                  <img loading="lazy" decoding="async"
                     src={item.type === "video" ? item.thumbnail : item.src}
                     alt={item.caption}
                     className="w-full h-64 md:h-72 object-cover"
@@ -411,7 +411,7 @@ const Gallery: React.FC = () => {
 
           <div className="max-w-5xl w-full max-h-screen overflow-auto">
             {selectedItem.type === "image" ? (
-              <img
+              <img loading="lazy" decoding="async"
                 src={selectedItem.src}
                 alt={selectedItem.caption}
                 className="w-full h-auto"

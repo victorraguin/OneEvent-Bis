@@ -12,7 +12,7 @@ const Hero: React.FC = () => {
     <section
       className="relative h-screen flex items-center justify-center"
       style={{
-        backgroundImage: "url('WassaPercussion/Wassa_Percussion.jpg')",
+        backgroundImage: "url('/WassaPercussion/Wassa_Percussion.webp')",
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
@@ -25,14 +25,16 @@ const Hero: React.FC = () => {
         }`}
       >
         <h1 className="text-5xl md:text-7xl lg:text-8xl font-display mb-6 text-white">
-          <span className="block">Wassa</span>
+          <span className="block">Wassa</span>{" "}
           <span className="text-primary text-3xl md:text-4xl lg:text-5xl mt-2 block">
             PERCUSSION
           </span>
         </h1>
         <p className="text-lg md:text-xl text-text-secondary max-w-2xl mx-auto mb-8">
           Découvrez la puissance des rythmes et l'énergie vibrante des
-          percussions d'Afrique de l'Ouest
+          percussions d'Afrique de l'Ouest : spectacles, déambulations et cours
+          de djembé à Pornic, dans le Pays de Retz, à Saint-Nazaire et
+          jusqu'à Nantes
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <a href="#gallery" className="btn btn-primary">

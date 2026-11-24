@@ -37,7 +37,7 @@ const Services: React.FC = () => {
       description:
         "Quiz musicaux, blind tests et karaoké pour animer vos soirées et événements en Loire Atlantique (44)",
       icon: "Brain",
-      image: "/OneEvent/OneEvent_Marco_Microphone.jpg",
+      image: "/OneEvent/OneEvent_Marco_Microphone.webp",
       order_index: 1,
       created_at: new Date().toISOString(),
     },
@@ -47,7 +47,7 @@ const Services: React.FC = () => {
       description:
         "Soirées karaoké animées par Marco Douka pour tous vos événements privés et professionnels",
       icon: "Mic",
-      image: "/OneEvent/OneEvent_Marco_Animation.jpg",
+      image: "/OneEvent/OneEvent_Marco_Animation.webp",
       order_index: 2,
       created_at: new Date().toISOString(),
     },
@@ -57,7 +57,7 @@ const Services: React.FC = () => {
       description:
         "Ateliers et cours de percussion en équipe pour le team building d'entreprise à Pornic et région",
       icon: "Music",
-      image: "/OneEvent/OneEvent_Marco.jpg",
+      image: "/OneEvent/OneEvent_Marco.webp",
       order_index: 3,
       created_at: new Date().toISOString(),
     },
@@ -67,7 +67,7 @@ const Services: React.FC = () => {
       description:
         "Activités rythmiques pour renforcer la cohésion d'équipe dans vos entreprises (Bretagne, Vendée)",
       icon: "Users",
-      image: "/OneEvent/Marco_OneEvent_Animation.jpg",
+      image: "/OneEvent/Marco_OneEvent_Animation.webp",
       order_index: 4,
       created_at: new Date().toISOString(),
     },
@@ -77,7 +77,7 @@ const Services: React.FC = () => {
       description:
         "Animation professionnelle et maître de cérémonie pour mariages, festivals et événements d'entreprise",
       icon: "PartyPopper",
-      image: "/OneEvent/WanEvents_Marco_Foot_Animation.jpg",
+      image: "/OneEvent/WanEvents_Marco_Foot_Animation.webp",
       order_index: 5,
       created_at: new Date().toISOString(),
     },
@@ -132,8 +132,8 @@ const Services: React.FC = () => {
               >
                 {/* Image de fond */}
                 <div className="relative h-80 overflow-hidden">
-                  <img
-                    src={service.image || "/OneEvent/OneEvent_Marco.jpg"}
+                  <img loading="lazy" decoding="async"
+                    src={service.image || "/OneEvent/OneEvent_Marco.webp"}
                     alt={service.title}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                   />

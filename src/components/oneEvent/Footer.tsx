@@ -20,7 +20,7 @@ const Footer: React.FC = () => {
               événements en moments mémorables.
             </p>
             <p className="text-text-secondary">
-              Basé à Lyon, France et intervenant dans toute la France.
+              Basé à Pornic (44) et intervenant dans le Pays de Retz, à Saint-Brevin-les-Pins, Saint-Nazaire et jusqu'à Nantes.
             </p>
           </div>
 
@@ -89,7 +89,7 @@ const Footer: React.FC = () => {
                   marco@wanevent.com
                 </a>
               </p>
-              <p>Lyon, France</p>
+              <p>Pornic (44210), Loire-Atlantique</p>
             </div>
             <div className="mt-6">
               <a
@@ -104,7 +104,7 @@ const Footer: React.FC = () => {
 
         <div className="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-text-secondary text-sm">
-            &copy; {currentYear} Wan'Events by Marco Douka. Tous droits
+            &copy; <span suppressHydrationWarning>{currentYear}</span> Wan'Events by Marco Douka. Tous droits
             réservés.
           </p>
           <div className="mt-4 md:mt-0">

@@ -80,7 +80,7 @@ const Partners: React.FC = () => {
           >
             {partnersToShow.map((partner, index) => (
               <div key={partner.id || index} className="mx-8">
-                <img
+                <img loading="lazy" decoding="async"
                   src={partner.logo_url}
                   alt={partner.name}
                   className="h-12 w-auto grayscale hover:grayscale-0 transition-all duration-300"

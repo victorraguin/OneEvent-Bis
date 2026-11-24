@@ -11,13 +11,16 @@ interface WassaRadioProps {
 }
 
 const WassaRadio: React.FC<WassaRadioProps> = ({ className = "", title }) => {
-  const [isCollapsed, setIsCollapsed] = useState<boolean>(() => {
+  // Lu après le montage : le HTML pré-rendu (sans localStorage) et le premier
+  // rendu client doivent être identiques pour l'hydratation.
+  const [isCollapsed, setIsCollapsed] = useState<boolean>(false);
+  useEffect(() => {
     try {
-      return localStorage.getItem("wassaRadioCollapsed") === "1";
+      if (localStorage.getItem("wassaRadioCollapsed") === "1") setIsCollapsed(true);
     } catch {
-      return false;
+      /* stockage indisponible */
     }
-  });
+  }, []);
   const [isMuted, setIsMuted] = useState(true);
   const embedInfo = getWassaEmbedInfo();
   const embedSrc = getWassaEmbedSrc();

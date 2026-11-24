@@ -44,7 +44,7 @@ const Gallery: React.FC = () => {
       id: "1",
       site: "wassa",
       type: "image",
-      src: "/WassaPercussion/Wassa_Percussion.jpg",
+      src: "/WassaPercussion/Wassa_Percussion.webp",
       caption: "Wassa Percussion – performance en live",
       order_index: 1,
       created_at: new Date().toISOString(),
@@ -54,7 +54,7 @@ const Gallery: React.FC = () => {
       site: "wassa",
       type: "video",
       src: "https://player.vimeo.com/video/367752291",
-      thumbnail: "/WassaPercussion/Wassa_Percussion1.jpg",
+      thumbnail: "/WassaPercussion/Wassa_Percussion1.webp",
       caption: "Performance traditionnelle de djembé",
       order_index: 2,
       created_at: new Date().toISOString(),
@@ -63,7 +63,7 @@ const Gallery: React.FC = () => {
       id: "3",
       site: "wassa",
       type: "image",
-      src: "/WassaPercussion/Wassa_Percussion2.jpg",
+      src: "/WassaPercussion/Wassa_Percussion2.webp",
       caption: "Atelier communautaire",
       order_index: 3,
       created_at: new Date().toISOString(),
@@ -72,7 +72,7 @@ const Gallery: React.FC = () => {
       id: "4",
       site: "wassa",
       type: "image",
-      src: "/WassaPercussion/Wassa_Percussion3.jpg",
+      src: "/WassaPercussion/Wassa_Percussion3.webp",
       caption: "Programme d'échange culturel",
       order_index: 4,
       created_at: new Date().toISOString(),
@@ -82,7 +82,7 @@ const Gallery: React.FC = () => {
       site: "wassa",
       type: "video",
       src: "https://player.vimeo.com/video/222732815",
-      thumbnail: "/WassaPercussion/Wassa_Percussion4.jpg",
+      thumbnail: "/WassaPercussion/Wassa_Percussion4.webp",
       caption: "Rythmes d'Afrique de l'Ouest",
       order_index: 5,
       created_at: new Date().toISOString(),
@@ -91,7 +91,7 @@ const Gallery: React.FC = () => {
       id: "6",
       site: "wassa",
       type: "image",
-      src: "/WassaPercussion/Wassa_Percussion5.jpg",
+      src: "/WassaPercussion/Wassa_Percussion5.webp",
       caption: "Performance en festival",
       order_index: 6,
       created_at: new Date().toISOString(),
@@ -100,7 +100,7 @@ const Gallery: React.FC = () => {
       id: "7",
       site: "wassa",
       type: "image",
-      src: "/WassaPercussion/Wassa_Percussion_Djembe.jpg",
+      src: "/WassaPercussion/Wassa_Percussion_Djembe.webp",
       caption: "Solo de djembé",
       order_index: 7,
       created_at: new Date().toISOString(),
@@ -109,7 +109,7 @@ const Gallery: React.FC = () => {
       id: "8",
       site: "wassa",
       type: "image",
-      src: "/WassaPercussion/Wassa_Percussion_Groupe.jpg",
+      src: "/WassaPercussion/Wassa_Percussion_Groupe.webp",
       caption: "Le groupe Wassa Percussion",
       order_index: 8,
       created_at: new Date().toISOString(),
@@ -118,7 +118,7 @@ const Gallery: React.FC = () => {
       id: "9",
       site: "wassa",
       type: "image",
-      src: "/WassaPercussion/Wassa_Percussion_Initiation.jpg",
+      src: "/WassaPercussion/Wassa_Percussion_Initiation.webp",
       caption: "Initiation percussions",
       order_index: 9,
       created_at: new Date().toISOString(),
@@ -127,7 +127,7 @@ const Gallery: React.FC = () => {
       id: "10",
       site: "wassa",
       type: "image",
-      src: "/WassaPercussion/Wassa_Percussion_Initiation_2.jpg",
+      src: "/WassaPercussion/Wassa_Percussion_Initiation_2.webp",
       caption: "Atelier d'initiation",
       order_index: 10,
       created_at: new Date().toISOString(),
@@ -136,7 +136,7 @@ const Gallery: React.FC = () => {
       id: "11",
       site: "wassa",
       type: "image",
-      src: "/WassaPercussion/Wassa_Percussion_Moutier.jpg",
+      src: "/WassaPercussion/Wassa_Percussion_Moutier.webp",
       caption: "Concert à Moutier",
       order_index: 11,
       created_at: new Date().toISOString(),
@@ -359,7 +359,7 @@ const Gallery: React.FC = () => {
                 onClick={() => openModal(item, index)}
               >
                 <div className="relative group image-zoom">
-                  <img
+                  <img loading="lazy" decoding="async"
                     src={item.type === "video" ? item.thumbnail : item.src}
                     alt={item.caption}
                     className="w-full h-48 object-cover"
@@ -395,7 +395,7 @@ const Gallery: React.FC = () => {
                 onClick={() => openModal(item, index)}
               >
                 <div className="relative group image-zoom">
-                  <img
+                  <img loading="lazy" decoding="async"
                     src={item.type === "video" ? item.thumbnail : item.src}
                     alt={item.caption}
                     className="w-full h-64 md:h-72 object-cover"
@@ -457,7 +457,7 @@ const Gallery: React.FC = () => {
 
           <div className="max-w-5xl w-full max-h-screen overflow-auto">
             {selectedItem.type === "image" ? (
-              <img
+              <img loading="lazy" decoding="async"
                 src={selectedItem.src}
                 alt={selectedItem.caption}
                 className="w-full h-auto"
