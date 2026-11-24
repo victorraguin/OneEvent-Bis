@@ -1,0 +1,375 @@
+/* Wassa Percussion — refonte 2026 (design « Wan'Events & Wassa — Refonte »). */
+
+.wa {
+  --ds-bg: #f4e9d8;
+  --ds-ink: #2a1a12;
+  --ds-muted: #4a3428;
+  --ds-card: #fbf5ea;
+  --ds-line: #d9c7ad;
+  --ds-accent: #c4532d;
+  --ds-on-accent: #fbf5ea;
+  --ds-eyebrow: #a9441f;
+  --ds-head: "Bricolage Grotesque", sans-serif;
+  --wa-ink: #2a1a12;
+  --wa-cream: #fbf5ea;
+  --wa-sand: #f4e9d8;
+  --wa-clay: #c4532d;
+  --wa-gold: #e3a02f;
+  --wa-indigo: #1f3157;
+  --wa-brown: #4a3428;
+  width: 100%;
+  min-height: 100vh;
+  background: #f4e9d8;
+  color: #2a1a12;
+  font-family: "Ubuntu", sans-serif;
+  overflow: hidden;
+  position: relative;
+}
+.wa *, .wa *::before, .wa *::after { box-sizing: border-box; }
+.wa h1, .wa h2, .wa h3 { font-family: "Bricolage Grotesque", sans-serif; margin: 0; }
+.wa p { margin: 0; }
+:where(.wa) a { color: inherit; }
+.wa .ds-menu-btn { background: var(--wa-cream); border: none; }
+.wa .ds-h2 { letter-spacing: -0.045em; line-height: .98; }
+.wa-wrap { width: 100%; max-width: 1320px; margin: 0 auto; padding: 0 40px; }
+.wa-clay { color: var(--wa-clay); }
+.wa-gold { color: var(--wa-gold); }
+.wa-italic { font-family: "Ubuntu", sans-serif; font-style: italic; font-weight: 400; letter-spacing: -0.04em; color: var(--wa-clay); }
+
+/* ---------- Boutons ---------- */
+.wa-btn { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; border-radius: 999px; font-weight: 500; font-size: 17px; min-height: 56px; border: none; cursor: pointer; font-family: "Ubuntu", sans-serif; transition: transform .25s; }
+.wa-btn:hover { transform: translateY(-2px); }
+.wa-btn-dot { flex: none; width: 40px; height: 40px; border-radius: 999px; display: inline-flex; align-items: center; justify-content: center; }
+.wa-btn-indigo { background: var(--wa-indigo); color: var(--wa-cream); padding: 0 10px 0 28px; }
+.wa-btn-indigo .wa-btn-dot { background: var(--wa-gold); color: var(--wa-ink); }
+.wa-btn-line { border: 2px solid var(--wa-ink); color: var(--wa-ink); padding: 0 26px 0 8px; background: transparent; }
+.wa-btn-line .wa-btn-dot { background: var(--wa-clay); color: var(--wa-cream); }
+.wa-btn-dark { background: var(--wa-ink); color: var(--wa-cream); padding: 0 28px; }
+
+/* ---------- Nav ---------- */
+.wa-navbar { padding-top: 24px; position: relative; z-index: 5; }
+.wa-nav { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.wa-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--wa-ink); }
+.wa-logo-text { display: flex; flex-direction: column; line-height: 1; }
+.wa-logo-text strong { font-family: "Bricolage Grotesque", sans-serif; font-weight: 800; font-size: 24px; letter-spacing: -0.02em; }
+.wa-logo-text small { font-size: 11px; letter-spacing: .32em; font-weight: 500; margin-top: 3px; }
+.wa-navlinks { display: flex; gap: 4px; align-items: center; list-style: none; margin: 0; background: var(--wa-cream); border-radius: 999px; padding: 6px; }
+.wa-nl { color: var(--wa-ink); text-decoration: none; padding: 10px 16px; border-radius: 999px; font-size: 15px; display: inline-flex; align-items: center; gap: 8px; }
+.wa-nl:hover { background: rgba(42,26,18,.07); }
+.wa-beat { flex: none; width: 8px; height: 8px; border-radius: 999px; background: var(--wa-clay); animation: wa-beat 1.2s ease-in-out infinite; }
+.wa-nav-cta { background: var(--wa-indigo); color: var(--wa-cream); padding: 0 26px; min-height: 52px; font-size: 15px; }
+
+/* ---------- Hero ---------- */
+.wa-hero { position: relative; padding: 56px 0 90px; }
+.wa-hero-grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: 40px; align-items: center; }
+.wa-hero-copy { display: flex; flex-direction: column; gap: 30px; position: relative; z-index: 2; }
+.wa-badge { align-self: flex-start; display: inline-flex; align-items: center; gap: 10px; background: var(--wa-ink); color: var(--wa-cream); border-radius: 999px; padding: 9px 18px 9px 10px; font-size: 14px; }
+.wa-badge-dot { flex: none; width: 22px; height: 22px; border-radius: 999px; background: var(--wa-gold); display: inline-flex; align-items: center; justify-content: center; }
+.wa-badge-dot::after { content: ""; width: 10px; height: 3px; border-radius: 2px; background: var(--wa-ink); }
+.wa-h1 { font-size: 132px; line-height: .86; font-weight: 800; letter-spacing: -0.055em; }
+.wa-hero-lead { font-size: 20px; line-height: 1.6; max-width: 520px; color: var(--wa-brown); }
+.wa-hero-ctas { display: flex; flex-wrap: wrap; gap: 14px; }
+.wa-hero-visual { position: relative; height: 640px; }
+.wa-sun { position: absolute; right: -120px; bottom: 0; width: 520px; height: 260px; border-radius: 520px 520px 0 0; background: var(--wa-gold); }
+.wa-moon { position: absolute; left: 10px; top: 20px; width: 120px; height: 120px; border-radius: 999px; background: var(--wa-indigo); }
+.wa-rope { position: absolute; left: 50%; top: 50%; width: 600px; height: 600px; margin: -300px 0 0 -300px; animation: wa-spin 40s linear infinite; }
+.wa-skin { position: absolute; left: 50%; top: 50%; width: 452px; height: 452px; margin: -226px 0 0 -226px; border-radius: 999px; overflow: hidden; box-shadow: 0 30px 60px -20px rgba(42,26,18,.5); }
+.wa-skin img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .7s cubic-bezier(.2,.7,.2,1); }
+.wa-skin:hover img { transform: scale(1.07); }
+.wa-sway { animation: wa-sway 6s ease-in-out infinite; }
+.wa-live-badge { position: absolute; right: 0; top: 60px; width: 150px; height: 150px; border-radius: 999px; background: var(--wa-clay); color: var(--wa-cream); display: flex; align-items: center; justify-content: center; text-align: center; box-shadow: 0 16px 30px -10px rgba(42,26,18,.5); font-family: "Bricolage Grotesque", sans-serif; font-weight: 800; font-size: 22px; line-height: 1.05; }
+
+/* ---------- Bandeau textile ---------- */
+.wa-textile { height: 64px; background: var(--wa-ink); overflow: hidden; }
+.wa-textile svg { display: block; }
+
+/* ---------- Prestations ---------- */
+.wa-presta-sec { padding: 110px 0 120px; }
+.wa-sec-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 24px; margin-bottom: 64px; }
+.wa-h2 { font-size: 72px; line-height: .95; font-weight: 800; letter-spacing: -0.045em; }
+.wa-sec-lead { max-width: 400px; font-size: 18px; line-height: 1.6; color: var(--wa-brown); }
+.wa-presta { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; align-items: start; }
+.wa-pcard { text-decoration: none; border-radius: 200px 200px 36px 36px; padding: 18px 18px 30px; display: flex; flex-direction: column; gap: 22px; transition: transform .35s cubic-bezier(.2,.7,.2,1); }
+.wa-pcard:hover { transform: translateY(-8px); }
+.wa-pcard:nth-child(even) { margin-top: 48px; }
+.wa-pcard-photo { aspect-ratio: 1 / 1; border-radius: 999px; overflow: hidden; border: 4px dashed; padding: 6px; }
+.wa-pcard-photo img { width: 100%; height: 100%; object-fit: cover; border-radius: 999px; display: block; transition: transform .7s cubic-bezier(.2,.7,.2,1); }
+.wa-pcard:hover .wa-pcard-photo img { transform: scale(1.07); }
+.wa-pcard-body { padding: 0 10px; display: flex; flex-direction: column; gap: 10px; }
+.wa-pcard-num { font-family: "Bricolage Grotesque", sans-serif; font-weight: 800; font-size: 15px; }
+.wa-pcard h3 { font-size: 30px; font-weight: 800; letter-spacing: -0.03em; line-height: 1; }
+.wa-pcard p { font-size: 15px; line-height: 1.55; }
+.wa-pc-1 { background: var(--wa-indigo); color: var(--wa-cream); }
+.wa-pc-1 .wa-pcard-photo { border-color: var(--wa-gold); }
+.wa-pc-1 .wa-pcard-num { color: var(--wa-gold); }
+.wa-pc-1 p { color: #d8dcec; }
+.wa-pc-2 { background: var(--wa-clay); color: var(--wa-cream); }
+.wa-pc-2 .wa-pcard-photo { border-color: var(--wa-cream); }
+.wa-pc-3 { background: var(--wa-gold); color: var(--wa-ink); }
+.wa-pc-3 .wa-pcard-photo { border-color: var(--wa-ink); }
+.wa-pc-4 { background: var(--wa-ink); color: var(--wa-cream); }
+.wa-pc-4 .wa-pcard-photo { border-color: var(--wa-clay); }
+.wa-pc-4 .wa-pcard-num { color: var(--wa-gold); }
+.wa-pc-4 p { color: #e5d8c6; }
+
+/* ---------- Séquenceur ---------- */
+.wa-rythme { padding: 0 16px; }
+.wa-rythme-box { background: var(--wa-indigo); color: var(--wa-cream); border-radius: 64px; padding: 96px 0; position: relative; overflow: hidden; }
+.wa-rythme-deco { position: absolute; left: -140px; bottom: -140px; width: 380px; height: 380px; border-radius: 999px; border: 40px solid rgba(227,160,47,.12); }
+.wa-seq-grid { position: relative; display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 56px; align-items: center; }
+.wa-seq-copy { display: flex; flex-direction: column; gap: 24px; }
+.wa-seq-tag { align-self: flex-start; background: var(--wa-gold); color: var(--wa-ink); border-radius: 999px; padding: 8px 16px; font-size: 13px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+.wa-seq-copy .wa-h2 { font-size: 60px; line-height: .98; letter-spacing: -0.04em; }
+.wa-seq-copy p { font-size: 18px; line-height: 1.65; color: #d8dcec; }
+.wa-seq-btns { display: flex; gap: 10px; flex-wrap: wrap; }
+.wa-seq-btns .wa-btn { padding: 0 24px; font-size: 16px; }
+.wa-btn-cream { background: var(--wa-cream); color: var(--wa-indigo); }
+.wa-btn-gold { background: var(--wa-gold); color: var(--wa-ink); font-weight: 700; }
+.wa-btn-ghost { background: transparent; border: 2px solid #5a6a8e; color: var(--wa-cream); }
+.wa-seq-rhythms { display: flex; gap: 8px; flex-wrap: wrap; }
+.wa-seq-chip { min-height: 40px; padding: 0 18px; border-radius: 999px; border: 2px solid #5a6a8e; background: transparent; color: var(--wa-cream); font-family: "Ubuntu", sans-serif; font-size: 15px; font-weight: 500; cursor: pointer; }
+.wa-seq-chip[aria-pressed="true"] { border-color: var(--wa-gold); color: var(--wa-gold); background: rgba(227, 160, 47, .12); }
+.wa-seq { --cell: 38px; --gap: 8px; background: #18284a; border-radius: 40px; padding: 28px; display: flex; flex-direction: column; gap: 14px; overflow-x: auto; }
+.wa-seq.is-16 { --cell: 28px; --gap: 6px; }
+.wa-seq-row { display: flex; align-items: flex-start; gap: 12px; }
+.wa-seq-name { width: 104px; height: var(--cell); flex: none; display: flex; align-items: center; gap: 8px; padding: 0; border: 0; background: none; color: inherit; cursor: pointer; text-align: left; font-family: "Bricolage Grotesque", sans-serif; font-weight: 700; font-size: 16px; }
+.wa-seq-key { flex: none; width: 22px; height: 22px; border-radius: 7px; display: inline-flex; align-items: center; justify-content: center; background: var(--wa-gold); color: var(--wa-ink); font-family: "Ubuntu", sans-serif; font-size: 12px; font-weight: 700; transition: background .15s, color .15s; }
+.wa-seq-row.is-muted .wa-seq-key { background: transparent; color: #9fb0d6; box-shadow: inset 0 0 0 2px #5a6a8e; }
+.wa-seq-row.is-muted .wa-seq-label { text-decoration: line-through; opacity: .5; }
+.wa-seq-row.is-muted .wa-seq-cells { opacity: .3; }
+.wa-seq-cells { display: grid; grid-template-columns: repeat(var(--steps), var(--cell)); gap: var(--gap); }
+.wa-cell { width: var(--cell); height: var(--cell); border-radius: 999px; cursor: pointer; padding: 0; background: transparent; border: 3px solid #3d4f78; transition: transform .15s; display: inline-flex; align-items: center; justify-content: center; font-family: "Ubuntu", sans-serif; font-size: 13px; font-weight: 700; line-height: 1; color: var(--wa-ink); }
+.wa-cell:hover { transform: scale(1.12); }
+.wa-cell.is-alt[aria-pressed="false"] { background: rgba(255, 255, 255, .06); }
+.wa-seq-tempo { align-items: center; }
+.wa-seq-tempo-label { width: 104px; flex: none; font-size: 13px; color: #9fb0d6; }
+.wa-seq-track { position: relative; height: 10px; width: calc(var(--steps) * var(--cell) + (var(--steps) - 1) * var(--gap)); flex: none; border-radius: 999px; background: #2a3c64; }
+.wa-seq-info { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 16px; padding-top: 10px; border-top: 1px solid #2a3c64; }
+.wa-seq-info p { margin: 0; font-size: 14px; line-height: 1.5; color: #c9d1e8; }
+.wa-seq-hint { color: #9fb0d6 !important; font-size: 13px !important; }
+@media (hover: none) { .wa-seq-hint { display: none; } } /* écrans tactiles : pas de clavier */
+.wa-seq-hint kbd { display: inline-flex; align-items: center; justify-content: center; min-width: 20px; height: 20px; padding: 0 4px; border-radius: 6px; background: #2a3c64; color: var(--wa-cream); font-family: "Ubuntu", sans-serif; font-size: 11px; font-weight: 700; }
+.wa-seq-info strong { color: var(--wa-cream); }
+.wa-playhead { position: absolute; left: 0; top: -3px; width: var(--cell); height: 16px; border-radius: 999px; background: var(--wa-gold); }
+.wa-playhead { opacity: .45; transition: opacity .2s; }
+.wa-playhead.is-live { opacity: 1; }
+.wa-cell.is-now { transform: scale(1.12); box-shadow: 0 0 0 4px rgba(227, 160, 47, .35); }
+.wa-cell.is-now[aria-pressed="true"] { transform: scale(1.22); box-shadow: 0 0 0 6px rgba(227, 160, 47, .45); }
+
+/* ---------- Cours ---------- */
+.wa-cours { padding: 130px 0 110px; }
+.wa-cours-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 72px; align-items: center; }
+.wa-cours-visual { position: relative; height: 600px; }
+.wa-cours-a, .wa-cours-b { position: absolute; overflow: hidden; }
+.wa-cours-a img, .wa-cours-b img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .7s cubic-bezier(.2,.7,.2,1); }
+.wa-cours-a:hover img, .wa-cours-b:hover img { transform: scale(1.07); }
+.wa-cours-a { left: 0; top: 0; width: 380px; height: 520px; border-radius: 999px 999px 999px 40px; }
+.wa-cours-b { right: 0; bottom: 0; width: 280px; height: 280px; border-radius: 999px; border: 10px solid var(--wa-sand); }
+.wa-cours-b img { object-position: center 40%; }
+.wa-levels { position: absolute; right: 40px; top: 70px; background: var(--wa-gold); color: var(--wa-ink); font-family: "Bricolage Grotesque", sans-serif; font-weight: 800; font-size: 20px; padding: 16px 24px; border-radius: 999px; }
+.wa-cours-copy { display: flex; flex-direction: column; gap: 26px; }
+.wa-cours-copy .wa-h2 { font-size: 64px; line-height: .96; }
+.wa-cours-copy > p { font-size: 18px; line-height: 1.7; color: var(--wa-brown); }
+.wa-steps { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+.wa-steps li { display: flex; align-items: center; gap: 14px; background: var(--wa-cream); border-radius: 999px; padding: 10px 22px 10px 10px; font-size: 16px; }
+.wa-steps li span { flex: none; width: 44px; height: 44px; border-radius: 999px; display: flex; align-items: center; justify-content: center; font-family: "Bricolage Grotesque", sans-serif; font-weight: 800; }
+.wa-cours-copy .wa-btn-dark { align-self: flex-start; }
+
+/* ---------- Galerie ---------- */
+.wa-gallery { padding: 0 0 120px; }
+.wa-gal-head { display: flex; align-items: center; gap: 24px; margin-bottom: 44px; }
+.wa-gal-head .wa-h2 { font-size: 64px; line-height: 1; white-space: nowrap; }
+.wa-gal-line { flex: 1; height: 3px; border-radius: 999px; background: var(--wa-ink); }
+.wa-gal-dot { flex: none; width: 56px; height: 56px; border-radius: 999px; background: var(--wa-clay); }
+.wa-gal { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-auto-rows: 240px; gap: 18px; }
+.wa-gal figure { margin: 0; overflow: hidden; }
+.wa-gal img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .7s cubic-bezier(.2,.7,.2,1); }
+.wa-gal figure:hover img { transform: scale(1.07); }
+.wa-g-wide { grid-column: span 2; border-radius: 40px; }
+.wa-g-tall { grid-row: span 2; border-radius: 999px; }
+.wa-g-round { border-radius: 999px; aspect-ratio: 1 / 1; align-self: center; }
+.wa-g-arch { border-radius: 240px 240px 40px 40px; }
+.wa-g-drop { border-radius: 40px 40px 240px 240px; }
+.wa-g-drop img { object-position: center 35%; }
+.wa-g-insta { border-radius: 40px; background: var(--wa-gold); display: flex; flex-direction: column; justify-content: space-between; padding: 26px; color: var(--wa-ink); }
+.wa-g-insta a { color: var(--wa-ink); text-decoration: none; font-family: "Bricolage Grotesque", sans-serif; font-weight: 800; font-size: 24px; line-height: 1.1; }
+.wa-g-insta a:hover { text-decoration: underline; }
+
+/* ---------- Radio ---------- */
+.wa-radio { padding: 0 0 120px; }
+.wa-radio-bar { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 40px; align-items: center; background: var(--wa-ink); color: var(--wa-cream); border-radius: 999px; padding: 22px 40px 22px 22px; }
+.wa-disc { position: relative; width: 150px; height: 150px; }
+.wa-disc-img { width: 150px; height: 150px; border-radius: 999px; overflow: hidden; border: 6px solid var(--wa-gold); }
+.wa-disc-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.wa-disc-img { animation: wa-spin 8s linear infinite; }
+.wa-disc-hole { position: absolute; left: 50%; top: 50%; width: 26px; height: 26px; margin: -13px 0 0 -13px; border-radius: 999px; background: var(--wa-ink); border: 4px solid var(--wa-gold); }
+.wa-radio-info { display: flex; flex-direction: column; gap: 10px; }
+.wa-onair { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--wa-gold); }
+.wa-onair .wa-beat { width: 9px; height: 9px; }
+.wa-radio-info h2 { font-size: 40px; font-weight: 800; letter-spacing: -0.03em; line-height: 1; }
+.wa-bars { display: flex; align-items: flex-end; gap: 5px; height: 34px; }
+.wa-bars span { width: 6px; height: 100%; border-radius: 999px; transform-origin: bottom; animation: wa-bars 1s ease-in-out infinite; }
+.wa-radio-ctrl { display: flex; gap: 12px; align-items: center; }
+.wa-play { width: 84px; height: 84px; border-radius: 999px; border: none; background: var(--wa-clay); color: var(--wa-cream); cursor: pointer; display: flex; align-items: center; justify-content: center; }
+.wa-yt { width: 56px; height: 56px; border-radius: 999px; border: 2px solid #5a4538; display: flex; align-items: center; justify-content: center; color: var(--wa-cream); }
+.wa-player { margin-top: 18px; border-radius: 40px; overflow: hidden; background: var(--wa-ink); aspect-ratio: 16 / 9; max-width: 880px; margin-left: auto; margin-right: auto; }
+.wa-player iframe { width: 100%; height: 100%; border: 0; display: block; }
+
+/* ---------- Réservation ---------- */
+.wa-booking { padding: 0 16px; }
+.wa-booking-box { background: var(--wa-clay); color: var(--wa-cream); border-radius: 64px 64px 0 0; padding: 96px 0 110px; position: relative; overflow: hidden; }
+.wa-dots { position: absolute; inset: 0; opacity: .12; }
+.wa-book-grid { position: relative; display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, .8fr); gap: 40px; align-items: center; }
+.wa-book-copy { display: flex; flex-direction: column; gap: 28px; }
+.wa-book-h2 { font-size: 108px; line-height: .88; font-weight: 800; letter-spacing: -0.055em; }
+.wa-book-copy > p { font-size: 19px; line-height: 1.6; max-width: 520px; }
+.wa-book-btns { display: flex; flex-wrap: wrap; gap: 12px; }
+.wa-btn-call { background: var(--wa-ink); color: var(--wa-cream); padding: 0 28px 0 10px; min-height: 64px; font-size: 18px; }
+.wa-btn-call .wa-btn-dot { width: 46px; height: 46px; background: var(--wa-gold); color: var(--wa-ink); }
+.wa-btn-mail { background: var(--wa-cream); color: var(--wa-ink); padding: 0 28px; min-height: 64px; font-size: 18px; }
+.wa-book-visual { position: relative; height: 480px; }
+.wa-book-photo { position: absolute; inset: 0; border-radius: 999px; overflow: hidden; border: 10px solid var(--wa-cream); }
+.wa-book-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.wa-quote-badge { position: absolute; left: -20px; bottom: 30px; width: 140px; height: 140px; border-radius: 999px; background: var(--wa-gold); color: var(--wa-ink); display: flex; align-items: center; justify-content: center; text-align: center; font-family: "Bricolage Grotesque", sans-serif; font-weight: 800; font-size: 19px; line-height: 1.05; }
+
+/* ---------- Pied de page ---------- */
+.wa-footer { background: var(--wa-ink); color: var(--wa-cream); margin: 0 16px 16px; border-radius: 0 0 64px 64px; padding: 72px 0 32px; }
+.wa-foot-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 32px; padding-bottom: 40px; border-bottom: 1px solid var(--wa-brown); }
+.wa-foot-about { display: flex; flex-direction: column; gap: 16px; max-width: 420px; }
+.wa-foot-about p { color: #e5d8c6; line-height: 1.6; }
+.wa-socials { display: flex; gap: 10px; }
+.wa-socials a { width: 48px; height: 48px; border-radius: 999px; background: #3d2a20; display: flex; align-items: center; justify-content: center; color: var(--wa-cream); }
+.wa-foot-col { display: flex; flex-direction: column; gap: 10px; }
+.wa-foot-col strong { font-weight: 500; color: var(--wa-gold); }
+.wa-foot-col a, .wa-foot-col span { color: #e5d8c6; text-decoration: none; }
+.wa-foot-col a:hover { color: var(--wa-gold); }
+.wa-wordmark { font-family: "Bricolage Grotesque", sans-serif; font-weight: 800; font-size: 250px; letter-spacing: -0.06em; line-height: .85; text-align: center; padding-top: 40px; color: transparent; -webkit-text-stroke: 2px #6b5242; }
+.wa-foot-bottom { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; padding-top: 28px; color: #b8a594; font-size: 14px; }
+.wa-foot-bottom a { color: #e5d8c6; }
+.wa-foot-bottom a:hover { color: var(--wa-gold); }
+
+/* ---------- Barre d'action mobile ---------- */
+.wa .ds-actionbar { background: var(--wa-ink); box-shadow: 0 20px 40px -10px rgba(42,26,18,.6); }
+.wa .ds-ab-icon { background: var(--wa-gold); color: var(--wa-ink); }
+.wa .ds-ab-main { background: var(--wa-clay); color: var(--wa-cream); }
+.wa .ds-ab-radio { background: #3d2a20; color: var(--wa-cream); }
+
+/* ---------- Keyframes ---------- */
+@keyframes wa-spin { to { transform: rotate(360deg); } }
+@keyframes wa-sway { 0%, 100% { transform: rotate(-4deg); } 50% { transform: rotate(4deg); } }
+@keyframes wa-beat { 0%, 100% { transform: scale(1); } 15% { transform: scale(1.08); } 30% { transform: scale(1); } }
+@keyframes wa-bars { 0%, 100% { transform: scaleY(.35); } 50% { transform: scaleY(1); } }
+
+/* ---------- Tablette ---------- */
+@media (max-width: 980px) {
+  .wa-wrap { padding: 0 20px; }
+  .wa-navbar { padding-top: 18px; }
+  .wa-navlinks, .wa-nav-cta { display: none; }
+  .wa-hero-grid, .wa-seq-grid, .wa-cours-grid, .wa-book-grid { grid-template-columns: minmax(0, 1fr); }
+  .wa-presta { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .wa-gal { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .wa-radio-bar { grid-template-columns: minmax(0, 1fr); border-radius: 40px; }
+  .wa-foot-grid { grid-template-columns: minmax(0, 1fr); }
+  .wa-h1, .wa-book-h2 { font-size: 96px; }
+  .wa-h2, .wa-seq-copy .wa-h2, .wa-cours-copy .wa-h2, .wa-gal-head .wa-h2 { font-size: 42px; }
+  .wa-wordmark { font-size: 96px; }
+  .wa-footer { padding-bottom: 110px; }
+}
+
+/* ---------- Mobile (maquette 390 px) ---------- */
+@media (max-width: 640px) {
+  .wa-logo svg { width: 40px; height: 40px; }
+  .wa-logo-text strong { font-size: 21px; }
+  .wa-logo-text small { font-size: 10px; letter-spacing: .3em; }
+  .wa-hero { padding: 28px 0 40px; }
+  .wa-hero-grid { gap: 20px; }
+  .wa-hero-copy { gap: 20px; }
+  .wa-badge { font-size: 12.5px; padding: 7px 14px 7px 8px; }
+  .wa-badge-dot { width: 20px; height: 20px; }
+  .wa-h1 { font-size: 66px; }
+  .wa-hero-lead { font-size: 17px; }
+  .wa-hero-visual { height: 380px; order: 0; }
+  .wa-sun { right: -80px; width: 300px; height: 150px; }
+  .wa-moon { left: 0; top: 10px; width: 64px; height: 64px; }
+  .wa-rope { width: 360px; height: 360px; margin: -180px 0 0 -180px; }
+  .wa-skin { width: 272px; height: 272px; margin: -136px 0 0 -136px; }
+  .wa-live-badge { right: -2px; top: 18px; width: 96px; height: 96px; font-size: 15px; }
+
+  .wa-presta-sec { padding: 56px 0; }
+  .wa-sec-head { margin-bottom: 26px; }
+  .wa-sec-head .wa-sec-lead { display: none; }
+  .wa-h2 { font-size: 44px; }
+  .wa-presta-sec .wa-wrap:last-child { padding: 0; }
+  .wa-presta { display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 0 20px 8px; scrollbar-width: none; }
+  .wa-presta::-webkit-scrollbar { display: none; }
+  .wa-pcard { flex: none; width: 260px; scroll-snap-align: center; }
+  .wa-pcard:nth-child(even) { margin-top: 0; }
+  .wa-pcard:hover { transform: none; }
+  .wa-pcard h3 { font-size: 26px; }
+
+  .wa-rythme { padding: 0 10px; }
+  .wa-rythme-box { border-radius: 40px; padding: 48px 0; }
+  .wa-seq-grid { gap: 28px; }
+  .wa-seq-copy { gap: 16px; }
+  .wa-seq-copy .wa-h2 { font-size: 38px; }
+  .wa-seq-copy p { font-size: 16px; }
+  .wa-seq { border-radius: 28px; padding: 20px 16px; gap: 14px; }
+  .wa-seq-row { flex-direction: column; align-items: stretch; gap: 8px; }
+  .wa-seq-name { width: auto; height: auto; align-self: flex-start; font-size: 15px; }
+  .wa-seq-cells { grid-template-columns: repeat(var(--half), minmax(0, 1fr)); gap: 6px; }
+  .wa-cell { width: 100%; height: auto; aspect-ratio: 1 / 1; max-width: 44px; justify-self: center; font-size: 12px; }
+  .wa-seq-row[aria-hidden="true"] { display: none; }
+
+  .wa-cours { padding: 64px 0 56px; }
+  .wa-cours-grid { gap: 30px; }
+  .wa-cours-visual { height: 360px; }
+  .wa-cours-a { width: 220px; height: 320px; }
+  .wa-cours-b { width: 170px; height: 170px; border-width: 8px; }
+  .wa-levels { right: 0; top: 30px; font-size: 15px; padding: 12px 18px; }
+  .wa-cours-copy { gap: 18px; }
+  .wa-cours-copy .wa-h2 { font-size: 44px; }
+  .wa-cours-copy > p { font-size: 16px; }
+  .wa-steps li { font-size: 15px; }
+
+  .wa-gallery { padding: 0 0 56px; }
+  .wa-gal-head { margin-bottom: 24px; }
+  .wa-gal-head .wa-h2 { font-size: 40px; }
+  .wa-gal-line { display: none; }
+  .wa-gal-dot { width: 40px; height: 40px; }
+  .wa-gal { gap: 12px; grid-auto-rows: 180px; }
+  .wa-g-wide { border-radius: 28px; }
+  .wa-g-insta { border-radius: 28px; padding: 20px; }
+  .wa-g-insta a { font-size: 18px; }
+
+  .wa-radio { padding: 0 0 56px; }
+  .wa-radio .wa-wrap { padding: 0 10px; }
+  .wa-radio-bar { grid-template-columns: auto minmax(0, 1fr) auto; gap: 14px; padding: 14px; border-radius: 999px; }
+  .wa-disc, .wa-disc-img { width: 72px; height: 72px; }
+  .wa-disc-img { border-width: 4px; }
+  .wa-disc-hole { width: 16px; height: 16px; margin: -8px 0 0 -8px; border-width: 3px; }
+  .wa-radio-info { gap: 6px; }
+  .wa-radio-info h2 { font-size: 20px; line-height: 1.05; }
+  .wa-onair { font-size: 11px; }
+  .wa-bars { height: 18px; gap: 3px; }
+  .wa-bars span { width: 4px; }
+  .wa-bars span:nth-child(n+9) { display: none; }
+  .wa-yt { display: none; }
+  .wa-play { width: 56px; height: 56px; }
+  .wa-player { border-radius: 24px; }
+
+  .wa-booking { padding: 0 10px; }
+  .wa-booking-box { border-radius: 40px 40px 0 0; padding: 48px 0 56px; }
+  .wa-book-grid { gap: 30px; }
+  .wa-book-copy { gap: 20px; }
+  .wa-book-h2 { font-size: 54px; }
+  .wa-book-copy > p { font-size: 16px; }
+  .wa-btn-call, .wa-btn-mail { min-height: 56px; font-size: 16px; }
+  .wa-book-visual { height: 300px; }
+  .wa-book-photo { border-width: 8px; }
+  .wa-quote-badge { left: -6px; bottom: 10px; width: 104px; height: 104px; font-size: 15px; }
+
+  .wa-footer { margin: 0 10px 10px; border-radius: 0 0 40px 40px; padding: 40px 0 120px; }
+  .wa-wordmark { font-size: 96px; text-align: left; -webkit-text-stroke-width: 1.5px; }
+  .wa-foot-bottom { flex-direction: column; font-size: 13px; }
+}
+

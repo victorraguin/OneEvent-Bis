@@ -1,0 +1,94 @@
+/* Éléments communs aux pages Wan'Events et Wassa Percussion (refonte 2026).
+   Chaque page définit les variables --ds-* sur sa racine (.we / .wa). */
+
+.ds-wrap { width: 100%; max-width: 1320px; margin: 0 auto; padding: 0 40px; }
+.ds-section { padding: 0 0 110px; }
+
+.ds-eyebrow {
+  align-self: flex-start;
+  display: inline-block;
+  border: 1.5px solid var(--ds-line);
+  border-radius: 999px;
+  padding: 8px 16px;
+  font-size: 14px;
+  color: var(--ds-eyebrow);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.ds-h2 {
+  font-family: var(--ds-head);
+  font-size: 56px;
+  line-height: 1.02;
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  margin: 0;
+}
+.ds-lead { max-width: 460px; color: var(--ds-muted); font-size: 17px; line-height: 1.6; margin: 0; }
+
+/* ---------- Zone d'intervention ---------- */
+.ds-zone-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 24px; margin-bottom: 40px; }
+.ds-zone-title { display: flex; flex-direction: column; gap: 18px; }
+.ds-zone-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.ds-zone-card { background: var(--ds-card); border-radius: 36px; padding: 30px; display: flex; flex-direction: column; gap: 14px; }
+.ds-zone-card h3 { font-family: var(--ds-head); font-size: 22px; font-weight: 800; letter-spacing: -0.02em; margin: 0; display: flex; align-items: center; gap: 12px; }
+.ds-zone-card p { color: var(--ds-muted); font-size: 16px; line-height: 1.65; margin: 0; }
+.ds-zone-card strong { color: var(--ds-ink); font-weight: 500; }
+.ds-zone-pin { flex: none; width: 40px; height: 40px; border-radius: 999px; background: var(--ds-accent); color: var(--ds-on-accent); display: inline-flex; align-items: center; justify-content: center; }
+
+/* ---------- FAQ ---------- */
+.ds-faq { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 56px; align-items: start; }
+.ds-faq-head { display: flex; flex-direction: column; gap: 18px; }
+.ds-faq-list { display: flex; flex-direction: column; gap: 12px; }
+.ds-faq-item { background: var(--ds-card); border-radius: 28px; padding: 0 26px; }
+.ds-faq-item summary { list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 72px; padding: 16px 0; }
+.ds-faq-item summary::-webkit-details-marker { display: none; }
+.ds-faq-item summary h3 { font-family: "Ubuntu", sans-serif; font-size: 18px; font-weight: 500; line-height: 1.4; margin: 0; }
+.ds-faq-item p { margin: 0; padding: 0 0 24px; color: var(--ds-muted); font-size: 16px; line-height: 1.7; }
+.ds-faq-toggle { flex: none; width: 40px; height: 40px; border-radius: 999px; background: var(--ds-accent); color: var(--ds-on-accent); display: inline-flex; align-items: center; justify-content: center; transition: transform .3s; }
+.ds-faq-item[open] .ds-faq-toggle { transform: rotate(45deg); }
+
+/* ---------- Menu mobile ---------- */
+.ds-menu-btn { display: none; width: 48px; height: 48px; border-radius: 999px; background: var(--ds-card); border: 1px solid var(--ds-line); color: var(--ds-ink); align-items: center; justify-content: center; cursor: pointer; position: relative; z-index: 61; }
+.ds-menu-panel { position: fixed; inset: 0; z-index: 60; background: var(--ds-bg); padding: 100px 24px 40px; overflow-y: auto; }
+.ds-menu-panel[hidden] { display: none; }
+.ds-menu-panel ul { list-style: none; margin: 0 0 32px; padding: 0; display: flex; flex-direction: column; gap: 4px; }
+.ds-menu-panel ul a { display: block; padding: 14px 0; font-family: var(--ds-head); font-size: 32px; font-weight: 800; letter-spacing: -0.03em; color: var(--ds-ink); text-decoration: none; border-bottom: 1px solid var(--ds-line); }
+.ds-menu-cta { display: flex; align-items: center; justify-content: center; min-height: 56px; border-radius: 999px; background: var(--ds-accent); color: var(--ds-on-accent); font-weight: 700; font-size: 17px; text-decoration: none; }
+.ds-menu-sister { display: block; margin-top: 20px; text-align: center; color: var(--ds-muted); font-size: 15px; }
+
+/* ---------- Barre d'action mobile ---------- */
+.ds-actionbar { display: none; }
+
+/* ---------- Carrousels horizontaux (mobile) ---------- */
+.ds-hscroll-hint { display: none; }
+
+@media (max-width: 980px) {
+  .ds-wrap { padding: 0 20px; }
+  .ds-section { padding: 0 0 64px; }
+  .ds-h2 { font-size: 34px; }
+  .ds-zone-grid { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+  .ds-zone-card { border-radius: 28px; padding: 24px; }
+  .ds-faq { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+  .ds-faq-item { border-radius: 24px; padding: 0 20px; }
+  .ds-faq-item summary h3 { font-size: 16px; }
+  .ds-menu-btn { display: inline-flex; }
+  .ds-actionbar {
+    display: flex;
+    position: fixed;
+    left: 12px;
+    right: 12px;
+    bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+    z-index: 50;
+    gap: 8px;
+    padding: 8px;
+    border-radius: 999px;
+  }
+  .ds-actionbar a { display: inline-flex; align-items: center; justify-content: center; min-height: 54px; border-radius: 999px; text-decoration: none; font-weight: 700; font-size: 16px; }
+  .ds-actionbar .ds-ab-icon { width: 54px; flex: none; }
+  .ds-actionbar .ds-ab-main { flex: 1; }
+  .ds-hscroll-hint { display: flex; align-items: center; gap: 8px; color: var(--ds-muted); font-size: 14px; margin: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .we *, .wa * { animation: none !important; transition: none !important; }
+}

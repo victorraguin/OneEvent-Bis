@@ -22,6 +22,28 @@ export const CONTACT = {
   sameAs: [] as string[],
 };
 
+/**
+ * Coordonnées AFFICHÉES sur les pages (boutons « Appeler », formulaire…).
+ * Elles reprennent `CONTACT` dès qu'il est renseigné ; en attendant, ce sont
+ * les valeurs historiques du site, à remplacer par les vraies.
+ */
+export const DISPLAY_CONTACT = {
+  phone: CONTACT.phone ?? "+33123456789",
+  wanEventsEmail: CONTACT.email ?? "marco@oneevent.com",
+  wassaEmail: CONTACT.email ?? "contact@wassa-percussion.com",
+};
+
+/** « +33612345678 » → « +33 6 12 34 56 78 ». */
+export const formatPhone = (e164: string) =>
+  e164.replace(/^\+33(\d)(\d{2})(\d{2})(\d{2})(\d{2})$/, "+33 $1 $2 $3 $4 $5");
+
+/** Profils sociaux affichés dans les pieds de page (à vérifier). */
+export const SOCIAL = {
+  instagram: "https://www.instagram.com/wassapercussion",
+  instagramHandle: "@wassapercussion",
+  facebook: "https://www.facebook.com/wassapercussion",
+};
+
 export const HOME_BASE = {
   locality: "Pornic",
   postalCode: "44210",
@@ -147,7 +169,7 @@ export const ROUTES: Record<RouteKey, RouteMeta> = {
     description:
       "Animation de mariages, soirées d'entreprise et festivals par Marco Douka : quiz musical, blind test, karaoké, team building percussion, maître de cérémonie. Basé à Pornic, intervient dans le Pays de Retz, à Saint-Brevin, Saint-Nazaire et Nantes.",
     ogImage: "/OneEvent/WanEvents_Marco_Foot_Animation.jpg",
-    preloadImage: "/OneEvent/WanEvents_Marco_Foot_Animation.webp",
+    preloadImage: "/OneEvent/WanEvents_Marco_Foot_Animation2.webp",
     changefreq: "monthly",
     priority: 0.9,
   },
