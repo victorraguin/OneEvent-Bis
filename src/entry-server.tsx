@@ -9,8 +9,9 @@ import {
   ROUTES,
   SITE_URL,
   WANEVENTS_FAQ,
-  WASSA_FAQ,
+  LEGAL_MISSING,
 } from "./seo/site";
+import { SERVICE_PAGES } from "./seo/pages";
 
 /** Rendu HTML d'une URL, utilisé uniquement au build par scripts/prerender.mjs. */
 export function render(url: string): string {
@@ -23,4 +24,4 @@ export function render(url: string): string {
   );
 }
 
-export { headTagsFor, INDEXABLE_ROUTES, ROUTES, SITE_URL, ALL_CITIES, WANEVENTS_FAQ, WASSA_FAQ };
+export { headTagsFor, INDEXABLE_ROUTES, ROUTES, SITE_URL, ALL_CITIES, WANEVENTS_FAQ, SERVICE_PAGES, LEGAL_MISSING };

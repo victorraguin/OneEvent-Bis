@@ -23,3 +23,6 @@ dist-ssr
 *.sln
 *.sw?
 .env
+
+# Photos sources (originaux WhatsApp) : les versions web sont dans public/OneEvent
+/WhatsApp Image *

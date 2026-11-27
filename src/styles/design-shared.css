@@ -1,5 +1,5 @@
-/* Éléments communs aux pages Wan'Events et Wassa Percussion (refonte 2026).
-   Chaque page définit les variables --ds-* sur sa racine (.we / .wa). */
+/* Éléments communs à la page Wan'Events et aux pages de prestation (refonte 2026).
+   Les pages définissent les variables --ds-* sur leur racine (.we). */
 
 .ds-wrap { width: 100%; max-width: 1320px; margin: 0 auto; padding: 0 40px; }
 .ds-section { padding: 0 0 110px; }
@@ -47,6 +47,77 @@
 .ds-faq-toggle { flex: none; width: 40px; height: 40px; border-radius: 999px; background: var(--ds-accent); color: var(--ds-on-accent); display: inline-flex; align-items: center; justify-content: center; transition: transform .3s; }
 .ds-faq-item[open] .ds-faq-toggle { transform: rotate(45deg); }
 
+/* ---------- Galerie défilante « Ça se vit en vrai » (PhotoReel) ---------- */
+.ds-reel { padding: 110px 0; }
+.ds-reel-head { display: flex; flex-direction: column; align-items: center; gap: 18px; text-align: center; margin-bottom: 48px; }
+.ds-reel-head .ds-eyebrow { align-self: center; }
+.ds-reel-tilt { display: inline-block; padding: 0 .28em .06em; border-radius: 999px; background: var(--ds-accent); color: var(--ds-on-accent); transform: rotate(-3deg); }
+.we .ds-reel-tilt { background: var(--we-green); color: #121212; }
+.ds-reel-viewport {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
+}
+.ds-reel-track { display: flex; align-items: center; gap: 18px; width: max-content; padding: 8px 0; animation: ds-reel-scroll var(--reel-duration, 60s) linear infinite; }
+.ds-reel-viewport:hover .ds-reel-track { animation-play-state: paused; }
+@keyframes ds-reel-scroll { to { transform: translateX(calc(-50% - 9px)); } }
+.ds-reel-item { flex: none; margin: 0; overflow: hidden; height: 400px; width: 300px; background: var(--ds-card); }
+.ds-reel-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .7s cubic-bezier(.2,.7,.2,1); }
+.ds-reel-item:hover img { transform: scale(1.06); }
+/* Formes en alternance : arche, carte, rond cerclé, pilule. */
+.ds-reel-item:nth-child(4n+1) { border-radius: 999px 999px 32px 32px; }
+.ds-reel-item:nth-child(4n+2) { width: 420px; height: 300px; border-radius: 40px; }
+.ds-reel-item:nth-child(4n+3) { width: 320px; height: 320px; border-radius: 999px; border: 6px solid var(--ds-accent); }
+.ds-reel-item:nth-child(4n+4) { width: 260px; height: 380px; border-radius: 999px; }
+.ds-reel-foot { display: flex; justify-content: center; margin-top: 36px; }
+
+/* ---------- Instagram : icône de navigation + bouton flottant ---------- */
+.ds-nav-end { display: flex; align-items: center; gap: 10px; }
+.ds-nav-insta {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 0 18px 0 14px;
+  border-radius: 999px;
+  background: linear-gradient(45deg, #f58529, #dd2a7b 55%, #8134af);
+  color: #fff;
+  font-family: "Ubuntu", sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  white-space: nowrap;
+  text-decoration: none;
+  box-shadow: 0 10px 24px -12px rgba(221, 42, 123, .8);
+  transition: transform .25s, box-shadow .25s;
+}
+.ds-nav-insta:hover { transform: translateY(-2px); box-shadow: 0 14px 28px -10px rgba(221, 42, 123, .9); }
+.ds-nav-insta-short { display: none; }
+.ds-follow {
+  position: fixed;
+  right: 24px;
+  bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+  z-index: 56;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 22px 12px 16px;
+  border-radius: 999px;
+  background: linear-gradient(45deg, #f58529, #dd2a7b 55%, #8134af);
+  color: #fff;
+  font-family: "Ubuntu", sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 14px 32px -10px rgba(221, 42, 123, .7);
+  opacity: 0;
+  transform: translateY(24px);
+  pointer-events: none;
+  transition: opacity .3s, transform .3s;
+}
+.ds-follow.is-visible { opacity: 1; transform: none; pointer-events: auto; }
+.ds-follow.is-visible:hover { transform: translateY(-2px); }
+
 /* ---------- Menu mobile ---------- */
 .ds-menu-btn { display: none; width: 48px; height: 48px; border-radius: 999px; background: var(--ds-card); border: 1px solid var(--ds-line); color: var(--ds-ink); align-items: center; justify-content: center; cursor: pointer; position: relative; z-index: 61; }
 .ds-menu-panel { position: fixed; inset: 0; z-index: 60; background: var(--ds-bg); padding: 100px 24px 40px; overflow-y: auto; }
@@ -72,6 +143,19 @@
   .ds-faq-item { border-radius: 24px; padding: 0 20px; }
   .ds-faq-item summary h3 { font-size: 16px; }
   .ds-menu-btn { display: inline-flex; }
+  .ds-nav-insta { padding: 0 14px 0 12px; font-size: 14px; }
+  .ds-nav-insta-full { display: none; }
+  .ds-nav-insta-short { display: inline; }
+  /* Au-dessus de la barre d'action (54 px + 2 × 8 px de marge + 12 px du bord). */
+  .ds-follow { right: 12px; bottom: calc(94px + env(safe-area-inset-bottom, 0px)); padding: 10px 16px 10px 12px; font-size: 14px; }
+  .ds-reel { padding: 64px 0; }
+  .ds-reel-head { margin-bottom: 28px; }
+  .ds-reel-track { gap: 12px; }
+  @keyframes ds-reel-scroll { to { transform: translateX(calc(-50% - 6px)); } }
+  .ds-reel-item { height: 280px; width: 210px; }
+  .ds-reel-item:nth-child(4n+2) { width: 290px; height: 210px; border-radius: 28px; }
+  .ds-reel-item:nth-child(4n+3) { width: 230px; height: 230px; border-width: 4px; }
+  .ds-reel-item:nth-child(4n+4) { width: 180px; height: 260px; }
   .ds-actionbar {
     display: flex;
     position: fixed;
@@ -89,6 +173,14 @@
   .ds-hscroll-hint { display: flex; align-items: center; gap: 8px; color: var(--ds-muted); font-size: 14px; margin: 0; }
 }
 
+/* Petits téléphones : plus la place pour le texte à côté du logo et du menu. */
+@media (max-width: 400px) {
+  .ds-nav-insta { width: 48px; padding: 0; justify-content: center; }
+  .ds-nav-insta-short { display: none; }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .we *, .wa * { animation: none !important; transition: none !important; }
+  .we * { animation: none !important; transition: none !important; }
+  /* Sans défilement automatique, la bande se fait glisser à la main. */
+  .ds-reel-viewport { overflow-x: auto; -webkit-mask-image: none; mask-image: none; }
 }

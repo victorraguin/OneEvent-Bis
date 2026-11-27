@@ -1,4 +1,4 @@
-import { absoluteUrl, jsonLdFor, RouteMeta } from "./site";
+import { absoluteUrl, HOME_BASE, jsonLdFor, OG_IMAGE, OG_IMAGE_ALT, RouteMeta } from "./site";
 
 const esc = (s: string) =>
   s
@@ -21,14 +21,22 @@ export function headTagsFor(route: RouteMeta): string {
     route.noindex ? "" : `<link rel="canonical" href="${url}" />`,
     route.noindex ? "" : `<link rel="alternate" hreflang="fr-FR" href="${url}" />`,
     `<meta name="geo.region" content="FR-44" />`,
-    `<meta name="geo.placename" content="Pornic" />`,
+    HOME_BASE.locality ? `<meta name="geo.placename" content="${esc(HOME_BASE.locality)}" />` : "",
     `<meta property="og:locale" content="fr_FR" />`,
     `<meta property="og:type" content="website" />`,
-    `<meta property="og:site_name" content="Marco Douka – Wan'Events &amp; Wassa Percussion" />`,
+    `<meta property="og:site_name" content="Wan'Events – Marco Douka" />`,
     `<meta property="og:url" content="${url}" />`,
     `<meta property="og:title" content="${esc(route.title)}" />`,
     `<meta property="og:description" content="${esc(route.description)}" />`,
     `<meta property="og:image" content="${image}" />`,
+    ...(route.ogImage === OG_IMAGE
+      ? [
+          `<meta property="og:image:width" content="1200" />`,
+          `<meta property="og:image:height" content="630" />`,
+          `<meta property="og:image:alt" content="${esc(OG_IMAGE_ALT)}" />`,
+          `<meta name="twitter:image:alt" content="${esc(OG_IMAGE_ALT)}" />`,
+        ]
+      : []),
     `<meta name="twitter:card" content="summary_large_image" />`,
     `<meta name="twitter:title" content="${esc(route.title)}" />`,
     `<meta name="twitter:description" content="${esc(route.description)}" />`,

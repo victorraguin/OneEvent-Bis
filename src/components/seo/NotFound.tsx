@@ -9,19 +9,11 @@ const NotFound: React.FC = () => (
       <p className="text-text-secondary mb-8">
         Cette page n'existe pas ou a été déplacée.
       </p>
-      <div className="flex flex-col sm:flex-row gap-4 justify-center">
+      <div className="flex justify-center">
         <Link to={ROUTES.wanEvents.path} className="btn btn-primary">
-          Wan'Events – animations
-        </Link>
-        <Link to={ROUTES.wassa.path} className="btn btn-outline">
-          Wassa Percussion
-        </Link>
-      </div>
-      <p className="mt-8">
-        <Link to="/" className="text-text-secondary hover:text-primary">
           Retour à l'accueil
         </Link>
-      </p>
+      </div>
     </div>
   </main>
 );
