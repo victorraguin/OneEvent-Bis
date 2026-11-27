@@ -3,28 +3,26 @@ import { SERVICE_AREA } from "../../seo/site";
 import { PinIcon } from "../design/Icons";
 
 interface ServiceAreaProps {
-  brand: "Wan'Events" | "Wassa Percussion";
   intro: string;
 }
 
-const COAST = [
-  "La Bernerie-en-Retz",
-  "Les Moutiers-en-Retz",
-  "Préfailles",
-  "La Plaine-sur-Mer",
-  "Saint-Michel-Chef-Chef",
+const ZONES = [
+  { title: "Nantes et agglomération", main: "Nantes", cities: SERVICE_AREA.nantesArea },
+  { title: "Saint-Nazaire et presqu'île", main: "Saint-Nazaire", cities: SERVICE_AREA.saintNazaireArea },
+  { title: "Pornic et Pays de Retz", main: "Pornic", cities: SERVICE_AREA.paysDeRetz.filter((c) => c !== "Pornic") },
 ];
 
 /**
- * Zone d'intervention visible : les villes ciblées apparaissent en texte réel.
+ * Zone d'intervention visible : les villes ciblées apparaissent en texte réel,
+ * Nantes et Saint-Nazaire en premier (cible SEO prioritaire).
  * Couleurs et typo : variables CSS de la page parente (design-shared.css).
  */
-const ServiceArea: React.FC<ServiceAreaProps> = ({ brand, intro }) => (
+const ServiceArea: React.FC<ServiceAreaProps> = ({ intro }) => (
   <section id="zone" className="ds-section" aria-labelledby="zone-title">
     <div className="ds-wrap">
       <div className="ds-zone-head">
         <div className="ds-zone-title">
-          <span className="ds-eyebrow">Où on joue</span>
+          <span className="ds-eyebrow">Où je me déplace</span>
           <h2 id="zone-title" className="ds-h2">
             Zone d'intervention
           </h2>
@@ -32,44 +30,21 @@ const ServiceArea: React.FC<ServiceAreaProps> = ({ brand, intro }) => (
         <p className="ds-lead">{intro}</p>
       </div>
       <div className="ds-zone-grid">
-        <div className="ds-zone-card">
-          <h3>
-            <span className="ds-zone-pin">
-              <PinIcon size={18} />
-            </span>
-            Côte de Jade
-          </h3>
-          <p>
-            {brand} est basé à <strong>Pornic</strong> et se déplace sur toute
-            la côte : <strong>Saint-Brevin-les-Pins</strong>,{" "}
-            <strong>Saint-Nazaire</strong>, {COAST.join(", ")}.
-          </p>
-        </div>
-        <div className="ds-zone-card">
-          <h3>
-            <span className="ds-zone-pin">
-              <PinIcon size={18} />
-            </span>
-            Pays de Retz
-          </h3>
-          <p>
-            Partout dans le <strong>Pays de Retz</strong> :{" "}
-            {SERVICE_AREA.paysDeRetz.filter((c) => !COAST.includes(c)).join(", ")}.
-          </p>
-        </div>
-        <div className="ds-zone-card">
-          <h3>
-            <span className="ds-zone-pin">
-              <PinIcon size={18} />
-            </span>
-            Nantes et agglomération
-          </h3>
-          <p>
-            Jusqu'à <strong>Nantes</strong>, {SERVICE_AREA.nantesArea.join(", ")}{" "}
-            et toute la Loire-Atlantique, ainsi qu'en Vendée et en Bretagne.
-          </p>
-        </div>
+        {ZONES.map((z) => (
+          <div key={z.title} className="ds-zone-card">
+            <h3>
+              <span className="ds-zone-pin">
+                <PinIcon size={18} />
+              </span>
+              {z.title}
+            </h3>
+            <p>
+              <strong>{z.main}</strong>, {z.cities.join(", ")}.
+            </p>
+          </div>
+        ))}
       </div>
+      <p className="ds-lead">Je me déplace aussi dans le reste de la Loire-Atlantique, en Vendée et en Bretagne.</p>
     </div>
   </section>
 );

@@ -12,7 +12,7 @@ interface MobileMenuProps {
   onToggle: (open: boolean) => void;
   links: NavLink[];
   cta: NavLink;
-  sister: { to: string; label: string };
+  sister?: { to: string; label: string };
 }
 
 /**
@@ -64,13 +64,11 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ open, onToggle, links, cta, sis
           <a className="ds-menu-cta" href={cta.href} onClick={close}>
             {cta.label}
           </a>
-          <Link
-            className="ds-menu-sister"
-            to={sister.to}
-            onClick={close}
-          >
-            {sister.label}
-          </Link>
+          {sister && (
+            <Link className="ds-menu-sister" to={sister.to} onClick={close}>
+              {sister.label}
+            </Link>
+          )}
         </nav>
       </div>
     </>

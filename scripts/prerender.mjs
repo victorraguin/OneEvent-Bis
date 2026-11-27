@@ -24,7 +24,8 @@ const {
   SITE_URL,
   ALL_CITIES,
   WANEVENTS_FAQ,
-  WASSA_FAQ,
+  SERVICE_PAGES,
+  LEGAL_MISSING,
 } = await import(pathToFileURL(path.join(ssrDir, ssrEntry)).href);
 
 const template = fs.readFileSync(path.join(dist, "index.html"), "utf8");
@@ -55,6 +56,13 @@ for (const route of INDEXABLE_ROUTES) {
   write(file, page(route, route.path));
 }
 write("404.html", page(ROUTES.notFound, "/404"));
+write("mentions-legales.html", page(ROUTES.legal, ROUTES.legal.path));
+if (LEGAL_MISSING.length) {
+  console.warn(`\n  ⚠ Mentions légales incomplètes : ${LEGAL_MISSING.join(", ")} (src/seo/site.ts, LEGAL). À remplir avant la mise en ligne.\n`);
+}
+
+// Date du build : signale à Google que les pages ont pu changer depuis son dernier passage.
+const lastmod = new Date().toISOString().slice(0, 10);
 
 write(
   "sitemap.xml",
@@ -63,9 +71,10 @@ write(
 ${INDEXABLE_ROUTES.map(
   (r) => `  <url>
     <loc>${SITE_URL}${r.path === "/" ? "/" : r.path}</loc>
+    <lastmod>${lastmod}</lastmod>
     <changefreq>${r.changefreq ?? "monthly"}</changefreq>
     <priority>${(r.priority ?? 0.5).toFixed(1)}</priority>
-    <image:image><image:loc>${SITE_URL}${r.ogImage}</image:loc></image:image>
+    <image:image><image:loc>${SITE_URL}${r.preloadImage ?? r.ogImage}</image:loc></image:image>
   </url>`
 ).join("\n")}
 </urlset>
@@ -93,9 +102,8 @@ write(
   `# Robots des moteurs de recherche et des assistants IA : bienvenus.
 User-agent: *
 Allow: /
-Disallow: /admin
 
-${aiBots.map((b) => `User-agent: ${b}\nAllow: /\nDisallow: /admin`).join("\n\n")}
+${aiBots.map((b) => `User-agent: ${b}\nAllow: /`).join("\n\n")}
 
 Sitemap: ${SITE_URL}/sitemap.xml
 `
@@ -106,26 +114,26 @@ const faq = (items) =>
 
 write(
   "llms.txt",
-  `# Marco Douka – Wan'Events & Wassa Percussion
+  `# Wan'Events – Marco Douka
 
-> Marco Douka est animateur d'événements et percussionniste, basé à Pornic (44210, Loire-Atlantique). Il propose deux activités : Wan'Events (quiz musical, blind test, karaoké, team building, maître de cérémonie pour mariages, soirées d'entreprise et festivals) et Wassa Percussion (spectacles et déambulations de percussions africaines, cours de djembé tous niveaux à Pornic, réparation de djembés). Zone d'intervention : Pornic, Pays de Retz, Saint-Brevin-les-Pins, Saint-Nazaire, Nantes et agglomération.
+> Marco Douka est animateur d'événements et speaker, basé en Loire-Atlantique, entre Nantes et Pornic, à égale distance de Nantes et de Saint-Nazaire. Avec Wan'Events, il anime des séminaires, des soirées d'entreprise et du team building (sa clientèle principale : les entreprises de Nantes et de Saint-Nazaire), ainsi que des mariages, des anniversaires et des festivals : quiz, blind test, karaoké, jeux et défis, team building percussion, speaker et maître de cérémonie. Zone d'intervention : Nantes et agglomération, Saint-Nazaire et la presqu'île, Pornic et le Pays de Retz.
 
 ## Pages
 
-- [Accueil](${SITE_URL}/): présentation des deux activités de Marco Douka.
-- [Wan'Events](${SITE_URL}${ROUTES.wanEvents.path}): ${ROUTES.wanEvents.description}
-- [Wassa Percussion](${SITE_URL}${ROUTES.wassa.path}): ${ROUTES.wassa.description}
+- [Accueil – Wan'Events](${SITE_URL}${ROUTES.wanEvents.path}): ${ROUTES.wanEvents.description}
+
+## Prestations
+
+${SERVICE_PAGES.map((p) => `- [${p.label}](${SITE_URL}${p.path}): ${p.description}`).join("\n")}
 
 ## Zone d'intervention
 
-Basé à Pornic. Se déplace à : ${ALL_CITIES.join(", ")}, dans tout le Pays de Retz et la Loire-Atlantique. Également en Vendée et en Bretagne.
+Basé entre Nantes et Pornic. Se déplace à : ${ALL_CITIES.join(", ")} et dans toute la Loire-Atlantique. Également en Vendée et en Bretagne.
 
 ## Wan'Events – questions fréquentes
 
 ${faq(WANEVENTS_FAQ)}
 
-## Wassa Percussion – questions fréquentes
-
-${faq(WASSA_FAQ)}
+${SERVICE_PAGES.map((p) => `## ${p.label} – questions fréquentes\n\nPage : ${SITE_URL}${p.path}\n\n${faq(p.faq)}`).join("\n\n")}
 `
 );

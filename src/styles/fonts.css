@@ -1,0 +1,12 @@
+/* Polices hébergées sur le site (paquets @fontsource) plutôt que chargées depuis
+   Google Fonts : aucune adresse IP de visiteur transmise à Google (RGPD),
+   affichage plus rapide, politique de sécurité (CSP) limitée au domaine du site.
+   Seules les graisses utilisées dans les styles sont importées. */
+@import "@fontsource/unbounded/400.css";
+@import "@fontsource/unbounded/600.css";
+@import "@fontsource/unbounded/800.css";
+@import "@fontsource/unbounded/900.css";
+@import "@fontsource/ubuntu/300.css";
+@import "@fontsource/ubuntu/400.css";
+@import "@fontsource/ubuntu/500.css";
+@import "@fontsource/ubuntu/700.css";

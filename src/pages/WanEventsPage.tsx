@@ -5,16 +5,15 @@ import "../styles/wanevents.css";
 import Faq from "../components/seo/Faq";
 import ServiceArea from "../components/seo/ServiceArea";
 import MobileMenu, { NavLink } from "../components/design/MobileMenu";
+import PhotoReel from "../components/design/PhotoReel";
+import OrbitTags from "../components/wanevents/OrbitTags";
+import { FloatingInstagram, NavInstagram } from "../components/design/InstagramFollow";
+import { WE_GALLERY } from "../lib/galleries";
 import {
   ArrowUpRight,
-  FacebookIcon,
   InstagramIcon,
   MailIcon,
-  MicIcon,
-  MusicIcon,
   PhoneIcon,
-  PinIcon,
-  PlusIcon,
   StarIcon,
   SwipeIcon,
 } from "../components/design/Icons";
@@ -25,14 +24,20 @@ import {
   WANEVENTS_FAQ,
   formatPhone,
 } from "../seo/site";
+import { SERVICE_PAGES, servicePageByKey } from "../seo/pages";
+
+const pageHref = (key: string) => servicePageByKey(key)?.path ?? "#contact";
 
 const IMG = {
   djembe: "/OneEvent/Marco_OneEvent_Animation.webp",
-  hero: "/OneEvent/WanEvents_Marco_Foot_Animation2.webp",
+  hero: "/OneEvent/OneEvent_Marco_Animation.webp",
   quiz: "/OneEvent/OneEvent_Marco.webp",
   mc: "/OneEvent/WanEvents_Marco_Foot_Animation.webp",
   portrait: "/OneEvent/OneEvent_Marco_Microphone.webp",
   crowd: "/OneEvent/OneEvent_Marco_Animation.webp",
+  karaoke: "/OneEvent/marco-douka-animation-soiree.webp",
+  teamBuilding: "/OneEvent/team-building-percussion-guinguette.webp",
+  speaker: "/OneEvent/marco-douka-speaker-maitre-de-ceremonie.webp",
 };
 
 const NAV: NavLink[] = [
@@ -44,15 +49,16 @@ const NAV: NavLink[] = [
 
 const MOBILE_NAV: NavLink[] = [...NAV, { href: "#zone", label: "Zone" }, { href: "#faq", label: "FAQ" }];
 
-const MARQUEE_FRONT = ["Quiz", "Blind test", "Karaoké", "Percussions", "Team building", "Maître de cérémonie"];
-const MARQUEE_BACK = ["Mariages", "Séminaires", "Festivals", "Anniversaires", "Soirées d'entreprise", "Fêtes de village"];
+const MARQUEE_FRONT = ["Quiz", "Blind test", "Défi piment", "Karaoké", "Tournoi Mario Kart", "Team building", "Percussions", "Maître de cérémonie"];
+const MARQUEE_BACK = ["Séminaires", "Soirées d'entreprise", "Team building", "Fêtes de fin d'année", "Festivals", "Mariages"];
 
 const EVENT_TYPES = [
-  { id: "quiz", label: "Quiz / Blind test" },
+  { id: "quiz", label: "Quiz, jeux & défis" },
   { id: "karaoke", label: "Karaoké" },
   { id: "percu", label: "Percussion" },
   { id: "team", label: "Team building" },
   { id: "mc", label: "Maître de cérémonie" },
+  { id: "autre", label: "Autre idée" },
 ];
 
 const TESTIMONIALS = [
@@ -114,6 +120,7 @@ const ContactForm: React.FC = () => {
     const subject = `Demande Wan'Events${date ? ` – ${date}` : ""}`;
     const body = [
       `Nom : ${data.get("name") || ""}`,
+      `Entreprise : ${data.get("company") || "-"}`,
       `Email : ${data.get("email") || ""}`,
       `Date : ${date}`,
       `Animations : ${types.join(", ") || "à définir"}`,
@@ -144,10 +151,16 @@ const ContactForm: React.FC = () => {
           ))}
         </div>
       </fieldset>
-      <label>
-        Nom
-        <input className="we-field" type="text" name="name" placeholder="Votre nom" autoComplete="name" required />
-      </label>
+      <div className="we-form-2col">
+        <label>
+          Nom
+          <input className="we-field" type="text" name="name" placeholder="Votre nom" autoComplete="name" required />
+        </label>
+        <label>
+          Entreprise
+          <input className="we-field" type="text" name="company" placeholder="Facultatif" autoComplete="organization" />
+        </label>
+      </div>
       <div className="we-form-2col">
         <label>
           Email
@@ -197,19 +210,21 @@ const WanEventsPage: React.FC = () => {
               </li>
             ))}
           </ul>
-          <a className="we-btn we-nav-cta" href="#contact">
-            Réserver
-            <span className="we-btn-dot">
-              <ArrowUpRight size={16} />
-            </span>
-          </a>
-          <MobileMenu
-            open={menuOpen}
-            onToggle={setMenuOpen}
-            links={MOBILE_NAV}
-            cta={{ href: "#contact", label: "Réserver un événement" }}
-            sister={{ to: ROUTES.wassa.path, label: "Découvrir Wassa Percussion →" }}
-          />
+          <div className="ds-nav-end">
+            <NavInstagram />
+            <a className="we-btn we-nav-cta" href="#contact">
+              Réserver
+              <span className="we-btn-dot">
+                <ArrowUpRight size={16} />
+              </span>
+            </a>
+            <MobileMenu
+              open={menuOpen}
+              onToggle={setMenuOpen}
+              links={MOBILE_NAV}
+              cta={{ href: "#contact", label: "Réserver un événement" }}
+            />
+          </div>
         </nav>
       </header>
 
@@ -222,33 +237,31 @@ const WanEventsPage: React.FC = () => {
             <div className="we-hero-copy">
               <p className="we-badge">
                 <span className="we-live" aria-hidden="true" />
-                Animation &amp; percussion · Pornic, Pays de Retz, Nantes
+                Animateur &amp; speaker · Nantes et Saint-Nazaire
               </p>
               <h1 className="we-h1">
-                On fait{" "}
-                <img className="we-h1-photo" src={IMG.djembe} alt="" width={170} height={78} />{" "}
-                <span className="we-h1-word">
-                  vibrer
-                  <svg viewBox="0 0 300 24" preserveAspectRatio="none" aria-hidden="true">
-                    <path
-                      d="M2 14 C 30 2, 50 22, 78 12 S 128 2, 154 12 S 206 24, 232 12 S 282 2, 298 12"
-                      fill="none"
-                      stroke="#ffa07a"
-                      strokeWidth="5"
-                      strokeLinecap="round"
-                    />
-                  </svg>
+                Votre événement, mon{" "}
+                <span className="we-nowrap">
+                  <span className="we-h1-word">
+                    énergie
+                    <svg viewBox="0 0 300 24" preserveAspectRatio="none" aria-hidden="true">
+                      <path
+                        d="M2 14 C 30 2, 50 22, 78 12 S 128 2, 154 12 S 206 24, 232 12 S 282 2, 298 12"
+                        fill="none"
+                        stroke="#ffa07a"
+                        strokeWidth="5"
+                        strokeLinecap="round"
+                      />
+                    </svg>
+                  </span>
+                  ,
                 </span>{" "}
-                <br />
-                vos{" "}
-                <span className="we-h1-note" aria-hidden="true">
-                  <MusicIcon size={36} />
-                </span>{" "}
-                événements.
+                nos souvenirs
               </h1>
               <p className="we-hero-lead">
-                Quiz, blind tests, karaoké, percussions africaines et maître de cérémonie : Marco Douka transforme vos
-                soirées, mariages et séminaires en moments dont on parle encore le lendemain, de Pornic à Nantes.
+                Animateur et speaker depuis plus de 15 ans, j'anime vos séminaires, soirées d'entreprise et team
+                building à Nantes et Saint-Nazaire. J'anime aussi des mariages, des festivals et des événements
+                sportifs.
               </p>
               <div className="we-hero-ctas">
                 <a className="we-btn we-btn-primary" href="#contact">
@@ -272,7 +285,7 @@ const WanEventsPage: React.FC = () => {
               <div className="we-arch">
                 <img
                   src={IMG.hero}
-                  alt="Marco Douka au micro, bras tendu vers le public"
+                  alt="Marco Douka chante au micro au milieu du public, en noir et blanc"
                   width={400}
                   height={600}
                   {...{ fetchpriority: "high" }}
@@ -291,16 +304,7 @@ const WanEventsPage: React.FC = () => {
                   <ArrowUpRight size={24} />
                 </span>
               </a>
-              <div className="we-sticker we-sticker-1" aria-hidden="true">
-                Blind test
-              </div>
-              <div className="we-sticker we-sticker-2" aria-hidden="true">
-                Djembé
-              </div>
-              <div className="we-sticker we-sticker-3" aria-hidden="true">
-                <MicIcon size={18} strokeWidth={2.4} />
-                Karaoké
-              </div>
+              <OrbitTags />
             </div>
           </div>
         </section>
@@ -320,10 +324,10 @@ const WanEventsPage: React.FC = () => {
           <div className="we-wrap">
             <div className="we-sec-head">
               <div className="we-sec-title">
-                <span className="we-eyebrow">Nos animations</span>
+                <span className="we-eyebrow">Mes animations</span>
                 <h2 id="services-title" className="we-h2">
-                  Cinq façons de mettre
-                  <br /> l'ambiance <span className="we-accent">à fond.</span>
+                  Ce que
+                  <br /> <span className="we-accent">je propose.</span>
                 </h2>
                 <p className="ds-hscroll-hint">
                   <SwipeIcon size={16} />
@@ -331,76 +335,87 @@ const WanEventsPage: React.FC = () => {
                 </p>
               </div>
               <p className="we-sec-lead">
-                Chaque animation se compose sur mesure, de la petite soirée privée au festival en plein air.
+                Pour un séminaire, une soirée d'entreprise ou une fête privée, vous pouvez choisir une animation ou en
+                combiner plusieurs. On en parle ensemble avant la date.
               </p>
             </div>
           </div>
           <div className="we-wrap">
             <div className="we-bento">
-              <a href="#contact" className="we-card we-b-a">
-                <img src={IMG.quiz} alt="Marco anime un quiz sur scène devant le public" loading="lazy" />
+              <Link to={pageHref("quizJeux")} className="we-card we-b-a">
+                <img src={IMG.quiz} alt="Marco anime un jeu sur scène devant le public" loading="lazy" />
                 <div className="we-card-shade" aria-hidden="true" />
                 <span className="we-card-num">01</span>
                 <div className="we-card-body">
                   <div className="we-card-text">
-                    <h3>Quiz &amp; Blind tests</h3>
-                    <p>Quiz musicaux et blind tests survoltés, en équipes, avec buzzers et classement en direct.</p>
+                    <h3>Quiz, jeux &amp; défis</h3>
+                    <p>Blind test, défi piment, tournois Mario Kart et FIFA, doublage de film, Adopte mon ou ma pote, et vos idées.</p>
                   </div>
                   <span className="we-card-go" aria-hidden="true">
                     <ArrowUpRight size={26} />
                   </span>
                 </div>
-              </a>
-              <a href="#contact" className="we-card we-card-solid we-b-b">
-                <div className="we-ring-deco" aria-hidden="true" />
-                <span className="we-icon-disc" aria-hidden="true">
-                  <MicIcon size={28} />
-                </span>
-                <div className="we-card-text">
-                  <span className="we-b-mobile-num">02</span>
-                  <h3>Karaoké</h3>
-                  <p>Soirées karaoké animées pour vos événements privés et pros.</p>
-                </div>
-              </a>
-              <a href="#contact" className="we-card we-b-c">
+              </Link>
+              <Link to={pageHref("karaoke")} className="we-card we-b-b">
                 <img
-                  src={IMG.djembe}
-                  alt="Marco joue du djembé en plein air"
+                  src={IMG.karaoke}
+                  alt="Marco anime une soirée karaoké en salle, sous une boule à facettes"
                   loading="lazy"
-                  style={{ objectPosition: "center 30%" }}
+                  style={{ objectPosition: "60% center" }}
                 />
                 <div className="we-card-shade" aria-hidden="true" />
-                <span className="we-card-num we-b-mobile-num">03</span>
+                <span className="we-card-num">02</span>
                 <div className="we-card-body">
                   <div className="we-card-text">
-                    <h3>Cours de percussion</h3>
-                    <p>Ateliers djembé, tous niveaux.</p>
+                    <h3>Karaoké</h3>
+                    <p>J'anime la soirée au micro entre les chansons, pour les particuliers comme pour les entreprises.</p>
                   </div>
                 </div>
-              </a>
-              <a href="#contact" className="we-card we-card-solid we-b-d">
-                <div className="we-disc-deco" aria-hidden="true" />
-                <div className="we-avatars" aria-hidden="true">
-                  <span style={{ background: "#f5efe6" }} />
-                  <span style={{ background: "#ffa07a" }} />
-                  <span style={{ background: "#121212", color: "#f5efe6" }}>
-                    <PlusIcon size={22} />
-                  </span>
+              </Link>
+              <Link to={pageHref("teamBuilding")} className="we-card we-b-d">
+                <img
+                  src={IMG.teamBuilding}
+                  alt="Trois percussionnistes au djembé sous une tente, devant le public d'une guinguette"
+                  loading="lazy"
+                  style={{ objectPosition: "40% center" }}
+                />
+                <div className="we-card-shade" aria-hidden="true" />
+                <span className="we-card-num">03</span>
+                <div className="we-card-body">
+                  <div className="we-card-text">
+                    <h3>Team building percussion</h3>
+                    <p>Un djembé par participant et un rythme à apprendre ensemble. Cours et initiations aussi, tous niveaux.</p>
+                  </div>
                 </div>
-                <div className="we-card-text">
-                  <span className="we-b-mobile-num">04</span>
-                  <h3>Team building percussion</h3>
-                  <p>Un seul rythme pour souder toute l'équipe.</p>
-                </div>
-              </a>
-              <a href="#contact" className="we-card we-b-e">
-                <img src={IMG.mc} alt="Marco en maître de cérémonie, bras levés" loading="lazy" />
+              </Link>
+              <Link to={pageHref("speaker")} className="we-card we-b-e">
+                <img
+                  src={IMG.speaker}
+                  alt="Marco, speaker et maître de cérémonie, micro et fiches en main"
+                  loading="lazy"
+                  style={{ objectPosition: "57% 30%" }}
+                />
                 <div className="we-card-shade" aria-hidden="true" />
                 <div className="we-card-side">
-                  <span className="we-tag">05</span>
-                  <h3>Animation &amp; maître de cérémonie</h3>
-                  <p>Mariages, festivals, événements d'entreprise : la bonne énergie au micro.</p>
+                  <span className="we-tag">04</span>
+                  <h3>Speaker &amp; maître de cérémonie</h3>
+                  <p>Mariages, festivals, podiums et événements sportifs.</p>
                 </div>
+              </Link>
+            </div>
+            <div className="we-custom">
+              <div>
+                <h3>Et votre idée ?</h3>
+                <p>
+                  Ces animations sont des exemples. Vous avez un jeu, un thème ou un format en tête ? Dites-le-moi, je
+                  m'adapte et on le construit ensemble.
+                </p>
+              </div>
+              <a className="we-btn we-btn-primary" href="#contact">
+                Proposer une idée
+                <span className="we-btn-dot">
+                  <ArrowUpRight size={18} />
+                </span>
               </a>
             </div>
           </div>
@@ -427,17 +442,17 @@ const WanEventsPage: React.FC = () => {
             <div className="we-about-copy">
               <span className="we-eyebrow">Derrière le micro</span>
               <h2 id="about-title" className="we-h2">
-                Rencontrez
+                Moi, c'est
                 <br /> <span className="we-accent">Marco Douka.</span>
               </h2>
               <p className="we-about-text">
-                Avec plus de 15 ans d'expérience dans l'animation d'événements et l'éducation musicale, Marco apporte
-                passion et expertise à chaque date. Spécialiste des expériences musicales interactives, du team building
-                et des ateliers culturels, il crée des moments engageants pour tous les participants, à Pornic, dans le
-                Pays de Retz et jusqu'à Nantes.
+                Animateur et speaker depuis plus de 15 ans, je suis aussi percussionniste. J'anime des
+                événements d'entreprise, des soirées, des mariages et des événements sportifs, et je donne aussi des
+                cours de djembé.
               </p>
               <ul className="we-chips">
-                <li>Quiz &amp; blind test</li>
+                <li>Speaker</li>
+                <li>Quiz, jeux &amp; défis</li>
                 <li>Percussions africaines</li>
                 <li>Maître de cérémonie</li>
                 <li>Team building</li>
@@ -461,33 +476,7 @@ const WanEventsPage: React.FC = () => {
         </section>
 
         {/* ============ GALERIE ============ */}
-        <section id="galerie" className="we-gallery" aria-labelledby="gallery-title">
-          <div className="we-wrap">
-            <div className="we-gal-head">
-              <span className="we-eyebrow">En images</span>
-              <h2 id="gallery-title" className="we-h2">
-                Ça se vit <span className="we-tilt">en vrai</span>
-              </h2>
-            </div>
-            <div className="we-gal">
-              <figure className="we-g1">
-                <img src={IMG.crowd} alt="Marco chante au milieu du public, en noir et blanc" loading="lazy" />
-              </figure>
-              <figure className="we-g2">
-                <img src={IMG.quiz} alt="Scène festive avec le public" loading="lazy" />
-              </figure>
-              <figure className="we-g3">
-                <img src={IMG.djembe} alt="Djembé au soleil" loading="lazy" />
-              </figure>
-              <figure className="we-g4">
-                <img src={IMG.hero} alt="Marco pointe la foule" loading="lazy" />
-              </figure>
-              <figure className="we-g5">
-                <img src={IMG.mc} alt="Marco célèbre avec la mascotte" loading="lazy" />
-              </figure>
-            </div>
-          </div>
-        </section>
+        <PhotoReel photos={WE_GALLERY} />
 
         {/* ============ AVIS ============ */}
         <section id="avis" className="we-testimonials" aria-labelledby="avis-title">
@@ -522,10 +511,7 @@ const WanEventsPage: React.FC = () => {
           </div>
         </section>
 
-        <ServiceArea
-          brand="Wan'Events"
-          intro="Mariages, anniversaires, soirées d'entreprise, séminaires ou festivals : Marco Douka intervient dans tout le sud de la Loire-Atlantique, de Pornic à Nantes."
-        />
+        <ServiceArea intro="Je me déplace facilement chez vous, dans vos locaux ou dans la salle que vous avez réservée." />
         <Faq items={WANEVENTS_FAQ} />
 
         {/* ============ CONTACT ============ */}
@@ -541,10 +527,10 @@ const WanEventsPage: React.FC = () => {
                   Disponible pour vos dates
                 </p>
                 <h2 id="contact-title" className="we-cta-h2">
-                  Prêt à faire vibrer votre événement ?
+                  Parlez-moi de votre événement.
                 </h2>
                 <p className="we-cta-lead">
-                  Racontez-nous votre projet : Marco vous rappelle avec une proposition d'animation sur mesure.
+                  Indiquez-moi la date, le lieu et le nombre de personnes. Je vous rappelle et je vous envoie un devis.
                 </p>
                 <div className="we-cta-row">
                   <a className="we-btn we-btn-dark" href={`tel:${phone}`}>
@@ -553,10 +539,6 @@ const WanEventsPage: React.FC = () => {
                     </span>
                     Appeler Marco
                   </a>
-                  <span className="we-based">
-                    <PinIcon size={18} />
-                    Basé à Pornic (44)
-                  </span>
                 </div>
               </div>
               <ContactForm />
@@ -571,24 +553,27 @@ const WanEventsPage: React.FC = () => {
           <div className="we-foot-grid">
             <div className="we-foot-about">
               <p>
-                Animation d'événements, quiz musicaux, karaoké et percussions africaines à Pornic, dans le Pays de Retz,
-                à Saint-Brevin, Saint-Nazaire et Nantes.
+                Animation de séminaires, soirées d'entreprise et team building à Nantes et Saint-Nazaire. Quiz, jeux
+                et défis, karaoké et percussions africaines.
               </p>
               <div className="we-socials">
-                <a href={SOCIAL.instagram} aria-label="Instagram" target="_blank" rel="noreferrer">
+                <a
+                  href={SOCIAL.marcoInstagram}
+                  aria-label={`Instagram de Marco (${SOCIAL.marcoInstagramHandle})`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   <InstagramIcon size={20} />
-                </a>
-                <a href={SOCIAL.facebook} aria-label="Facebook" target="_blank" rel="noreferrer">
-                  <FacebookIcon size={20} />
                 </a>
               </div>
             </div>
             <div className="we-foot-col">
               <strong>Animations</strong>
-              <a href="#services">Quiz &amp; blind test</a>
-              <a href="#services">Karaoké</a>
-              <a href="#services">Percussions</a>
-              <a href="#services">Team building</a>
+              {SERVICE_PAGES.map((p) => (
+                <Link key={p.key} to={p.path}>
+                  {p.label}
+                </Link>
+              ))}
             </div>
             <div className="we-foot-col">
               <strong>Wan'Events</strong>
@@ -601,7 +586,7 @@ const WanEventsPage: React.FC = () => {
               <strong>Contact</strong>
               <a href={`tel:${phone}`}>{formatPhone(phone)}</a>
               <a href={`mailto:${email}`}>{email}</a>
-              <span>Pornic (44)</span>
+              <span>Entre Nantes et Pornic (44)</span>
             </div>
           </div>
           <div className="we-wordmark" aria-hidden="true">
@@ -611,17 +596,14 @@ const WanEventsPage: React.FC = () => {
             <span>
               © <span suppressHydrationWarning>{year}</span> Wan'Events · Marco Douka
             </span>
-            <span>
-              Une activité sœur de{" "}
-              <Link to={ROUTES.wassa.path}>
-                Wassa Percussion
-              </Link>
-            </span>
+            <Link to={ROUTES.legal.path}>Mentions légales</Link>
           </div>
         </div>
       </footer>
 
       {/* ============ BARRE D'ACTION MOBILE ============ */}
+      <FloatingInstagram />
+
       <div className="ds-actionbar">
         <a className="ds-ab-icon" href={`tel:${phone}`} aria-label="Appeler Marco">
           <PhoneIcon size={20} />
